@@ -93,6 +93,9 @@
     </Configuration>
   </Settings>
   <VirtualDirectory Name="src">
+    <File Name="Console.cpp"/>
+    <File Name="Processing.cpp"/>
+    <File Name="ReferenceModel.cpp"/>
     <File Name="main.cpp"/>
   </VirtualDirectory>
 </CodeLite_Project>
