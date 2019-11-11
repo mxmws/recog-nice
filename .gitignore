@@ -1,0 +1,6 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.o
+*.obj
