@@ -4,30 +4,44 @@
   <wxString Value="/home/pi/Desktop/SWE Projekt/team5/SWE/SWE.workspace" Name="m_workspaceName"/>
   <TabInfoArray Name="TabInfoArray">
     <TabInfo>
-      <wxString Value="/home/pi/repos/team5/SWE/Console/main.cpp" Name="FileName"/>
+      <wxString Value="/home/pi/Desktop/SWE Projekt/team5/SWE/Console/main.cpp" Name="FileName"/>
       <int Value="0" Name="FirstVisibleLine"/>
-      <int Value="7" Name="CurrentLine"/>
+      <int Value="3" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
     <TabInfo>
-      <wxString Value="/home/pi/repos/team5/SWE/Console/ReferenceModel.cpp" Name="FileName"/>
+      <wxString Value="/home/pi/Desktop/SWE Projekt/team5/SWE/Console/Console.cpp" Name="FileName"/>
       <int Value="0" Name="FirstVisibleLine"/>
       <int Value="0" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
     <TabInfo>
-      <wxString Value="/home/pi/repos/team5/SWE/Console/Processing.cpp" Name="FileName"/>
+      <wxString Value="/home/pi/Desktop/SWE Projekt/team5/SWE/Console/Processing.cpp" Name="FileName"/>
       <int Value="0" Name="FirstVisibleLine"/>
       <int Value="0" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
     <TabInfo>
-      <wxString Value="/home/pi/repos/team5/SWE/Console/Console.cpp" Name="FileName"/>
+      <wxString Value="/home/pi/Desktop/SWE Projekt/team5/SWE/Console/ReferenceModel.cpp" Name="FileName"/>
       <int Value="0" Name="FirstVisibleLine"/>
       <int Value="0" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="/usr/include/pcl-1.9/pcl/io/pcd_io.h" Name="FileName"/>
+      <int Value="30" Name="FirstVisibleLine"/>
+      <int Value="43" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="/usr/include/pcl-1.9/pcl/point_cloud.h" Name="FileName"/>
+      <int Value="35" Name="FirstVisibleLine"/>
+      <int Value="45" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
