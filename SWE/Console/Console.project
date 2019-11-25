@@ -2,6 +2,12 @@
 <CodeLite_Project Name="Console" Version="10.0.0" InternalType="Console">
   <Description/>
   <Dependencies/>
+  <VirtualDirectory Name="src">
+    <File Name="Console.cpp"/>
+    <File Name="Processing.cpp"/>
+    <File Name="ReferenceModel.cpp"/>
+    <File Name="main.cpp"/>
+  </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
       <Compiler Options="" C_Options="" Assembler="">
@@ -14,9 +20,59 @@
     </GlobalSettings>
     <Configuration Name="Debug" CompilerType="GCC" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-g;-O0;-Wall" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
-        <IncludePath Value="."/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/2d"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/apps"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/common"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/compression"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/console"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/features"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/filters"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/geometry"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/impl"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/in_hand_scanner"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/io"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/kdtree"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/keypoints"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/ml"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/octree"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/outofcore"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/people"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/range_image"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/recognition"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/registration"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/sample_consensus"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/search"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/segmentation"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/stereo"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/surface"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/tracking"/>
+        <IncludePath Value="/usr/include/pcl-1.9/pcl/visualization"/>
       </Compiler>
-      <Linker Options="" Required="yes"/>
+      <Linker Options="" Required="yes">
+        <LibraryPath Value="/usr/lib/arm-linux-gnueabihf"/>
+        <Library Value="libpcl_apps.so"/>
+        <Library Value="libpcl_common.so"/>
+        <Library Value="libpcl_features.so"/>
+        <Library Value="libpcl_filters.so"/>
+        <Library Value="libpcl_io.so"/>
+        <Library Value="libpcl_io_ply.so"/>
+        <Library Value="libpcl_kdtree.so"/>
+        <Library Value="libpcl_keypoints.so"/>
+        <Library Value="libpcl_ml.so"/>
+        <Library Value="libpcl_octree.so"/>
+        <Library Value="libpcl_outofcore.so"/>
+        <Library Value="libpcl_people.so"/>
+        <Library Value="libpcl_recognition.so"/>
+        <Library Value="libpcl_registration.so"/>
+        <Library Value="libpcl_sample_consensus.so"/>
+        <Library Value="libpcl_search.so"/>
+        <Library Value="libpcl_segmentation.so"/>
+        <Library Value="libpcl_stereo.so"/>
+        <Library Value="libpcl_surface.so"/>
+        <Library Value="libpcl_tracking.so"/>
+        <Library Value="libpcl_visualization.so"/>
+      </Linker>
       <ResourceCompiler Options="" Required="no"/>
       <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Debug" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
       <BuildSystem Name="Default"/>
@@ -92,10 +148,4 @@
       </Completion>
     </Configuration>
   </Settings>
-  <VirtualDirectory Name="src">
-    <File Name="Console.cpp"/>
-    <File Name="Processing.cpp"/>
-    <File Name="ReferenceModel.cpp"/>
-    <File Name="main.cpp"/>
-  </VirtualDirectory>
 </CodeLite_Project>
