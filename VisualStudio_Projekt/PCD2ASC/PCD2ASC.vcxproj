@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -14,6 +14,7 @@
     <ProjectGuid>{3540EFEB-5499-4ECF-AB5F-3AAF42484730}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>PCD2ASC</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -25,7 +26,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -52,14 +53,15 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(PCL_ROOT_VS2015)/3rdParty/Qhull/include/;$(PCL_ROOT_VS2015)/3rdParty/Eigen/eigen3/;$(PCL_ROOT_VS2015)/3rdParty/Boost/include/boost-1_64/;$(PCL_ROOT_VS2015)/3rdParty/FLANN/include/;$(PCL_ROOT_VS2015)/include/pcl-1.8;$(PCL_ROOT_VS2015)/3rdParty/VTK/include/vtk-8.0/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Minh\Desktop\PCL\PCL 1.8.1\3rdParty\Qhull\include\;C:\Users\Minh\Desktop\PCL\PCL 1.8.1\3rdParty\Eigen\eigen3\;C:\Users\Minh\Desktop\PCL\PCL 1.8.1\3rdParty\Boost\include\boost-1_64\;C:\Users\Minh\Desktop\PCL\PCL 1.8.1\3rdParty\FLANN\include\;C:\Users\Minh\Desktop\PCL\PCL 1.8.1\include\pcl-1.8;C:\Users\Minh\Desktop\PCL\PCL 1.8.1\3rdParty\VTK\include\vtk-8.0\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(PCL_ROOT_VS2015)/3rdParty/Boost/lib/;$(PCL_ROOT_VS2015)/lib/;$(PCL_ROOT_VS2015)/3rdParty/FLANN/lib/;$(PCL_ROOT_VS2015)/3rdParty/Qhull/lib/;$(PCL_ROOT_VS2015)/3rdParty/VTK/lib/;$(OPENCV)/build/x64/vc14/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Minh\Desktop\PCL\PCL 1.8.1\lib;C:\Users\Minh\Desktop\PCL\PCL 1.8.1\3rdParty\FLANN\lib;C:\Users\Minh\Desktop\PCL\PCL 1.8.1\3rdParty\Boost\lib;C:\Users\Minh\Desktop\PCL\PCL 1.8.1\3rdParty\Qhull\lib;C:\Users\Minh\Desktop\PCL\PCL 1.8.1\3rdParty\VTK\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>pcl_common_debug.lib;pcl_features_debug.lib;pcl_filters_debug.lib;pcl_io_ply_debug.lib;pcl_io_debug.lib;pcl_kdtree_debug.lib;pcl_keypoints_debug.lib;pcl_ml_debug.lib;pcl_octree_debug.lib;pcl_outofcore_debug.lib;pcl_people_debug.lib;pcl_recognition_debug.lib;pcl_registration_debug.lib;pcl_sample_consensus_debug.lib;pcl_search_debug.lib;pcl_segmentation_debug.lib;pcl_stereo_debug.lib;pcl_surface_debug.lib;pcl_tracking_debug.lib;pcl_visualization_release.lib;libboost_system-vc140-mt-gd-1_64.lib;libboost_thread-vc140-mt-gd-1_64.lib;vtkCommonCore-8.0-gd.lib;vtkCommonMath-8.0-gd.lib;vtkCommonDataModel-8.0-gd.lib;vtkRenderingCore-8.0-gd.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(PCL_ROOT_VS2015)\bin\pcl_common_$(Configuration).dll" "$(OutDir)"
