@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3540EFEB-5499-4ECF-AB5F-3AAF42484730}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>PCD2ASC</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(PCL_ROOT_VS2015)/3rdParty/Qhull/include/;$(PCL_ROOT_VS2015)/3rdParty/Eigen/eigen3/;$(PCL_ROOT_VS2015)/3rdParty/Boost/include/boost-1_64/;$(PCL_ROOT_VS2015)/3rdParty/FLANN/include/;$(PCL_ROOT_VS2015)/include/pcl-1.8;$(PCL_ROOT_VS2015)/3rdParty/VTK/include/vtk-8.0/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(PCL_ROOT_VS2015)/3rdParty/Boost/lib/;$(PCL_ROOT_VS2015)/lib/;$(PCL_ROOT_VS2015)/3rdParty/FLANN/lib/;$(PCL_ROOT_VS2015)/3rdParty/Qhull/lib/;$(PCL_ROOT_VS2015)/3rdParty/VTK/lib/;$(OPENCV)/build/x64/vc14/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>pcl_common_debug.lib;pcl_features_debug.lib;pcl_filters_debug.lib;pcl_io_ply_debug.lib;pcl_io_debug.lib;pcl_kdtree_debug.lib;pcl_keypoints_debug.lib;pcl_ml_debug.lib;pcl_octree_debug.lib;pcl_outofcore_debug.lib;pcl_people_debug.lib;pcl_recognition_debug.lib;pcl_registration_debug.lib;pcl_sample_consensus_debug.lib;pcl_search_debug.lib;pcl_segmentation_debug.lib;pcl_stereo_debug.lib;pcl_surface_debug.lib;pcl_tracking_debug.lib;pcl_visualization_release.lib;libboost_system-vc140-mt-gd-1_64.lib;libboost_thread-vc140-mt-gd-1_64.lib;vtkCommonCore-8.0-gd.lib;vtkCommonMath-8.0-gd.lib;vtkCommonDataModel-8.0-gd.lib;vtkRenderingCore-8.0-gd.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(PCL_ROOT_VS2015)\bin\pcl_common_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_features_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_filters_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_io_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_io_ply_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_kdtree_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_ml_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_octree_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_sample_consensus_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_search_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_segmentation_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_surface_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_visualization_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_visualization_$(Configuration).dll" "$(OutDir)"
+copy "$(OPENNI2_REDIST64)\OpenNI2.dll" "$(OutDir)"
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(PCL_ROOT_VS2015)/3rdParty/Qhull/include/;$(PCL_ROOT_VS2015)/3rdParty/Eigen/eigen3/;$(PCL_ROOT_VS2015)/3rdParty/Boost/include/boost-1_64/;$(PCL_ROOT_VS2015)/3rdParty/FLANN/include/;$(PCL_ROOT_VS2015)/include/pcl-1.8;$(PCL_ROOT_VS2015)/3rdParty/VTK/include/vtk-8.1/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(PCL_ROOT_VS2015)/3rdParty/Boost/lib/;$(PCL_ROOT_VS2015)/lib/;$(PCL_ROOT_VS2015)/3rdParty/FLANN/lib/;$(PCL_ROOT_VS2015)/3rdParty/Qhull/lib/;$(PCL_ROOT_VS2015)/3rdParty/VTK/lib/;$(OPENCV)/build/x64/vc14/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>pcl_common_release.lib;pcl_features_release.lib;pcl_filters_release.lib;pcl_io_ply_release.lib;pcl_io_release.lib;pcl_kdtree_release.lib;pcl_keypoints_release.lib;pcl_ml_release.lib;pcl_octree_release.lib;pcl_outofcore_release.lib;pcl_people_release.lib;pcl_recognition_release.lib;pcl_registration_release.lib;pcl_sample_consensus_release.lib;pcl_search_release.lib;pcl_segmentation_release.lib;pcl_stereo_release.lib;pcl_surface_release.lib;pcl_tracking_release.lib;pcl_visualization_release.lib;libboost_system-vc140-mt-1_64.lib;libboost_thread-vc140-mt-1_64.lib;vtkCommonCore-8.0.lib;vtkCommonMath-8.0.lib;vtkCommonDataModel-8.0.lib;vtkRenderingCore-8.0.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(PCL_ROOT_VS2015)\bin\pcl_common_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_features_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_filters_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_io_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_io_ply_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_kdtree_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_ml_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_octree_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_sample_consensus_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_search_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_segmentation_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_surface_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_visualization_$(Configuration).dll" "$(OutDir)"
+copy "$(PCL_ROOT_VS2015)\bin\pcl_visualization_$(Configuration).dll" "$(OutDir)"
+copy "$(OPENNI2_REDIST64)\OpenNI2.dll" "$(OutDir)"
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="PCD2ASC.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
