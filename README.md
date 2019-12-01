@@ -14,7 +14,7 @@ zum laufen zu bringen, haben wir ein Script geschrieben, das automatisch die cma
 das Progamm aus dem VS Projekt auf dem Raspberry Pi zum Laufen kriegen.
 
 
-## -------------Anleitung-------------
+## ---------------Anleitung---------------
 
 1. Paketmanager starten:
 - Start > Preferences > Add / Remove Software
