@@ -111,13 +111,15 @@ int main (int argc, char  *argv[])
 
 	pcl::PLYReader Reader;
 
-	Reader.read("C:/Users/Minh/Desktop/repository/team5/RefModelle/DeoPLY.ply", *cloud_ptr);
+	Reader.read("DeoPLY.ply", *cloud_ptr);
 
-	string writePath = "C:/Users/Minh/Desktop/repository/team5/RefModelle/DeoKOPIE.ply";
+	string writePath = "DeoKOPIE.ply";
 
 	pcl::io::savePLYFileBinary(writePath, *cloud_ptr);
 #pragma endregion
 
-
+	// C:/Users/Minh/Desktop/repository/team5/RefModelle/DeoPLY.ply
+	// C:/Users/Minh/Desktop/repository/team5/RefModelle/DeoKOPIE.ply
+	// 
 }
 
