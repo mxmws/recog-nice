@@ -1,6 +1,6 @@
 # 3D Erfassungsprogramm
 
-##------Allgemeine Informationen------
+## ------Allgemeine Informationen------
 
 Das Beispielprogramm, welches den gemittelten Scan erstellt, befindet sich im Ordner Examples. Es ist 
 leider nur mit Hilfe der Realsense SDK ausführbar, die nicht so einfach zu instalieren ist, wie die LibPCL.
