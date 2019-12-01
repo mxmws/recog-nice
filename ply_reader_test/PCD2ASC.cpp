@@ -3,7 +3,7 @@
 
 
 #include <stdio.h>
-//#include <tchar.h>
+#include <tchar.h>
 
 
 #include <stdlib.h>
@@ -111,9 +111,9 @@ int main (int argc, char  *argv[])
 
 	pcl::PLYReader Reader;
 
-	Reader.read("/home/pi/repos/team5/RefModelle/DeoPLY.ply", *cloud_ptr);
+	Reader.read("C:/Users/Minh/Desktop/repository/team5/RefModelle/DeoPLY.ply", *cloud_ptr);
 
-	string writePath = "/home/pi/repos/team5/RefModelle/DeoKOPIE.ply";
+	string writePath = "C:/Users/Minh/Desktop/repository/team5/RefModelle/DeoKOPIE.ply";
 
 	pcl::io::savePLYFileBinary(writePath, *cloud_ptr);
 #pragma endregion
