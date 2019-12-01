@@ -1,14 +1,7 @@
-.--------      -------
-.|_____  \     |      \
-.      |  |    |  |\   \
-.------   |    |  | |   |
-.|_____   |    |  | |   |
-.      |  |    |  |/    |
-.------   |    |       /
-.|_______/     |______/
+# 3D Erfassungsprogramm
 
 
-----------Anleitung----------
+## ----------Anleitung----------
 
 1. Paketmanager starten:
 - Start > Preferences > Add / Remove Software
