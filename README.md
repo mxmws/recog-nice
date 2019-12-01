@@ -17,7 +17,7 @@
 - Apply unten rechts anklicken - Der Vorgang kann eine Weile dauern. Holen Sie sich noch einen Kaffee
 
 4. Packete entpacken
-- zum Pfad gehen: 'cd /var/cache/apt/archives/'
+- zum Pfad gehen: 'cd /var/cache/apt/archives/''
 - alle deb Dateien von der PCL entpacken: 'sudo dpkg -i libpcl*.deb'
 
 5. Programm kompilieren
@@ -26,8 +26,8 @@
   (Sie können vorher das Script editieren, um den Zielpfad zu ändern)
 
 6. Programm ausführen
-- in den Build Ordner navigieren (standartmäßig: /home/pi/ply_reader_test/build)
+- in den Build Ordner navigieren (standartmäßig: ' cd /home/pi/ply_reader_test/build')
 - executable ausführen
-- erzeugte PLY befindet sich standartmäßig in /home/pi/ply_reader_test
+- erzeugte PLY befindet sich standartmäßig in '/home/pi/ply_reader_test'
 
 Viel Spaß!
