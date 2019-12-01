@@ -1,40 +1,3 @@
---------      -------
-|_____  \     |      \
-      |  |    |  |\   \
-------   |    |  | |   |
-|_____   |    |  | |   |
-      |  |    |  |/    |
-------   |    |       /
-|_______/     |______/
-
-
-----------Anleitung----------
-
-1. Paketmanager starten:
-- Start > Preferences > Add / Remove Software
-
-2. Updates installieren
-- Options > Refresh Package Lists
-- Options > Check For Updates
-- Install updates unten rechts anklicken - Der Vorgang kann eine Weile dauern. Holen Sie sich einen Kaffee
-
-3. PCL Bibliothek herunterladen
-- nach 'libpcl' suchen
-- alle 22 packages zur installation auswΓ¤hlen
-- Apply unten rechts anklicken - Der Vorgang kann eine Weile dauern. Holen Sie sich noch einen Kaffee
-
-4. Packete entpacken
-- zum Pfad gehen: 'cd /var/cache/apt/archives/'
-- alle deb Dateien von der PCL entpacken: 'sudo dpkg -i libpcl*.deb'
-
-5. Programm kompilieren
-- Falls noch nicht vorhanden - Repository clonen
-- zum Repository navigieren und Scrip starten mit 'sh vs_to_cmake.sh'
-  (Sie kΓ¶nnen vorher das Script editieren, um den Zielpfad zu Γ¤ndern)
-
-6. Programm ausfΓΌhren
-- in den Build Ordner navigieren (standartmΓ¤Γig: /home/pi/ply_reader_test/build)
-- executable ausfΓΌhren
-- erzeugte PLY befindet sich standartmΓ¤Γig in /home/pi/ply_reader_test
-
-Viel SpaΓ!
+ÿÿÿy^Ϋ§ƒSΪ‘λfjv z»-j»^+Z®Σλyχ«zw°]ύ¦Άχ’΅ϋpj·¶R—Zµλ"ΛZ–X­ιΞ¦Ψ¨Δ^~·¬„φ‘¨.+-°κm‰μ
+Z+R—ZµλΛZ–[©u«^²ινzzήrljy%‰Ι7«Vΰjx$jyήw–z)^u«®qθ•ιÒ‰λ"rΆιΚiχή{sΒ,›–*-…ι!z»§µκεiΧ§§!–&ιr[.r§jY^ΫjZrF zΜξ®)μµ©ejΨ¨«¬Β^
+i—+§µιλyΘm±©δ–'$zpή­Z+©ΰ‘©ηz)ήYθ¥yΦ®zΉΗΆW§J'¬‰Θg΅Θ^w§)§ίyξiΙµη§¶–‘ισΊcίiΨ…ιάwϋΪ―χrΏj›j·!χ¬ύ©eyΧ›«^‰ιοΆw^¬π‹z{iiΙΛ΅Ϊd‚)bn—%uζω>Ί ­©¦’‰©X­ιΕjYl‡!'!¶ϊ+…©έzt^¦‹"¶ςrZ'z|ξ™©ΆΘ­ΆΌ§jψ ‰κήιέIΚβ¦ΛZ®Χ§+l†ϋ-΅Ι‘λ!J'¤w§Ύαz·Z±'+›^v+bz·§Ίg^–—Ϊw;§uκηθϊθ‚¶¦™«¬~ή)έzpnWN­Ωή®v―­ιμµ©έj»fαΆgΏ¦/ι—*ήiΧ«µλ-ύ»Ά•Χ±yΛ­iΉ^jλ†·§zΌήΊ^<¶yψ§uλl‰Θlµ©έj»f§ώ&{ϊbώ™r­ζz»^²ΥbzT©
