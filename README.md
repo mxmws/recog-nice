@@ -29,8 +29,8 @@ Da wir schon einen gemittelten Scan mit Hilfe der Realsense bilden können, brau
 
 5. Programm kompilieren
 - Falls noch nicht vorhanden - Repository clonen
-- zum Repository navigieren und Scrip starten mit `sh vs_to_cmake.sh`
-  (Sie können vorher das Script editieren, um den Zielpfad zu ändern)
+- zum Repository navigieren und Script starten mit `sh vs_to_cmake.sh`
+  (Sie können vorher das Script oben editieren, um den Zielpfad zu ändern)
 
 6. Programm ausführen
 - in den Build Ordner navigieren (standardmäßig: `cd /home/pi/ply_reader_test/build`)
