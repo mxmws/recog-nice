@@ -2,16 +2,9 @@
 
 ## ------Allgemeine Informationen------
 
-Das Beispielprogramm, welches den gemittelten Scan erstellt, befindet sich im Ordner Examples. Es ist 
-leider nur mit Hilfe der Realsense SDK ausführbar, die nicht so einfach zu instalieren ist, wie die LibPCL.
-Wir können Ihnen die Funktionsfähigkeit aber gerne am Dienstag demonstrieren.
+Das Beispielprogramm, welches den gemittelten Scan erstellt, befindet sich im Ordner Examples. Es ist leider nur mit Hilfe der Realsense SDK ausführbar, die nicht so einfach zu installieren ist, wie die LibPCL. Wir können Ihnen die Funktionsfähigkeit aber gerne am Dienstag demonstrieren.
+Da wir schon einen gemittelten Scan mit Hilfe der Realsense bilden können, brauchen wir für den Rest des Programmes nur noch die PCL. Daher findet die Entwicklung unter VS auf Windows statt. Wir verwenden eine fertig gebaute Point Cloud Library von der GfAI, die nur mit VS2015 kompatibel ist. Um das Programm auf dem Raspberry zum laufen zu bringen, haben wir ein Script geschrieben, das automatisch die cmake Datei erstellt und Änderungen an den Dateipfaden vornimmt. In der untenstehenden Anleitung ist genau beschrieben, wie Sie das Programm aus dem VS Projekt auf dem Raspberry Pi zum Laufen kriegen.
 
-Da wir schon einen gemittelten Scan mit Hilfe der Realsense bilden können, brauen wir für den Rest des 
-Programmes nur noch die PCL. Daher findet die Entwicklung unter VS auf Windows statt. Wir verwenden eine 
-fertig gebaute Point Cloud Library von der GfAI, die nur mit VS2015 kompatibel ist. Um das Programm auf dem 
-Raspberry zum laufen zu bringen, haben wir ein Script geschrieben, das automatisch die cmake Datei erstellt 
-und Änderungen an den Dateipfaden vornimmt. In der untenstehenden Anleitung ist genau beschrieben, wie Sie 
-das Progamm aus dem VS Projekt auf dem Raspberry Pi zum Laufen kriegen.
 
 
 ## ---------------Anleitung---------------
@@ -29,7 +22,7 @@ das Progamm aus dem VS Projekt auf dem Raspberry Pi zum Laufen kriegen.
 - alle 22 packages zur installation auswählen
 - Apply unten rechts anklicken - Der Vorgang kann eine Weile dauern. Holen Sie sich noch einen Kaffee
 
-4. Packete entpacken
+4. Pakete entpacken
 - zum Pfad gehen: `cd /var/cache/apt/archives/`
 - alle deb Dateien von der PCL entpacken: `sudo dpkg -i libpcl*.deb`
 
@@ -39,8 +32,8 @@ das Progamm aus dem VS Projekt auf dem Raspberry Pi zum Laufen kriegen.
   (Sie können vorher das Script editieren, um den Zielpfad zu ändern)
 
 6. Programm ausführen
-- in den Build Ordner navigieren (standartmäßig: `cd /home/pi/ply_reader_test/build`)
+- in den Build Ordner navigieren (standardmäßig: `cd /home/pi/ply_reader_test/build`)
 - executable ausführen
-- erzeugte PLY befindet sich standartmäßig in `/home/pi/ply_reader_test`
+- erzeugte PLY befindet sich standardmäßig in `/home/pi/ply_reader_test`
 
 Viel Spaß!
