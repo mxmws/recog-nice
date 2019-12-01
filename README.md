@@ -35,6 +35,6 @@ Da wir schon einen gemittelten Scan mit Hilfe der Realsense bilden können, brau
 6. Programm ausführen
 - in den Build Ordner navigieren (standardmäßig: `cd /home/pi/ply_reader_test/build`)
 - executable ausführen
-- erzeugte PLY befindet sich standardmäßig in `/home/pi/ply_reader_test`
+- erzeugte PLY erscheint im selben Ordner
 
 Viel Spaß!
