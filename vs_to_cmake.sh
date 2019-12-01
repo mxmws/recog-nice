@@ -8,14 +8,15 @@ SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 cd $BUILDPATH
 mkdir -p ply_reader_test
 cd $BUILDPATH/ply_reader_test
+rm -r build
 mkdir -p build
 
 #cpp wird kopiert und mit dem raspi kompatibel gemacht
 cp -R $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/PCD2ASC.cpp /$BUILDPATH/ply_reader_test
 sed -i '/#include <tchar.h>/d' PCD2ASC.cpp
-COPYPATH=$SCRIPTPATH/RefModelle/DeoPLY.ply
-sed -i "s|C:/Users/Minh/Desktop/repository/team5/RefModelle/DeoKOPIE.ply|$BUILDPATH/ply_reader_test/DeoKOPIE.ply|g" PCD2ASC.cpp
-sed -i "s|C:/Users/Minh/Desktop/repository/team5/RefModelle/DeoPLY.ply|$COPYPATH|g" PCD2ASC.cpp
+#COPYPATH=$SCRIPTPATH/RefModelle/DeoPLY.ply
+#sed -i "s|C:/Users/Minh/Desktop/repository/team5/RefModelle/DeoKOPIE.ply|$BUILDPATH/ply_reader_test/DeoKOPIE.ply|g" PCD2ASC.cpp
+#sed -i "s|C:/Users/Minh/Desktop/repository/team5/RefModelle/DeoPLY.ply|$COPYPATH|g" PCD2ASC.cpp
 
 #CMakeLists.txt wird erstellt
 echo '
@@ -37,3 +38,5 @@ cd $BUILDPATH/ply_reader_test/build
 
 cmake ..
 make
+
+cp -R $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/DeoPLY.ply /$BUILDPATH/ply_reader_test/build
