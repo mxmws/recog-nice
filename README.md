@@ -4,7 +4,7 @@
 
 Das Beispielprogramm, welches den gemittelten Scan erstellt, befindet sich im Ordner Examples. Es ist leider nur mit Hilfe der Realsense SDK ausführbar, die nicht so einfach zu installieren ist, wie die LibPCL. Wir können Ihnen die Funktionsfähigkeit aber gerne am Dienstag demonstrieren.
 
-Da wir schon einen gemittelten Scan mit Hilfe der Realsense bilden können, brauchen wir für den Rest des Programmes nur noch die PCL. Daher findet die Entwicklung unter VS auf Windows statt. Wir verwenden eine fertig gebaute Point Cloud Library von der GfAI, die nur mit VS2015 kompatibel ist. Um das Programm auf dem Raspberry zum laufen zu bringen, haben wir ein Script geschrieben, das automatisch die cmake Datei erstellt und Änderungen an den Dateipfaden vornimmt. In der untenstehenden Anleitung ist genau beschrieben, wie Sie das Programm aus dem VS Projekt auf dem Raspberry Pi zum Laufen kriegen.
+Da wir schon einen gemittelten Scan mit Hilfe der Realsense bilden können, brauchen wir für den Rest des Programmes nur noch die PCL. Daher findet die Entwicklung unter VS auf Windows statt. Wir verwenden eine fertig gebaute Point Cloud Library von der GfAI, die nur mit VS2015 kompatibel ist. Um das Programm auf dem Raspberry zum laufen zu bringen, haben wir ein Script geschrieben, das automatisch die cmake Datei erstellt und Änderungen an den Dateipfaden vornimmt. In der untenstehenden Anleitung ist genau beschrieben, wie Sie das Programm aus dem VS Projekt auf dem Raspberry Pi zum Laufen bringen.
 
 
 
