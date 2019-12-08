@@ -16,6 +16,8 @@
 #include <math.h>
 #include <pcl/io/ply_io.h>
 #include "Processing.h"
+#include <pcl/filters/extract_indices.h>		//header to remove points with indices
+#include <pcl/visualization/cloud_viewer.h>		//header for viewer
 
 using namespace std;
 
@@ -107,9 +109,10 @@ int main (int argc, char  *argv[])
 	//return 0;
 #pragma endregion
 
-
-// Moved PLY Reader/Writer to "Processing" class
 	Processing readWrite;
 	readWrite.plyReader();
+	readWrite.removeBackground();
+	readWrite.cloudViewer();
+
 }
 
