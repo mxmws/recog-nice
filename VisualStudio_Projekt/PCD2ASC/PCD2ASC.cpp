@@ -15,6 +15,7 @@
 #include <iterator>
 #include <math.h>
 #include <pcl/io/ply_io.h>
+#include "Processing.h"
 
 using namespace std;
 
@@ -106,20 +107,9 @@ int main (int argc, char  *argv[])
 	//return 0;
 #pragma endregion
 
-#pragma region PLY_READER
-	pcl::PointCloud<pcl::PointNormal>::Ptr cloud_ptr(new pcl::PointCloud<pcl::PointNormal>);
 
-	pcl::PLYReader Reader;
-
-	Reader.read("DeoPLY.ply", *cloud_ptr);
-
-	string writePath = "DeoKOPIE.ply";
-
-	pcl::io::savePLYFileBinary(writePath, *cloud_ptr);
-#pragma endregion
-
-	// C:/Users/Minh/Desktop/repository/team5/RefModelle/DeoPLY.ply
-	// C:/Users/Minh/Desktop/repository/team5/RefModelle/DeoKOPIE.ply
-	// 
+// Moved PLY Reader/Writer to "Processing" class
+	Processing readWrite;
+	readWrite.plyReader();
 }
 

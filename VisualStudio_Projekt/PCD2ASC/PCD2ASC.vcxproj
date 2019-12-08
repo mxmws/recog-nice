@@ -53,7 +53,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Minh\Desktop\PCL\PCL 1.8.1\3rdParty\Qhull\include\;C:\Users\Minh\Desktop\PCL\PCL 1.8.1\3rdParty\Eigen\eigen3\;C:\Users\Minh\Desktop\PCL\PCL 1.8.1\3rdParty\Boost\include\boost-1_64\;C:\Users\Minh\Desktop\PCL\PCL 1.8.1\3rdParty\FLANN\include\;C:\Users\Minh\Desktop\PCL\PCL 1.8.1\include\pcl-1.8;C:\Users\Minh\Desktop\PCL\PCL 1.8.1\3rdParty\VTK\include\vtk-8.0\;D:\Users\Minh\Desktop\PCL\PCL 1.8.1\3rdParty\VTK\include\vtk-8.0\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Minh\Desktop\PCL\PCL 1.8.1\3rdParty\Qhull\include\;C:\Users\Minh\Desktop\PCL\PCL 1.8.1\3rdParty\Eigen\eigen3\;C:\Users\Minh\Desktop\PCL\PCL 1.8.1\3rdParty\Boost\include\boost-1_64\;C:\Users\Minh\Desktop\PCL\PCL 1.8.1\3rdParty\FLANN\include\;C:\Users\Minh\Desktop\PCL\PCL 1.8.1\include\pcl-1.8;C:\Users\Minh\Desktop\PCL\PCL 1.8.1\3rdParty\VTK\include\vtk-8.0\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -123,6 +123,10 @@ copy "$(OPENNI2_REDIST64)\OpenNI2.dll" "$(OutDir)"
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="PCD2ASC.cpp" />
+    <ClCompile Include="Processing.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Processing.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
