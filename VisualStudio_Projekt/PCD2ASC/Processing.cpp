@@ -14,6 +14,8 @@
 #include <pcl/io/ply_io.h>
 #include <pcl/filters/extract_indices.h>
 #include <pcl/visualization/cloud_viewer.h>
+#include <pcl/point_types.h>		// for ICP
+#include <pcl/registration/icp.h>	// for ICP
 using namespace std;
 
 // Loading PLY file into PointCloud object and saves it as PLY-Kopie
@@ -59,6 +61,16 @@ void Processing::removeBackground()
 	pcl::io::savePLYFileBinary(writePath, *p_obstacles);
 }
 
+// ICP Test - does not work yet
+//void Processing::compareToReferences() {
+//	pcl::PointCloud<pcl::PointNormal>::Ptr cloud_ptr(new pcl::PointCloud<pcl::PointNormal>);
+//	pcl::PCDReader Reader;
+//	Reader.read("DeoPLY.ply", *cloud_ptr);
+//	
+//	pcl::IterativeClosestPoint<pcl::PLYReader, pcl::PLYReader> icp;
+//	icp.setInputSource(*Reader);
+//
+//}
 
 	//does not work yet
 //void Processing::cloudViewer()

@@ -6,5 +6,6 @@ public:
 	void plyReader();
 	void removeBackground();
 	void cloudViewer();
+	void compareToReferences();
 };
 
