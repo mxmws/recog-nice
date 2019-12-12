@@ -63,7 +63,8 @@ void Processing::removeBackground()
 
 // ICP Test
 void Processing::compareToReferences() {
-// Quellcode von PCL Dokumentation
+#pragma region Test program from PCL
+	// Quellcode von PCL Dokumentation
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_in(new pcl::PointCloud<pcl::PointXYZ>);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_out(new pcl::PointCloud<pcl::PointXYZ>);
 
@@ -100,15 +101,36 @@ void Processing::compareToReferences() {
 	std::cout << "has converged:" << icp.hasConverged() << " score: " <<
 	icp.getFitnessScore() << std::endl;
 	std::cout << icp.getFinalTransformation() << std::endl;
+#pragma endregion
 
-	// ICP for our own ply models
-//	pcl::PointCloud<pcl::PointNormal>::Ptr cloud_ptr(new pcl::PointCloud<pcl::PointNormal>);
-//	pcl::PCDReader Reader;
-//	Reader.read("DeoPLY.ply", *cloud_ptr);
-//	
-//	pcl::IterativeClosestPoint<pcl::PLYReader, pcl::PLYReader> icp;
-//	icp.setInputSource(*Reader);
-//
+	// ICP for our own ply models ------------
+	// New PointCloud Objects
+	pcl::PointCloud<pcl::PointXYZ>::Ptr to_check(new pcl::PointCloud<pcl::PointXYZ>);
+	pcl::PointCloud<pcl::PointXYZ>::Ptr to_check_with(new pcl::PointCloud<pcl::PointXYZ>);
+
+	// filling PointCloud Objects with .ply Data
+	pcl::PLYReader reader;
+	reader.read("DeoPLY.ply", *to_check);
+	for (int i = 0; i < (*to_check).size(); i++)
+	{
+		pcl::PointXYZ pt(to_check->points[i].x, to_check->points[i].y, to_check->points[i].z);
+	}
+
+	reader.read("DeoKOPIE.ply", *to_check_with);
+	for (int i = 0; i < (*to_check_with).size(); i++)
+	{
+		pcl::PointXYZ pt(to_check_with->points[i].x, to_check_with->points[i].y, to_check_with->points[i].z);
+	}
+
+	// Using ICP to determine closeness of 2 .ply data
+	pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
+	icp.setInputSource(to_check);
+	icp.setInputTarget(to_check_with);
+
+	pcl::PointCloud<pcl::PointXYZ> Result;
+	icp.align(Result);
+	cout << endl << "Has converged: " << icp.hasConverged() << " with score: " << icp.getFitnessScore() << endl;
+	cout << icp.getFinalTransformation() << endl;
 }
 
 	//does not work yet
