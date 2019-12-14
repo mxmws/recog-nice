@@ -37,4 +37,8 @@ Da wir schon einen gemittelten Scan mit Hilfe der Realsense bilden können, brau
 - executable ausführen
 - erzeugte PLY erscheint im selben Ordner
 
+## ---------------Visual Studio Projekt---------------
+
+1. 
+
 Viel Spaß!
