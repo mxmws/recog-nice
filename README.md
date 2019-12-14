@@ -44,7 +44,7 @@ Da wir schon einen gemittelten Scan mit Hilfe der Realsense bilden können, brau
 
 2. Systemumgebungsvariablen unter Windows öffnen > Erweitert > Umgebungsvariablen... > Systemvariablen: Neu... anklicken 
 - Name der Variablen: "PCL_ROOT"
-- Wert der Variable: Pfad in dem die PCL gepsichert ist "C:\Users\Minh\Desktop\PCL\PCL 1.8.1"
+- Wert der Variable: Pfad in dem die PCL gespeichert ist "C:\Users\Minh\Desktop\PCL\PCL 1.8.1"
 
 
 Viel Spaß!
