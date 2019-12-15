@@ -1,9 +1,7 @@
 #include "Processing.h"
-#include <stdio.h>
-#include <tchar.h>
-
-
-#include <stdlib.h>
+//#include <stdio.h>
+//#include <tchar.h>
+//#include <stdlib.h>
 #include <iostream>             // for std::cout
 #include <string>
 #include <fstream>
@@ -38,14 +36,14 @@ void Processing::removeBackground()
 
 	//filling PointCLoud object with PLY data
 	pcl::PLYReader Reader;
-	Reader.read("Scan_Entfernen_Test.ply", *p_obstacles);
+	Reader.read("Scan_BackgroundRemoval.ply", *p_obstacles);
 
 	pcl::PointIndices::Ptr inliers(new pcl::PointIndices());
 	pcl::ExtractIndices<pcl::PointXYZ> extract;
 	for (int i = 0; i < (*p_obstacles).size(); i++)
 	{
 		pcl::PointXYZ pt(p_obstacles->points[i].x, p_obstacles->points[i].y, p_obstacles->points[i].z);
-		if (pt.x < 10)							// remove points whose x-coordinate is >10??? 
+		if ((pt.z < 10) || (pt.y < 50))						// remove points whose x-coordinate is >10??? 
 		{
 			inliers->indices.push_back(i);
 		}
@@ -55,7 +53,7 @@ void Processing::removeBackground()
 	extract.setNegative(true);
 	extract.filter(*p_obstacles);
 
-	string writePath = "Scan_Entfernen_TestKOPIE.ply";
+	string writePath = "Scan_BackgroundRemoval_TestKOPIE.ply";
 
 	pcl::io::savePLYFileBinary(writePath, *p_obstacles);
 }
