@@ -29,6 +29,7 @@ int main (int argc, char  *argv[])
 	Processing readWrite;
 	readWrite.plyReader();
 	readWrite.removeBackground();
+	readWrite.compareToReferences();
 
 }
 
