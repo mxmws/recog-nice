@@ -94,11 +94,11 @@ void Processing::cropItembox()
 	pcl::PLYReader Reader;
 	Reader.read("Scan_BackgroundRemoval.ply", *cloud);
 
-	// X = depth, Y = width, Z = height
-	//boxFilter.setMin(Eigen::Vector4f(minX, minY, minZ, 1.0));
-	//boxFilter.setMax(Eigen::Vector4f(maxX, maxY, maxZ, 1.0));
 	pcl::CropBox<pcl::PointXYZRGBA> boxFilter;
+	// X = depth, Y = width, Z = height
+								//(minX, minY, minZ, 1.0))
 	boxFilter.setMin(Eigen::Vector4f(1000, 250, 5, 1.0));
+								//(maxX, maxY, maxZ, 1.0))
 	boxFilter.setMax(Eigen::Vector4f(2000, 500, 250, 1.0));
 	boxFilter.setInputCloud(cloud);
 
