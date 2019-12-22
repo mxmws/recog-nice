@@ -30,6 +30,7 @@ int main (int argc, char** argv)
 	readWrite.transformationMatrix(argc, argv);
 	readWrite.plyReader();
 	readWrite.removeBackground();
+	readWrite.cropItembox();
 	readWrite.compareToReferences();
 
 }

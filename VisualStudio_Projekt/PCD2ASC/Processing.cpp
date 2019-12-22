@@ -13,6 +13,7 @@
 #include <pcl/filters/extract_indices.h>
 #include <pcl/point_types.h>		// for ICP
 #include <pcl/registration/icp.h>	// for ICP
+#include <pcl/filters/crop_box.h>	//for removing background via crop Box
 
 
 //for some reason transformationMatrix works without these includes
@@ -82,6 +83,32 @@ void Processing::plyReader()
 	string writePath = "DeoKOPIE.ply";
 
 	pcl::io::savePLYFileBinary(writePath, *cloud_ptr);
+}
+
+void Processing::cropItembox()
+{
+	//new PointCloud object
+	pcl::PointCloud<pcl::PointXYZRGBA>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZRGBA>);
+
+	//filling PointCLoud object with PLY data
+	pcl::PLYReader Reader;
+	Reader.read("Scan_BackgroundRemoval.ply", *cloud);
+
+	// X = depth, Y = width, Z = height
+	//boxFilter.setMin(Eigen::Vector4f(minX, minY, minZ, 1.0));
+	//boxFilter.setMax(Eigen::Vector4f(maxX, maxY, maxZ, 1.0));
+	pcl::CropBox<pcl::PointXYZRGBA> boxFilter;
+	boxFilter.setMin(Eigen::Vector4f(1000, 250, 5, 1.0));
+	boxFilter.setMax(Eigen::Vector4f(2000, 500, 250, 1.0));
+	boxFilter.setInputCloud(cloud);
+
+	//create a new filtered point cloud
+	pcl::PointCloud<pcl::PointXYZRGBA>::Ptr cloudFiltered(new pcl::PointCloud<pcl::PointXYZRGBA>);
+	boxFilter.filter(*cloudFiltered);
+
+	string writePath = "Scan_BackgroundRemoval_TestKOPIE.ply";
+
+	pcl::io::savePLYFileBinary(writePath, *cloudFiltered);
 }
 
 void Processing::removeBackground()
