@@ -23,10 +23,11 @@ using namespace std;
 
 
 //int _tmain(int argc, _TCHAR* argv[])
-int main (int argc, char  *argv[])
+int main (int argc, char** argv)
 {
 
 	Processing readWrite;
+	readWrite.transformationMatrix(argc, argv);
 	readWrite.plyReader();
 	readWrite.removeBackground();
 	readWrite.compareToReferences();

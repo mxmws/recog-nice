@@ -13,7 +13,62 @@
 #include <pcl/filters/extract_indices.h>
 #include <pcl/point_types.h>		// for ICP
 #include <pcl/registration/icp.h>	// for ICP
+
+
+//for some reason transformationMatrix works without these includes
+//#include <pcl/point_cloud.h>
+//#include <pcl/console/parse.h>
+//#include <pcl/common/transforms.h>
+
 using namespace std;
+
+
+
+void showHelp(char * program_name)
+{
+	std::cout << std::endl;
+	std::cout << "Usage: " << program_name << " cloud_filename.[pcd|ply]" << std::endl;
+	std::cout << "-h:  Show this help." << std::endl;
+}
+
+
+int Processing::transformationMatrix(int argc, char** argv)
+{
+	pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud(new pcl::PointCloud<pcl::PointXYZ>());
+	pcl::PLYReader Reader;
+	Reader.read("DeoPLY.ply", *source_cloud);
+
+
+
+	Eigen::Matrix4f transform_1 = Eigen::Matrix4f::Identity();
+
+	float theta = M_PI / 4; // The angle of rotation in radians
+
+	Eigen::Affine3f transform_2 = Eigen::Affine3f::Identity();
+
+	// Define a translation of 2.5 meters on the x axis.
+	transform_2.translation() << 1100, -850, 0.0;
+
+	// The same rotation matrix as before; theta radians around Z axis
+	transform_2.rotate(Eigen::AngleAxisf(theta, Eigen::Vector3f::UnitY()));
+
+	// Print the transformation
+	printf("\nMethod #2: using an Affine3f\n");
+	std::cout << transform_2.matrix() << std::endl;
+
+	// Executing the transformation
+	pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_cloud(new pcl::PointCloud<pcl::PointXYZ>());
+	pcl::transformPointCloud(*source_cloud, *transformed_cloud, transform_2);
+
+
+
+	string writePath = "DeoTransformed.ply";
+	pcl::io::savePLYFileBinary(writePath, *transformed_cloud);
+
+	return 0;
+}
+
+
 
 // Loading PLY file into PointCloud object and saves it as PLY-Kopie
 void Processing::plyReader()
