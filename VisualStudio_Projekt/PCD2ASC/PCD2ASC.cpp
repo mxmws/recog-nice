@@ -23,11 +23,11 @@ using namespace std;
 
 
 //int _tmain(int argc, _TCHAR* argv[])
-int main (int argc, char** argv)
+int main ()
 {
 
 	Processing readWrite;
-	readWrite.transformationMatrix(argc, argv);
+	readWrite.transformationMatrix();
 	readWrite.plyReader();
 	readWrite.removeBackground();
 	readWrite.cropItembox();

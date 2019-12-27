@@ -3,7 +3,7 @@
 class Processing
 {
 public:
-	int transformationMatrix(int argc, char** argv);
+	int transformationMatrix();
 	void plyReader();
 	void removeBackground();
 	void cropItembox();

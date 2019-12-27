@@ -33,25 +33,26 @@ void showHelp(char * program_name)
 }
 
 
-int Processing::transformationMatrix(int argc, char** argv)
+int Processing::transformationMatrix()
 {
 	pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud(new pcl::PointCloud<pcl::PointXYZ>());
 	pcl::PLYReader Reader;
-	Reader.read("DeoPLY.ply", *source_cloud);
+	Reader.read("noObject.ply", *source_cloud);
 
 
 
 	Eigen::Matrix4f transform_1 = Eigen::Matrix4f::Identity();
 
-	float theta = M_PI / 4; // The angle of rotation in radians
+	//float theta = M_PI / 4; // The angle of rotation in radians
+	float theta = -0.6;
 
 	Eigen::Affine3f transform_2 = Eigen::Affine3f::Identity();
 
 	// Define a translation of 2.5 meters on the x axis.
-	transform_2.translation() << 1100, -850, 0.0;
+	transform_2.translation() << 0.0, 0.0, 0.0;
 
 	// The same rotation matrix as before; theta radians around Z axis
-	transform_2.rotate(Eigen::AngleAxisf(theta, Eigen::Vector3f::UnitY()));
+	transform_2.rotate(Eigen::AngleAxisf(theta, Eigen::Vector3f::UnitX()));
 
 	// Print the transformation
 	printf("\nMethod #2: using an Affine3f\n");
@@ -63,7 +64,7 @@ int Processing::transformationMatrix(int argc, char** argv)
 
 
 
-	string writePath = "DeoTransformed.ply";
+	string writePath = "noObjectTransformed.ply";
 	pcl::io::savePLYFileBinary(writePath, *transformed_cloud);
 
 	return 0;
