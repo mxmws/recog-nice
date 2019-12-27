@@ -33,14 +33,8 @@ void showHelp(char * program_name)
 }
 
 
-int Processing::transformationMatrix()
+pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud)
 {
-	pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud(new pcl::PointCloud<pcl::PointXYZ>());
-	pcl::PLYReader Reader;
-	Reader.read("noObject.ply", *source_cloud);
-
-
-
 	Eigen::Matrix4f transform_1 = Eigen::Matrix4f::Identity();
 
 	//float theta = M_PI / 4; // The angle of rotation in radians
@@ -63,11 +57,7 @@ int Processing::transformationMatrix()
 	pcl::transformPointCloud(*source_cloud, *transformed_cloud, transform_2);
 
 
-
-	string writePath = "noObjectTransformed.ply";
-	pcl::io::savePLYFileBinary(writePath, *transformed_cloud);
-
-	return 0;
+	return transformed_cloud;
 }
 
 

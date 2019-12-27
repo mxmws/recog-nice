@@ -25,13 +25,21 @@ using namespace std;
 //int _tmain(int argc, _TCHAR* argv[])
 int main ()
 {
+	//import
+	pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud(new pcl::PointCloud<pcl::PointXYZ>());
+	pcl::PLYReader Reader;
+	Reader.read("noObject.ply", *source_cloud);
 
+	//processing
 	Processing readWrite;
-	readWrite.transformationMatrix();
+	source_cloud = readWrite.transformationMatrix(source_cloud);
+
 	readWrite.plyReader();
 	readWrite.removeBackground();
 	readWrite.cropItembox();
 	readWrite.compareToReferences();
+
+	pcl::io::savePLYFileBinary("noObjectTransformed.ply", *source_cloud);
 
 }
 
