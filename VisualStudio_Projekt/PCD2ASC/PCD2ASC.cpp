@@ -1,4 +1,4 @@
-// PCDtoASC.cpp : Definiert den Einstiegspunkt für die Konsolenanwendung.
+// PCDtoASC.cpp : Definiert den Einstiegspunkt fï¿½r die Konsolenanwendung.
 //
 
 
