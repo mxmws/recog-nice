@@ -187,13 +187,13 @@ void Processing::compareToReferences() {
 
 	// filling PointCloud Objects with .ply Data
 	pcl::PLYReader reader;
-	reader.read("DeoPLY.ply", *to_check);
+	reader.read("Scan_BackgroundRemoval.ply", *to_check);
 	for (int i = 0; i < (*to_check).size(); i++)
 	{
 		pcl::PointXYZ pt(to_check->points[i].x, to_check->points[i].y, to_check->points[i].z);
 	}
 
-	reader.read("DeoKOPIE.ply", *to_check_with);
+	reader.read("Scan_BackgroundRemoval_TestKOPIE.ply", *to_check_with);
 	for (int i = 0; i < (*to_check_with).size(); i++)
 	{
 		pcl::PointXYZ pt(to_check_with->points[i].x, to_check_with->points[i].y, to_check_with->points[i].z);
@@ -206,6 +206,7 @@ void Processing::compareToReferences() {
 
 	pcl::PointCloud<pcl::PointXYZ> Result;
 	icp2.align(Result);
+	cout << endl << "Scan_BackgroundRemoval.ply with Scan_BackgroundRemoval_TestKOPIE.ply: ";
 	cout << endl << "Has converged: " << icp2.hasConverged() << " with score: " << icp2.getFitnessScore() << endl;
 	cout << icp2.getFinalTransformation() << endl;
 }
