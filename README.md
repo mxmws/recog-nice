@@ -43,8 +43,8 @@ Da wir schon einen gemittelten Scan mit Hilfe der Realsense bilden können, brau
 - Toolset muss eventuell davor mit dem Installer installiert werden
 
 2. Systemumgebungsvariablen unter Windows öffnen > Erweitert > Umgebungsvariablen... > Systemvariablen: Neu... anklicken 
-- Name der Variablen: "PCL_ROOT"
-- Wert der Variable: Pfad in dem die PCL gespeichert ist "C:\Users\Minh\Desktop\PCL\PCL 1.8.1"
+- Name der Variablen: `PCL_ROOT`
+- Wert der Variable: Pfad in dem die PCL gespeichert ist `C:\Users\Minh\Desktop\PCL\PCL 1.8.1`
 
 
 Viel Spaß!
