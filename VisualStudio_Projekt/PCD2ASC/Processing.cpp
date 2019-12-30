@@ -79,29 +79,36 @@ void Processing::plyReader()
 void Processing::cropItembox()
 {
 	//new PointCloud object
-	pcl::PointCloud<pcl::PointXYZRGBA>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZRGBA>);
+	pcl::PointCloud<pcl::PointNormal>::Ptr cloud(new pcl::PointCloud<pcl::PointNormal>);
 
 	//filling PointCLoud object with PLY data
 	pcl::PLYReader Reader;
-	Reader.read("Scan_BackgroundRemoval.ply", *cloud);
+	//Reader.read("Scan_BackgroundRemoval.ply", *cloud);
+	Reader.read("ball_1.ply", *cloud);
 
-	pcl::CropBox<pcl::PointXYZRGBA> boxFilter;
+	pcl::CropBox<pcl::PointNormal> boxFilter;
+
 	// X = depth, Y = width, Z = height
 								//(minX, minY, minZ, 1.0))
-	boxFilter.setMin(Eigen::Vector4f(1000, 250, 5, 1.0));
+	//boxFilter.setMin(Eigen::Vector4f(1000, 250, 5, 1.0));
 								//(maxX, maxY, maxZ, 1.0))
-	boxFilter.setMax(Eigen::Vector4f(2000, 500, 250, 1.0));
+	//boxFilter.setMax(Eigen::Vector4f(2000, 500, 250, 1.0));
+
+	boxFilter.setMin(Eigen::Vector4f(1000, 250, 5, 1.0));
+	boxFilter.setMax(Eigen::Vector4f(1000, 250, 5, 1.0));
 	boxFilter.setInputCloud(cloud);
 
 	//create a new filtered point cloud
-	pcl::PointCloud<pcl::PointXYZRGBA>::Ptr cloudFiltered(new pcl::PointCloud<pcl::PointXYZRGBA>);
+	pcl::PointCloud<pcl::PointNormal>::Ptr cloudFiltered(new pcl::PointCloud<pcl::PointNormal>);
 	boxFilter.filter(*cloudFiltered);
 
-	string writePath = "Scan_BackgroundRemoval_TestKOPIE.ply";
+	//string writePath = "Scan_BackgroundRemoval_TestKOPIE.ply";
+	string writePath = "ball_1_filtered.ply";
 
 	pcl::io::savePLYFileBinary(writePath, *cloudFiltered);
 }
 
+//outdated, not used
 void Processing::removeBackground()
 {
 	//new PointCloud object
