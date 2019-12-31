@@ -94,8 +94,8 @@ void Processing::cropItembox()
 								//(maxX, maxY, maxZ, 1.0))
 	//boxFilter.setMax(Eigen::Vector4f(2000, 500, 250, 1.0));
 
-	boxFilter.setMin(Eigen::Vector4f(1000, 250, 5, 1.0));
-	boxFilter.setMax(Eigen::Vector4f(1000, 250, 5, 1.0));
+	boxFilter.setMin(Eigen::Vector4f(0,0,0,1.0));	
+	boxFilter.setMax(Eigen::Vector4f(10000,-10000, 10000, 1.0));
 	boxFilter.setInputCloud(cloud);
 
 	//create a new filtered point cloud
@@ -108,7 +108,7 @@ void Processing::cropItembox()
 	pcl::io::savePLYFileBinary(writePath, *cloudFiltered);
 }
 
-//outdated, not used
+
 void Processing::removeBackground()
 {
 	//new PointCloud object
@@ -116,14 +116,16 @@ void Processing::removeBackground()
 
 	//filling PointCLoud object with PLY data
 	pcl::PLYReader Reader;
-	Reader.read("Scan_BackgroundRemoval.ply", *p_obstacles);
+	Reader.read("ball_1.ply", *p_obstacles);
 
 	pcl::PointIndices::Ptr inliers(new pcl::PointIndices());
 	pcl::ExtractIndices<pcl::PointXYZ> extract;
 	for (int i = 0; i < (*p_obstacles).size(); i++)
 	{
+		// positive X to the right from center, positive Y points upwards from center, positive Z points backwards
+		// z coordinate not working
 		pcl::PointXYZ pt(p_obstacles->points[i].x, p_obstacles->points[i].y, p_obstacles->points[i].z);
-		if ((pt.z < 10) || (pt.y < 50))						// remove points whose x-coordinate is >10??? 
+		if ((pt.x > 0.6||pt.x < -0.07 || pt.y < 0.02 || pt.z >0 ))						// remove points whose x-coordinate is ...
 		{
 			inliers->indices.push_back(i);
 		}
@@ -133,7 +135,7 @@ void Processing::removeBackground()
 	extract.setNegative(true);
 	extract.filter(*p_obstacles);
 
-	string writePath = "Scan_BackgroundRemoval_TestKOPIE.ply";
+	string writePath = "ball_1_filtered.ply";
 
 	pcl::io::savePLYFileBinary(writePath, *p_obstacles);
 }

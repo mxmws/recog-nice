@@ -35,8 +35,8 @@ int main ()
 	//source_cloud = readWrite.transformationMatrix(source_cloud);
 
 	//readWrite.plyReader();
-	//readWrite.removeBackground();
-	readWrite.cropItembox();
+	readWrite.removeBackground();
+	//readWrite.cropItembox();
 	//readWrite.compareToReferences();
 
 	//pcl::io::savePLYFileBinary("noObjectTransformed.ply", *source_cloud);
