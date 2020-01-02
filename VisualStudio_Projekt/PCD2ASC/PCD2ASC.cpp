@@ -1,6 +1,6 @@
 // PCDtoASC.cpp : Definiert den Einstiegspunkt f�r die Konsolenanwendung.
 //
-
+#include "ReferenceModel.h"
 
 #include <stdio.h>
 #include <tchar.h>
