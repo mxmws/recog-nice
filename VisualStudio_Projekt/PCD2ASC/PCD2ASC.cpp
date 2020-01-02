@@ -1,4 +1,4 @@
-// PCDtoASC.cpp : Definiert den Einstiegspunkt für die Konsolenanwendung.
+// PCDtoASC.cpp : Definiert den Einstiegspunkt fï¿½r die Konsolenanwendung.
 //
 
 
@@ -26,20 +26,20 @@ using namespace std;
 int main ()
 {
 	//import
-	pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud(new pcl::PointCloud<pcl::PointXYZ>());
+	/*pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud(new pcl::PointCloud<pcl::PointXYZ>());
 	pcl::PLYReader Reader;
-	Reader.read("noObject.ply", *source_cloud);
+	Reader.read("noObject.ply", *source_cloud);*/
 
 	//processing
 	Processing readWrite;
-	source_cloud = readWrite.transformationMatrix(source_cloud);
+	//source_cloud = readWrite.transformationMatrix(source_cloud);
 
-	readWrite.plyReader();
+	//readWrite.plyReader();
 	readWrite.removeBackground();
-	readWrite.cropItembox();
-	readWrite.compareToReferences();
+	//readWrite.cropItembox();
+	//readWrite.compareToReferences();
 
-	pcl::io::savePLYFileBinary("noObjectTransformed.ply", *source_cloud);
+	//pcl::io::savePLYFileBinary("noObjectTransformed.ply", *source_cloud);
 
 }
 

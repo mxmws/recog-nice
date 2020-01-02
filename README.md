@@ -39,12 +39,12 @@ Da wir schon einen gemittelten Scan mit Hilfe der Realsense bilden können, brau
 
 ## ---------------Visual Studio Projekt---------------
 
-1. Projekt öffnen und nicht auf v141 upgraden > Rechtsklick auf Projekt > Eigenschaften > General > Platform Toolset "Visual Studio  2015 (v140) auswählen"
+1. Projekt öffnen und **nicht** auf v141 upgraden > Rechtsklick auf Projekt > Eigenschaften > General > Platform Toolset "Visual Studio  2015 (v140) auswählen"
 - Toolset muss eventuell davor mit dem Installer installiert werden
 
 2. Systemumgebungsvariablen unter Windows öffnen > Erweitert > Umgebungsvariablen... > Systemvariablen: Neu... anklicken 
-- Name der Variablen: "PCL_ROOT"
-- Wert der Variable: Pfad in dem die PCL gespeichert ist "C:\Users\Minh\Desktop\PCL\PCL 1.8.1"
+- Name der Variablen: `PCL_ROOT`
+- Wert der Variable: Pfad in dem die PCL gespeichert ist `C:\Users\Minh\Desktop\PCL\PCL 1.8.1`
 
 
 Viel Spaß!
