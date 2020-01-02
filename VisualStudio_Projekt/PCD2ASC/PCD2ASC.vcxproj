@@ -124,9 +124,11 @@ copy "$(OPENNI2_REDIST64)\OpenNI2.dll" "$(OutDir)"
   <ItemGroup>
     <ClCompile Include="PCD2ASC.cpp" />
     <ClCompile Include="Processing.cpp" />
+    <ClCompile Include="ReferenceModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Processing.h" />
+    <ClInclude Include="ReferenceModel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
