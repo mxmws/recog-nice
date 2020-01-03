@@ -15,15 +15,11 @@
 #include <pcl/registration/icp.h>	// for ICP
 #include <pcl/filters/crop_box.h>	//for removing background via crop Box
 
-
 //for some reason transformationMatrix works without these includes
 //#include <pcl/point_cloud.h>
 //#include <pcl/console/parse.h>
 //#include <pcl/common/transforms.h>
-
 using namespace std;
-
-
 
 void showHelp(char * program_name)
 {

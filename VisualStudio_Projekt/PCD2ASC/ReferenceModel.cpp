@@ -5,21 +5,36 @@
 
 using namespace std;
 
-ReferenceModel::ReferenceModel(std::string filename)
+ReferenceModel::ReferenceModel(std::string filename, std::string filename1)
 {
-	pcl::PointCloud<pcl::PointXYZ>::Ptr referenceCloud(new pcl::PointCloud<pcl::PointXYZ>());
 	pcl::PLYReader Reader;
 	Reader.read(filename, *referenceCloud);
+	Reader.read(filename1, *referenceCloud1);
 }
 
-float ReferenceModel::scoreSimilarity(pcl::PointCloud<pcl::PointXYZ>::Ptr pointcloud)
+float ReferenceModel::scoreSimilarity() // No parameter because it uses the private variables from the class
 {
 	float scoring;
 
+	// Using ICP to determine closeness of 2 .ply data
+	pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp2;
+	icp2.setInputSource(referenceCloud);
+	icp2.setInputTarget(referenceCloud1);
+
+	// Saving the result in a new point cloud
+	icp2.align(Result);
+
+	// Giving the results back to the user
+	cout << endl << referenceCloud << " with " << referenceCloud1 << ": ";
+	cout << endl << "Has converged: " << icp2.hasConverged();
+	scoring = icp2.getFitnessScore();	// Changing the value of scoring based on the score from ICP
+	cout << " with score: " << scoring << endl;
+	cout << "Transformation Matrix: " << endl << icp2.getFinalTransformation() << endl;
+	cout << "Scoring: ";
 	return scoring;
 }
 
-//ICP Test
+// Old ICP Test (as reference)
 void ReferenceModel::compareToReferences(string FileNameStr1, string FileNameStr2) {
 #pragma region Test program from PCL
 	// Quellcode von PCL Dokumentation
