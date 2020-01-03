@@ -20,7 +20,7 @@ float ReferenceModel::scoreSimilarity(pcl::PointCloud<pcl::PointXYZ>::Ptr pointc
 }
 
 //ICP Test
-void ReferenceModel::compareToReferences() {
+void ReferenceModel::compareToReferences(string FileNameStr1, string FileNameStr2) {
 #pragma region Test program from PCL
 	// Quellcode von PCL Dokumentation
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_in(new pcl::PointCloud<pcl::PointXYZ>);
@@ -68,13 +68,13 @@ void ReferenceModel::compareToReferences() {
 
 	// filling PointCloud Objects with .ply Data
 	pcl::PLYReader reader;
-	reader.read("Scan_BackgroundRemoval.ply", *to_check);
+	reader.read(FileNameStr1, *to_check);
 	for (int i = 0; i < (*to_check).size(); i++)
 	{
 		pcl::PointXYZ pt(to_check->points[i].x, to_check->points[i].y, to_check->points[i].z);
 	}
 
-	reader.read("Scan_BackgroundRemoval_TestKOPIE.ply", *to_check_with);
+	reader.read(FileNameStr2, *to_check_with);
 	for (int i = 0; i < (*to_check_with).size(); i++)
 	{
 		pcl::PointXYZ pt(to_check_with->points[i].x, to_check_with->points[i].y, to_check_with->points[i].z);
@@ -87,7 +87,7 @@ void ReferenceModel::compareToReferences() {
 
 	pcl::PointCloud<pcl::PointXYZ> Result;
 	icp2.align(Result);
-	cout << endl << "Scan_BackgroundRemoval.ply with Scan_BackgroundRemoval_TestKOPIE.ply: ";
+	cout << endl << FileNameStr1 << " with " << FileNameStr2 << ": ";
 	cout << endl << "Has converged: " << icp2.hasConverged() << " with score: " << icp2.getFitnessScore() << endl;
 	cout << icp2.getFinalTransformation() << endl;
 }

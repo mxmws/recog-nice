@@ -16,6 +16,7 @@
 #include <math.h>
 #include <pcl/io/ply_io.h>
 #include "Processing.h"
+#include "ReferenceModel.h"
 #include <pcl/filters/extract_indices.h>		//header to remove points with indices
 
 
@@ -34,10 +35,13 @@ int main ()
 	Processing readWrite;
 	//source_cloud = readWrite.transformationMatrix(source_cloud);
 
+	// ReferenceModel
+	ReferenceModel refModel;
+	
 	//readWrite.plyReader();
 	readWrite.removeBackground();
 	//readWrite.cropItembox();
-	//readWrite.compareToReferences();
+	refModel.compareToReferences("ball_1", "ball_1_filtered");
 
 	//pcl::io::savePLYFileBinary("noObjectTransformed.ply", *source_cloud);
 
