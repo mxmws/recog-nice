@@ -8,5 +8,4 @@ public:
 	void plyReader();
 	void removeBackground();
 	void cropItembox();
-	void compareToReferences();
 };

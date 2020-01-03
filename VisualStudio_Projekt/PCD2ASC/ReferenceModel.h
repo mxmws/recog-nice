@@ -8,6 +8,7 @@ public:
 	std::string filename;
 	ReferenceModel(std::string);
 	float scoreSimilarity(pcl::PointCloud<pcl::PointXYZ>::Ptr);
+	void compareToReferences();
 private:
 	pcl::PointCloud<pcl::PointXYZ>::Ptr referenceCloud;
 };
