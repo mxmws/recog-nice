@@ -8,12 +8,11 @@ class ReferenceModel
 public:
 	std::string filename;
 	ReferenceModel() = default;
-	ReferenceModel(string, string);
-	float scoreSimilarity();
+	ReferenceModel(string);
+	float scoreSimilarity(pcl::PointCloud<pcl::PointXYZ>::Ptr);
 	void compareToReferences(string, string); // Only as reference
 private:
 	pcl::PointCloud<pcl::PointXYZ>::Ptr referenceCloud;
-	pcl::PointCloud<pcl::PointXYZ>::Ptr referenceCloud1;
 	pcl::PointCloud<pcl::PointXYZ> Result;
 };
 
