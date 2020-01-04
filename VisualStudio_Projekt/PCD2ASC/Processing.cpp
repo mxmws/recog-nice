@@ -70,17 +70,9 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string filepath)
 }
 
 
-void Processing::cropItembox()
+pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::cropItembox(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud)
 {
-	//new PointCloud object
-	pcl::PointCloud<pcl::PointNormal>::Ptr cloud(new pcl::PointCloud<pcl::PointNormal>);
-
-	//filling PointCLoud object with PLY data
-	pcl::PLYReader Reader;
-	//Reader.read("Scan_BackgroundRemoval.ply", *cloud);
-	Reader.read("ball_1.ply", *cloud);
-
-	pcl::CropBox<pcl::PointNormal> boxFilter;
+	pcl::CropBox<pcl::PointXYZ> boxFilter;
 
 	// X = depth, Y = width, Z = height
 								//(minX, minY, minZ, 1.0))
@@ -88,22 +80,25 @@ void Processing::cropItembox()
 								//(maxX, maxY, maxZ, 1.0))
 	//boxFilter.setMax(Eigen::Vector4f(2000, 500, 250, 1.0));
 
+									//(minX, minY, minZ, 1.0))
 	boxFilter.setMin(Eigen::Vector4f(0,0,0,1.0));	
+									//(maxX, maxY, maxZ, 1.0))
 	boxFilter.setMax(Eigen::Vector4f(10000,-10000, 10000, 1.0));
 	boxFilter.setInputCloud(cloud);
 
 	//create a new filtered point cloud
-	pcl::PointCloud<pcl::PointNormal>::Ptr cloudFiltered(new pcl::PointCloud<pcl::PointNormal>);
+	pcl::PointCloud<pcl::PointXYZ>::Ptr cloudFiltered(new pcl::PointCloud<pcl::PointXYZ>);
 	boxFilter.filter(*cloudFiltered);
 
 	//string writePath = "Scan_BackgroundRemoval_TestKOPIE.ply";
 	string writePath = "ball_1_filtered.ply";
 
 	pcl::io::savePLYFileBinary(writePath, *cloudFiltered);
+	return cloud;
 }
 
 
-void Processing::removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr p_obstacles)
+pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr p_obstacles)
 {
 	//new PointCloud object
 	//pcl::PointCloud<pcl::PointXYZ>::Ptr p_obstacles(new pcl::PointCloud<pcl::PointXYZ>);
@@ -130,7 +125,8 @@ void Processing::removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr p_obstacle
 	extract.filter(*p_obstacles);
 
 	string writePath = "ball_1_filtered.ply";
-
 	pcl::io::savePLYFileBinary(writePath, *p_obstacles);
+
+	return p_obstacles;
 }
 

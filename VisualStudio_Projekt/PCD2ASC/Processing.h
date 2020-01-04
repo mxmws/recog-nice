@@ -7,6 +7,6 @@ class Processing
 public:
 	pcl::PointCloud<pcl::PointXYZ>::Ptr transformationMatrix(pcl::PointCloud<pcl::PointXYZ>::Ptr);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr plyReader(string);
-	void removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr);
-	void cropItembox();
+	pcl::PointCloud<pcl::PointXYZ>::Ptr removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr);
+	pcl::PointCloud<pcl::PointXYZ>::Ptr cropItembox(pcl::PointCloud<pcl::PointXYZ>::Ptr);
 };
