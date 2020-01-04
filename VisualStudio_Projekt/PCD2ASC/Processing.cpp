@@ -14,6 +14,8 @@
 #include <pcl/point_types.h>		// for ICP
 #include <pcl/registration/icp.h>	// for ICP
 #include <pcl/filters/crop_box.h>	//for removing background via crop Box
+#include <string>
+
 
 //for some reason transformationMatrix works without these includes
 //#include <pcl/point_cloud.h>
@@ -59,18 +61,14 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointC
 
 
 // Loading PLY file into PointCloud object and saves it as PLY-Kopie
-void Processing::plyReader()
+pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string filepath)
 {
-	pcl::PointCloud<pcl::PointNormal>::Ptr cloud_ptr(new pcl::PointCloud<pcl::PointNormal>);
-
+	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_ptr(new pcl::PointCloud<pcl::PointXYZ>);
 	pcl::PLYReader Reader;
-
-	Reader.read("DeoPLY.ply", *cloud_ptr);
-
-	string writePath = "DeoKOPIE.ply";
-
-	pcl::io::savePLYFileBinary(writePath, *cloud_ptr);
+	Reader.read("filepath", *cloud_ptr);
+	return cloud_ptr;
 }
+
 
 void Processing::cropItembox()
 {
@@ -121,7 +119,7 @@ void Processing::removeBackground()
 		// positive X to the right from center, positive Y points upwards from center, positive Z points backwards
 		// z coordinate not working
 		pcl::PointXYZ pt(p_obstacles->points[i].x, p_obstacles->points[i].y, p_obstacles->points[i].z);
-		if ((pt.x > 0.6||pt.x < -0.07 || pt.y < 0.02 || pt.z >0 ))						// remove points whose x-coordinate is ...
+		if ((pt.x > 0.6||pt.x < -0.07 || pt.y < 0.02 || pt.z > 0 ))						// remove points whose x-coordinate is ...
 		{
 			inliers->indices.push_back(i);
 		}
