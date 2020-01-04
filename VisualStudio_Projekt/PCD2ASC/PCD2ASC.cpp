@@ -27,19 +27,19 @@ int main ()
 	//source_cloud = readWrite.transformationMatrix(source_cloud);
 
 	//import
-	pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud = process.plyReader("ball_1.ply");
+	pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud = process.plyReader("ball_2.ply");
 
+	source_cloud = process.transformationMatrix(source_cloud);
 
 	//remove background
 	process.removeBackground(source_cloud);
 	//process.cropItembox();
 
 
-	
-
 
 	// ReferenceModel and ICP
-	ReferenceModel refModel("ball_1");
+	pcl::PointCloud<pcl::PointXYZ>::Ptr ball_1_cloud = process.plyReader("ball_1.ply");
+	ReferenceModel refModel1(ball_1_cloud);
 	//refModel.scoreSimilarity();
 
 	//pcl::io::savePLYFileBinary("noObjectTransformed.ply", *source_cloud);
