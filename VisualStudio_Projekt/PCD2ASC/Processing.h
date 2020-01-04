@@ -8,6 +8,6 @@ public:
 	pcl::PointCloud<pcl::PointXYZ>::Ptr transformationMatrix(pcl::PointCloud<pcl::PointXYZ>::Ptr);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr plyReader(string);
 	void Processing::plyWriter(string);
-	void removeBackground();
+	void removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr);
 	void cropItembox();
 };

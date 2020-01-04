@@ -103,14 +103,14 @@ void Processing::cropItembox()
 }
 
 
-void Processing::removeBackground()
+void Processing::removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr p_obstacles)
 {
 	//new PointCloud object
-	pcl::PointCloud<pcl::PointXYZ>::Ptr p_obstacles(new pcl::PointCloud<pcl::PointXYZ>);
+	//pcl::PointCloud<pcl::PointXYZ>::Ptr p_obstacles(new pcl::PointCloud<pcl::PointXYZ>);
 
 	//filling PointCLoud object with PLY data
-	pcl::PLYReader Reader;
-	Reader.read("ball_1.ply", *p_obstacles);
+	//pcl::PLYReader Reader;
+	//Reader.read("ball_1.ply", *p_obstacles);
 
 	pcl::PointIndices::Ptr inliers(new pcl::PointIndices());
 	pcl::ExtractIndices<pcl::PointXYZ> extract;
