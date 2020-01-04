@@ -65,7 +65,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string filepath)
 {
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_ptr(new pcl::PointCloud<pcl::PointXYZ>);
 	pcl::PLYReader Reader;
-	Reader.read("filepath", *cloud_ptr);
+	Reader.read(filepath, *cloud_ptr);
 	return cloud_ptr;
 }
 

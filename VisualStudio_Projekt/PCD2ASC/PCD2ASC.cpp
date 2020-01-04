@@ -22,23 +22,25 @@ using namespace std;
 //int _tmain(int argc, _TCHAR* argv[])
 int main ()
 {
-	//import
-	pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud(new pcl::PointCloud<pcl::PointXYZ>());
-
-	pcl::PLYReader Reader;
-	Reader.read("noObject.ply", *source_cloud);
-
 	//processing
-	Processing readWrite;
+	Processing process;
 	//source_cloud = readWrite.transformationMatrix(source_cloud);
+
+	//import
+	pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud = process.plyReader("ball_1.ply");
+
+
+	//remove background
+	process.removeBackground(source_cloud);
+	//process.cropItembox();
+
+
 	
-	readWrite.plyReader();
-	readWrite.removeBackground();
-	//readWrite.cropItembox();
+
 
 	// ReferenceModel and ICP
-	ReferenceModel refModel("ball_1", "ball_1_filtered");
-	refModel.scoreSimilarity();
+	ReferenceModel refModel("ball_1");
+	//refModel.scoreSimilarity();
 
 	//pcl::io::savePLYFileBinary("noObjectTransformed.ply", *source_cloud);
 }
