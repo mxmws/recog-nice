@@ -5,10 +5,9 @@
 
 using namespace std;
 
-ReferenceModel::ReferenceModel(std::string filename)
+ReferenceModel::ReferenceModel(pcl::PointCloud<pcl::PointXYZ>::Ptr refCloud)
 {
-	pcl::PLYReader Reader;
-	Reader.read(filename, *referenceCloud);
+	referenceCloud = refCloud;
 }
 
 float ReferenceModel::scoreSimilarity(pcl::PointCloud<pcl::PointXYZ>::Ptr toCheckWith_ptr) // No parameter because it uses the private variables from the class
