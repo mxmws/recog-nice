@@ -25,8 +25,9 @@ ReferenceModel::ReferenceModel(pcl::PointCloud<pcl::PointXYZ>::Ptr refCloud)
  * Sources: http://pointclouds.org/documentation/tutorials/iterative_closest_point.php
  *			http://docs.pointclouds.org/trunk/classpcl_1_1_iterative_closest_point.html
  */
-float ReferenceModel::scoreSimilarity(pcl::PointCloud<pcl::PointXYZ>::Ptr toCheckWith_ptr) // No parameter because it uses the private variables from the class
+float ReferenceModel::scoreSimilarity(pcl::PointCloud<pcl::PointXYZ>::Ptr toCheckWith_ptr)
 {
+	cout << "ICP..." << endl;
 	// Using ICP to determine closeness of 2 .ply data
 	pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp2;
 	icp2.setInputSource(referenceCloud);

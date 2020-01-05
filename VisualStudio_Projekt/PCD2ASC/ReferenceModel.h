@@ -1,6 +1,6 @@
+#pragma once
 #include <pcl/io/ply_io.h>
 
-#pragma once
 class ReferenceModel
 {
 public:

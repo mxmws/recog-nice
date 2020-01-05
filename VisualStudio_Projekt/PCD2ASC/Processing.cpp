@@ -14,8 +14,58 @@
 using namespace std;
 
 
+/**
+* Loading ply file into PointCloud object and return it.
+*
+* @param string Takes the "filename" as input
+* @return PointCloud::Ptr Returns a PointCloud object.
+*
+* Sources:	https://stackoverflow.com/questions/30764222/how-to-read-ply-file-using-pcl
+*/
+pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string filename)
+{
+	//navigates to testScans
+	experimental::filesystem::path filepath = canonical(experimental::filesystem::path("..") / ".." / "testScans");
+	filepath.append(filename);
+
+	//creates new PointCloud
+	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_ptr(new pcl::PointCloud<pcl::PointXYZ>);
+	pcl::PLYReader Reader;
+	Reader.read(filepath.u8string(), *cloud_ptr);
+	return cloud_ptr;
+}
+
+/**
+* Saves a PointCloud as ply file
+*
+* @param PointCloud::Ptr Takes a string for "filename" and a PointCloud object.
+*
+* Sources: http://docs.pointclouds.org/1.7.0/classpcl_1_1_p_l_y_writer.html
+*/
+void Processing::plyWriter(string filename, pcl::PointCloud<pcl::PointXYZ>::Ptr pointcloud)
+{
+	//navigates to testScans
+	experimental::filesystem::path filepath = canonical(experimental::filesystem::path("..") / ".." / "testScans");
+	filepath.append(filename);
+
+	//saves PointCloud as ply file
+	pcl::io::savePLYFileBinary(filepath.u8string(), *pointcloud);
+}
+
+
+
+
+/**
+* Rotates point cloud to make removeBackground possible
+*
+* @param PointCloud::Ptr Takes a PointCloud object.
+* @return Returns the rotatet PointCloud object.
+*
+* Sources: http://pointclouds.org/documentation/tutorials/matrix_transform.php
+*/
 pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud)
 {
+	cout << "Rotating PointCloud..." << endl;
 	//float theta = M_PI / 4; // The angle of rotation in radians
 	float theta = -0.6;
 
@@ -30,50 +80,10 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointC
 	// Executing the transformation
 	pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_cloud(new pcl::PointCloud<pcl::PointXYZ>());
 	pcl::transformPointCloud(*source_cloud, *transformed_cloud, transform_2);
-
+	
+	cout << "Done..." << endl;
 	return transformed_cloud;
 }
-
-
-/**
- * Loading ply file into PointCloud object and return it.
- *
- * @param string Takes the "filename" as input
- * @return PointCloud::Ptr Returns a PointCloud object.
- *
- * Sources:	https://stackoverflow.com/questions/30764222/how-to-read-ply-file-using-pcl
- */
-pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string filename)
-{
-	//navigates to testScans
-	experimental::filesystem::path filepath = canonical(experimental::filesystem::path("..") / ".." / "testScans");
-	filepath.append(filename);
-
-	//creates new PointCloud
-	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_ptr(new pcl::PointCloud<pcl::PointXYZ>);
-	pcl::PLYReader Reader;
-	Reader.read(filepath.u8string(), *cloud_ptr);
-	return cloud_ptr;
-}
-
-
-/**
- * Saves a PointCloud as ply file
- *
- * @param PointCloud::Ptr Takes a string for "filename" and a PointCloud object.
- *
- * Sources: http://docs.pointclouds.org/1.7.0/classpcl_1_1_p_l_y_writer.html
- */
-void Processing::plyWriter(string filename, pcl::PointCloud<pcl::PointXYZ>::Ptr pointcloud)
-{
-	//navigates to testScans
-	experimental::filesystem::path filepath = canonical(experimental::filesystem::path("..") / ".." / "testScans");
-	filepath.append(filename);
-
-	//saves PointCloud as ply file
-	pcl::io::savePLYFileBinary(filepath.u8string(), *pointcloud);
-}
-
 
 /**
  * Removes points whose coordinates match the given parameters.
@@ -86,7 +96,7 @@ void Processing::plyWriter(string filename, pcl::PointCloud<pcl::PointXYZ>::Ptr 
  */
 pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud)
 {
-	cout << "Removing background...\n";
+	cout << "Removing background..." << endl;
 	//Points to be removed saved in PointIndices
 	pcl::PointIndices::Ptr ToBeRemoved(new pcl::PointIndices());
 	pcl::ExtractIndices<pcl::PointXYZ> extract;
@@ -105,7 +115,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud
 	//Remove points
 	extract.setNegative(true);
 	extract.filter(*cloud);
-	cout << "Done...\n";
+	cout << "Done..." << endl;
 	return cloud;
 }
 
