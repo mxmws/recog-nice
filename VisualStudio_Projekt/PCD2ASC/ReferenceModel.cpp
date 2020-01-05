@@ -19,6 +19,9 @@ ReferenceModel::ReferenceModel(pcl::PointCloud<pcl::PointXYZ>::Ptr refCloud)
  *
  * @param PointXYZ::Ptr A pointer to a point cloud that is going to be compared to the point cloud in the class
  * @return The similarity score of two point clouds. The closer it is to 0, the more similar the two point clouds are.
+ * 
+ * Sources: http://pointclouds.org/documentation/tutorials/iterative_closest_point.php
+ *			http://docs.pointclouds.org/trunk/classpcl_1_1_iterative_closest_point.html
  */
 float ReferenceModel::scoreSimilarity(pcl::PointCloud<pcl::PointXYZ>::Ptr toCheckWith_ptr) // No parameter because it uses the private variables from the class
 {
