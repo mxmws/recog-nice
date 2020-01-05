@@ -7,7 +7,7 @@ using namespace std;
 /**
  * Set a new point cloud as reference to be compared with other point clouds
  *
- * @param A pointer to a new point cloud whose values are going to be compared with
+ * @param PointXYZ::Ptr A pointer to a new point cloud whose values are going to be compared with
  */
 ReferenceModel::ReferenceModel(pcl::PointCloud<pcl::PointXYZ>::Ptr refCloud)
 {
@@ -17,7 +17,7 @@ ReferenceModel::ReferenceModel(pcl::PointCloud<pcl::PointXYZ>::Ptr refCloud)
 /**
  * Score the similarity between the reference point cloud with the point cloud in the parameter
  *
- * @param A pointer to a point cloud that is going to be compared to the point cloud in the class
+ * @param PointXYZ::Ptr A pointer to a point cloud that is going to be compared to the point cloud in the class
  * @return The similarity score of two point clouds. The closer it is to 0, the more similar the two point clouds are.
  */
 float ReferenceModel::scoreSimilarity(pcl::PointCloud<pcl::PointXYZ>::Ptr toCheckWith_ptr) // No parameter because it uses the private variables from the class
