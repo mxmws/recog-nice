@@ -1,34 +1,17 @@
 #include "Processing.h"
-//#include <stdio.h>
-//#include <tchar.h>
-//#include <stdlib.h>
-#include <iostream>             // for std::cout
-#include <string>
-#include <fstream>
-#include <algorithm>
-#include <pcl/io/pcd_io.h>      // header that contains the definitions for PCD I/O operations
-#include <iterator>
-#include <math.h>
-#include <pcl/io/ply_io.h>
+
+#include <pcl/common/transforms.h>	// for transformationMatrix
+#include <pcl/console/parse.h>		// for transformationMatrix
+#include <pcl/filters/crop_box.h>	// for removing background via crop Box
 #include <pcl/filters/extract_indices.h>
+#include <pcl/io/pcd_io.h>			// header that contains the definitions for PCD I/O operations
+#include <pcl/io/ply_io.h>
+#include <pcl/point_cloud.h>		// for transformationMatrix
 #include <pcl/point_types.h>		// for ICP
 #include <pcl/registration/icp.h>	// for ICP
-#include <pcl/filters/crop_box.h>	//for removing background via crop Box
 #include <string>
 
-
-//for some reason transformationMatrix works without these includes
-//#include <pcl/point_cloud.h>
-//#include <pcl/console/parse.h>
-//#include <pcl/common/transforms.h>
 using namespace std;
-
-void showHelp(char * program_name)
-{
-	std::cout << std::endl;
-	std::cout << "Usage: " << program_name << " cloud_filename.[pcd|ply]" << std::endl;
-	std::cout << "-h:  Show this help." << std::endl;
-}
 
 
 pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud)
