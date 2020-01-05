@@ -31,11 +31,14 @@ int main ()
 	process.plyWriter("ball_1_transformed.ply", source_cloud);
 
 	// ReferenceModel and ICP
-	// Ball 1 with Ball 2
+	// Ball 1 with Ball 2 and give out the result to the console
 	refModel1.scoreSimilarity(source_cloud);
+	cout << endl << "Scan 1: Ball 1" << endl;
+	cout << "refModel Ball 1 with Ball 2: " << refModel1.scoring << endl;
 
-	// Ball 1 with Box 2
+	// Ball 1 with Box 2 and give out the result to the console
 	refModel2.scoreSimilarity(source_cloud);
+	cout << endl << "refModel Ball 1 with Box 2: " << refModel2.scoring << endl;
 
 
 	//scan 2
@@ -50,11 +53,14 @@ int main ()
 	process.plyWriter("box_1_transformed.ply", source_cloud1);
 	
 	// ReferenceModel and ICP
-	// Box 1 with Ball 2
+	// Box 1 with Ball 2 and give out the result to the console
 	refModel1.scoreSimilarity(source_cloud1);
+	cout << endl << "Scan 2: Box 1" << endl;
+	cout << "refModel Box 1 with Ball 2: " << refModel1.scoring << endl;
 
-	// Box 1 with Box 2
+	// Box 1 with Box 2 and give out the result to the console
 	refModel2.scoreSimilarity(source_cloud1);
+	cout << "refModel Box 1 with Box 2: " << refModel1.scoring << endl;
 
 	cin.get();
 }
