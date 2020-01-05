@@ -10,6 +10,7 @@
 #include <pcl/point_types.h>		// for ICP
 #include <pcl/registration/icp.h>	// for ICP
 #include <string>
+#include <filesystem>
 
 using namespace std;
 
@@ -36,13 +37,28 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointC
 
 
 
-// Loading PLY file into PointCloud object and saves it as PLY-Kopie
-pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string filepath)
+// Loading PLY file into PointCloud object and returns it
+pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string filename)
 {
+	//navigates to testScans
+	experimental::filesystem::path filepath = canonical(experimental::filesystem::path("..") / ".." / "testScans");
+	filepath.append(filename);
+
+	//creates new PointCloud
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_ptr(new pcl::PointCloud<pcl::PointXYZ>);
 	pcl::PLYReader Reader;
-	Reader.read(filepath, *cloud_ptr);
+	Reader.read(filepath.u8string(), *cloud_ptr);
 	return cloud_ptr;
+}
+
+void Processing::plyWriter(string filename, pcl::PointCloud<pcl::PointXYZ>::Ptr pointcloud)
+{
+	//navigates to testScans
+	experimental::filesystem::path filepath = canonical(experimental::filesystem::path("..") / ".." / "testScans");
+	filepath.append(filename);
+
+	//creates new PointCloud
+	pcl::io::savePLYFileBinary(filepath.u8string(), *pointcloud);
 }
 
 
