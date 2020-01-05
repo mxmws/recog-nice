@@ -37,7 +37,12 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointC
 
 
 
-// Loading PLY file into PointCloud object and returns it
+
+/**
+ * Loading ply file into PointCloud object and return it.
+ *
+ * Takes a string as input parameter.
+ */
 pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string filename)
 {
 	//navigates to testScans
@@ -51,6 +56,11 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string filename)
 	return cloud_ptr;
 }
 
+/**
+ * Saves a PointCloud as "filename".ply
+ *
+ * Takes a string for "filename" and a PointCloud object.
+ */
 void Processing::plyWriter(string filename, pcl::PointCloud<pcl::PointXYZ>::Ptr pointcloud)
 {
 	//navigates to testScans
@@ -62,29 +72,15 @@ void Processing::plyWriter(string filename, pcl::PointCloud<pcl::PointXYZ>::Ptr 
 }
 
 
-pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::cropItembox(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud)
-{
-	pcl::CropBox<pcl::PointXYZ> boxFilter;
-
-	// X = depth, Y = width, Z = height
-									//(minX, minY, minZ, 1.0))
-	//boxFilter.setMin(Eigen::Vector4f(0,0,0,1.0));	
-									//(maxX, maxY, maxZ, 1.0))
-	boxFilter.setMax(Eigen::Vector4f(0.2,0.8,1, 1.0)); // x links rechts? 
-	boxFilter.setInputCloud(cloud);
-
-	//create a new filtered point cloud
-	pcl::PointCloud<pcl::PointXYZ>::Ptr cloudFiltered(new pcl::PointCloud<pcl::PointXYZ>);
-	boxFilter.filter(*cloudFiltered);
-
-	//return filtered cloud 
-	return cloudFiltered;
-}
-
-
+/**
+ * Removes points whose coordinates match the given parameters.
+ *
+ * Takes a PointCloud object and returns it without background.
+ */
 pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud)
 {
 	cout << "Removing background...\n";
+	//Points to be removed saved in PointIndices
 	pcl::PointIndices::Ptr inliers(new pcl::PointIndices());
 	pcl::ExtractIndices<pcl::PointXYZ> extract;
 	for (int i = 0; i < (*cloud).size(); i++)
@@ -99,6 +95,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud
 	}
 	extract.setInputCloud(cloud);
 	extract.setIndices(inliers);
+	//Remove points
 	extract.setNegative(true);
 	extract.filter(*cloud);
 	cout << "Done...\n";
