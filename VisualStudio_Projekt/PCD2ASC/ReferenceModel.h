@@ -9,6 +9,6 @@ public:
 	float scoring;
 private:
 	pcl::PointCloud<pcl::PointXYZ>::Ptr referenceCloud;
-	pcl::PointCloud<pcl::PointXYZ> Result;
+	pcl::PointCloud<pcl::PointXYZ> result;
 };
 

@@ -8,7 +8,7 @@ using namespace std;
 /**
  * Set a new point cloud as reference to be compared with other point clouds
  *
- * @param PointCloud::Ptr A pointer to a new point cloud whose values are going to be compared with
+ * @param refCloud A pointer to a new point cloud whose values are going to be compared with
  */
 ReferenceModel::ReferenceModel(pcl::PointCloud<pcl::PointXYZ>::Ptr refCloud)
 {
@@ -19,7 +19,7 @@ ReferenceModel::ReferenceModel(pcl::PointCloud<pcl::PointXYZ>::Ptr refCloud)
 /**
  * Score the similarity between the reference point cloud with the point cloud in the parameter
  *
- * @param PointCloud::Ptr A pointer to a point cloud that is going to be compared to the point cloud in the class
+ * @param toCheckWith_ptr A pointer to a point cloud that is going to be compared to the point cloud in the class
  * @return The similarity score of two point clouds. The closer it is to 0, the more similar the two point clouds are.
  * 
  * Sources: http://pointclouds.org/documentation/tutorials/iterative_closest_point.php
@@ -34,7 +34,7 @@ float ReferenceModel::scoreSimilarity(pcl::PointCloud<pcl::PointXYZ>::Ptr toChec
 	icp2.setInputTarget(toCheckWith_ptr);
 
 	// Saving the result in a new point cloud
-	icp2.align(Result);
+	icp2.align(result);
 
 	// Giving the results back to the user
 	cout << endl << &referenceCloud << " with " << &toCheckWith_ptr << ": ";
@@ -46,4 +46,3 @@ float ReferenceModel::scoreSimilarity(pcl::PointCloud<pcl::PointXYZ>::Ptr toChec
 
 	return scoring;
 }
-

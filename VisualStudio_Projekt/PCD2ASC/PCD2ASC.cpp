@@ -13,9 +13,11 @@ int main ()
 	Processing process;
 	
 	// Load reference Models
-	pcl::PointCloud<pcl::PointXYZ>::Ptr ball_2_cloud = process.plyReader("ball_2_transformed.ply");
+	string refModelFile1 = "ball_2_transformed.ply";
+	pcl::PointCloud<pcl::PointXYZ>::Ptr ball_2_cloud = process.plyReader(refModelFile1);
 	ReferenceModel refModel1(ball_2_cloud);
-	pcl::PointCloud<pcl::PointXYZ>::Ptr box_2_cloud = process.plyReader("box_2_transformed.ply");
+	string refModelFile2 = "box_2_transformed.ply";
+	pcl::PointCloud<pcl::PointXYZ>::Ptr box_2_cloud = process.plyReader(refModelFile2);
 	ReferenceModel refModel2(box_2_cloud);
 
 	
@@ -23,39 +25,40 @@ int main ()
 	// Scan Box
 	// 
 	// Import
-	pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud1 = process.plyReader("box_1.ply");
+	string sourceCloudFile = "box_1.ply";
+	pcl::PointCloud<pcl::PointXYZ>::Ptr sourceCloud = process.plyReader(sourceCloudFile);
 	// Transform
-	source_cloud1 = process.transformationMatrix(source_cloud1);
+	sourceCloud = process.transformationMatrix(sourceCloud);
 	// Remove background
-	source_cloud1 = process.removeBackground(source_cloud1);
+	sourceCloud = process.removeBackground(sourceCloud);
 	// Save cloud as ply (for testing)
-	process.plyWriter("box_1_transformed.ply", source_cloud1);
+	process.plyWriter("box_1_transformed.ply", sourceCloud);
 
 	// ReferenceModel and ICP
 	// Compare Box 1 to Ball 2 and Box 2 and output it
-	refModel1.scoreSimilarity(source_cloud1);
-	refModel2.scoreSimilarity(source_cloud1);
+	refModel1.scoreSimilarity(sourceCloud);
+	refModel2.scoreSimilarity(sourceCloud);
 	cout << endl << "Scan 2: Box 1" << endl;
 	cout << "refModel Ball 2 with Box 1: " << refModel1.scoring << endl;
 	cout << "refModel Box 2 with Box 1: " << refModel2.scoring << endl;
-
 
 	
 	// Scan Ball
 	// 
 	// Import
-	pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud = process.plyReader("ball_1.ply");
-	// Rotate pointcloud
-	source_cloud = process.transformationMatrix(source_cloud);
+	sourceCloudFile = "ball_1.ply";
+	sourceCloud = process.plyReader(sourceCloudFile);
+	// Rotate point cloud
+	sourceCloud = process.transformationMatrix(sourceCloud);
 	// Remove background
-	source_cloud = process.removeBackground(source_cloud);
+	sourceCloud = process.removeBackground(sourceCloud);
 	// Save cloud as ply (for testing)
-	process.plyWriter("ball_1_transformed.ply", source_cloud);
+	process.plyWriter("ball_1_transformed.ply", sourceCloud);
 
 	// ReferenceModel and ICP
 	// compare Ball 1 to Ball 2 and give out the result to the console
-	refModel1.scoreSimilarity(source_cloud);
-	refModel2.scoreSimilarity(source_cloud);
+	refModel1.scoreSimilarity(sourceCloud);
+	refModel2.scoreSimilarity(sourceCloud);
 	cout << endl << "Scan 1: Ball 1" << endl;
 	cout << "refModel Ball 2 with Ball 1: " << refModel1.scoring << endl;
 	cout << "refModel Box 2 with Ball 1: " << refModel2.scoring << endl;
