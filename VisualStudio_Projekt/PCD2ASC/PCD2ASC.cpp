@@ -4,11 +4,9 @@
 #include <pcl/io/pcd_io.h>					// header that contains the definitions for PCD I/O operations
 #include <pcl/filters/extract_indices.h>	//header to remove points with indices
 
-
 using namespace std;
 
 
-//int _tmain(int argc, _TCHAR* argv[])
 int main ()
 {
 	//processing

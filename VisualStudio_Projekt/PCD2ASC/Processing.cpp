@@ -1,5 +1,4 @@
 #include "Processing.h"
-
 #include <pcl/common/transforms.h>	// for transformationMatrix
 #include <pcl/console/parse.h>		// for transformationMatrix
 #include <pcl/filters/crop_box.h>	// for removing background via crop Box
@@ -42,7 +41,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointC
  * Loading ply file into PointCloud object and return it.
  *
  * @param string Takes the "filename" as input
- * @return PointXYZ:Ptr Returns a PointCloud object.
+ * @return PointCloud::Ptr Returns a PointCloud object.
  *
  * Sources:	https://stackoverflow.com/questions/30764222/how-to-read-ply-file-using-pcl
  */
@@ -62,7 +61,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string filename)
 /**
  * Saves a PointCloud as ply file
  *
- * @param Takes a string for "filename" and a PointCloud object.
+ * @param PointCloud::Ptr Takes a string for "filename" and a PointCloud object.
  *
  * Sources: http://docs.pointclouds.org/1.7.0/classpcl_1_1_p_l_y_writer.html
  */
@@ -80,8 +79,8 @@ void Processing::plyWriter(string filename, pcl::PointCloud<pcl::PointXYZ>::Ptr 
 /**
  * Removes points whose coordinates match the given parameters.
  *
- * @param PointXYZ:Ptr Takes a PointCloud object.
- * @return PointXYZ:Ptr Returns the PointCLoud object without background.
+ * @param PointCloud::Ptr Takes a PointCloud object.
+ * @return Returns the PointCLoud object without background.
  *
  * Sources: http://docs.pointclouds.org/trunk/classpcl_1_1_extract_indices.html
 			https://stackoverflow.com/questions/44921987/removing-points-from-a-pclpointcloudpclpointxyzrgb
