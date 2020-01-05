@@ -41,7 +41,8 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointC
 /**
  * Loading ply file into PointCloud object and return it.
  *
- * Takes a string as input parameter.
+ * @param Takes the "filename" as a string.
+ * @return Returns a PointCloud object.
  */
 pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string filename)
 {
@@ -59,7 +60,8 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string filename)
 /**
  * Saves a PointCloud as "filename".ply
  *
- * Takes a string for "filename" and a PointCloud object.
+ * @param Takes a string for "filename" and a PointCloud object.
+ * @return void
  */
 void Processing::plyWriter(string filename, pcl::PointCloud<pcl::PointXYZ>::Ptr pointcloud)
 {
@@ -75,13 +77,14 @@ void Processing::plyWriter(string filename, pcl::PointCloud<pcl::PointXYZ>::Ptr 
 /**
  * Removes points whose coordinates match the given parameters.
  *
- * Takes a PointCloud object and returns it without background.
+ * @param Takes a PointCloud object.
+ * @return Return the PointCLoud object without background.
  */
 pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud)
 {
 	cout << "Removing background...\n";
 	//Points to be removed saved in PointIndices
-	pcl::PointIndices::Ptr inliers(new pcl::PointIndices());
+	pcl::PointIndices::Ptr ToBeRemoved(new pcl::PointIndices());
 	pcl::ExtractIndices<pcl::PointXYZ> extract;
 	for (int i = 0; i < (*cloud).size(); i++)
 	{
@@ -90,11 +93,11 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud
 		// remove points whose x/y/z-coordinate is ...
 		if ((pt.x > 0.6 || pt.x < -0.13 || pt.y < -0.805 || pt.z < -1.5 ))						
 		{
-			inliers->indices.push_back(i);
+			ToBeRemoved->indices.push_back(i);
 		}
 	}
 	extract.setInputCloud(cloud);
-	extract.setIndices(inliers);
+	extract.setIndices(ToBeRemoved);
 	//Remove points
 	extract.setNegative(true);
 	extract.filter(*cloud);
