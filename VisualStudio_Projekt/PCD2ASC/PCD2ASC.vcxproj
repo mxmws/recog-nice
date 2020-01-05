@@ -64,22 +64,8 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(PCL_ROOT_VS2015)\bin\pcl_common_$(Configuration).dll" "$(OutDir)"
-copy "$(PCL_ROOT_VS2015)\bin\pcl_features_$(Configuration).dll" "$(OutDir)"
-copy "$(PCL_ROOT_VS2015)\bin\pcl_filters_$(Configuration).dll" "$(OutDir)"
-copy "$(PCL_ROOT_VS2015)\bin\pcl_io_$(Configuration).dll" "$(OutDir)"
-copy "$(PCL_ROOT_VS2015)\bin\pcl_io_ply_$(Configuration).dll" "$(OutDir)"
-copy "$(PCL_ROOT_VS2015)\bin\pcl_kdtree_$(Configuration).dll" "$(OutDir)"
-copy "$(PCL_ROOT_VS2015)\bin\pcl_ml_$(Configuration).dll" "$(OutDir)"
-copy "$(PCL_ROOT_VS2015)\bin\pcl_octree_$(Configuration).dll" "$(OutDir)"
-copy "$(PCL_ROOT_VS2015)\bin\pcl_sample_consensus_$(Configuration).dll" "$(OutDir)"
-copy "$(PCL_ROOT_VS2015)\bin\pcl_search_$(Configuration).dll" "$(OutDir)"
-copy "$(PCL_ROOT_VS2015)\bin\pcl_segmentation_$(Configuration).dll" "$(OutDir)"
-copy "$(PCL_ROOT_VS2015)\bin\pcl_surface_$(Configuration).dll" "$(OutDir)"
-copy "$(PCL_ROOT_VS2015)\bin\pcl_visualization_$(Configuration).dll" "$(OutDir)"
-copy "$(PCL_ROOT_VS2015)\bin\pcl_visualization_$(Configuration).dll" "$(OutDir)"
-copy "$(OPENNI2_REDIST64)\OpenNI2.dll" "$(OutDir)"
-</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
