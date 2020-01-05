@@ -13,18 +13,14 @@ int main ()
 {
 	//processing
 	Processing process;
-	//source_cloud = readWrite.transformationMatrix(source_cloud);
-
 	//import
-	pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud = process.plyReader("ball_2.ply");
-
+	pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud = process.plyReader("ball_1.ply");
+	//transform
 	source_cloud = process.transformationMatrix(source_cloud);
-
-	process.plyWriter("ball_2_transformed", source_cloud);
-	
-	////remove background
-	//process.removeBackground(source_cloud);
-	////process.cropItembox();
+	//remove background
+	source_cloud = process.removeBackground(source_cloud);
+	//save cloud as ply
+	process.plyWriter("ball_1_transformed.ply", source_cloud);
 
 
 

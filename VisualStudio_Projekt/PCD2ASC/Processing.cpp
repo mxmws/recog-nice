@@ -67,26 +67,18 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::cropItembox(pcl::PointCloud<pcl:
 	pcl::CropBox<pcl::PointXYZ> boxFilter;
 
 	// X = depth, Y = width, Z = height
-								//(minX, minY, minZ, 1.0))
-	//boxFilter.setMin(Eigen::Vector4f(1000, 250, 5, 1.0));
-								//(maxX, maxY, maxZ, 1.0))
-	//boxFilter.setMax(Eigen::Vector4f(2000, 500, 250, 1.0));
-
 									//(minX, minY, minZ, 1.0))
-	boxFilter.setMin(Eigen::Vector4f(0,0,0,1.0));	
+	//boxFilter.setMin(Eigen::Vector4f(0,0,0,1.0));	
 									//(maxX, maxY, maxZ, 1.0))
-	boxFilter.setMax(Eigen::Vector4f(10000,-10000, 10000, 1.0));
+	boxFilter.setMax(Eigen::Vector4f(0.2,0.8,1, 1.0)); // x links rechts? 
 	boxFilter.setInputCloud(cloud);
 
 	//create a new filtered point cloud
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloudFiltered(new pcl::PointCloud<pcl::PointXYZ>);
 	boxFilter.filter(*cloudFiltered);
 
-	//string writePath = "Scan_BackgroundRemoval_TestKOPIE.ply";
-	string writePath = "ball_1_filtered.ply";
-
-	pcl::io::savePLYFileBinary(writePath, *cloudFiltered);
-	return cloud;
+	//return filtered cloud 
+	return cloudFiltered;
 }
 
 
@@ -104,9 +96,9 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud
 	for (int i = 0; i < (*p_obstacles).size(); i++)
 	{
 		// positive X to the right from center, positive Y points upwards from center, positive Z points backwards
-		// z coordinate not working
 		pcl::PointXYZ pt(p_obstacles->points[i].x, p_obstacles->points[i].y, p_obstacles->points[i].z);
-		if ((pt.x > 0.6||pt.x < -0.07 || pt.y < 0.02 || pt.z > 0 ))						// remove points whose x-coordinate is ...
+		// remove points whose x/y/z-coordinate is ...
+		if ((pt.x > 0.6 || pt.x < -0.13 || pt.y < -0.805 || pt.z < -1.5 ))						
 		{
 			inliers->indices.push_back(i);
 		}
@@ -115,9 +107,6 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud
 	extract.setIndices(inliers);
 	extract.setNegative(true);
 	extract.filter(*p_obstacles);
-
-	string writePath = "ball_1_filtered.ply";
-	pcl::io::savePLYFileBinary(writePath, *p_obstacles);
 
 	return p_obstacles;
 }
