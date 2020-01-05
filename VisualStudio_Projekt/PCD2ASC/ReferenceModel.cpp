@@ -4,6 +4,7 @@
 
 using namespace std;
 
+
 /**
  * Set a new point cloud as reference to be compared with other point clouds
  *
@@ -13,6 +14,7 @@ ReferenceModel::ReferenceModel(pcl::PointCloud<pcl::PointXYZ>::Ptr refCloud)
 {
 	referenceCloud = refCloud;
 }
+
 
 /**
  * Score the similarity between the reference point cloud with the point cloud in the parameter

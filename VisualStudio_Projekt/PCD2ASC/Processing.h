@@ -1,6 +1,9 @@
 #include <pcl/io/ply_io.h>
 #include <string>
+
 using namespace std;
+
+
 #pragma once
 class Processing
 {

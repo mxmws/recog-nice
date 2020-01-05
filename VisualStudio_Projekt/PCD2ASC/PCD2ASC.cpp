@@ -9,23 +9,24 @@ using namespace std;
 
 int main ()
 {
-	//processing
+	// Processing
 	Processing process;
 	
-	//load reference Models
+	// Load reference Models
 	pcl::PointCloud<pcl::PointXYZ>::Ptr ball_2_cloud = process.plyReader("ball_2_transformed.ply");
 	ReferenceModel refModel1(ball_2_cloud);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr box_2_cloud = process.plyReader("box_2_transformed.ply");
 	ReferenceModel refModel2(box_2_cloud);
 
-	//scan 1
-	//import
+	// Scan 1
+	// Import and export Ball 1 as transformed .ply data
+	// Import
 	pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud = process.plyReader("ball_1.ply");
-	//transform
+	// Transform
 	source_cloud = process.transformationMatrix(source_cloud);
-	//remove background
+	// Remove background
 	source_cloud = process.removeBackground(source_cloud);
-	//save cloud as ply
+	// Save cloud as ply
 	process.plyWriter("ball_1_transformed.ply", source_cloud);
 
 	// ReferenceModel and ICP
@@ -38,16 +39,15 @@ int main ()
 	refModel2.scoreSimilarity(source_cloud);
 	cout << endl << "refModel Ball 1 with Box 2: " << refModel2.scoring << endl;
 
-
-	//scan 2
-	// Import and export box 1 as transformed .ply data
-	//import
+	// Scan 2
+	// Import and export Box 1 as transformed .ply data
+	// Import
 	pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud1 = process.plyReader("box_1.ply");
-	//transform
+	// Transform
 	source_cloud1 = process.transformationMatrix(source_cloud1);
-	//remove background
+	// Remove background
 	source_cloud1 = process.removeBackground(source_cloud1);
-	//save cloud as ply
+	// Save cloud as ply
 	process.plyWriter("box_1_transformed.ply", source_cloud1);
 	
 	// ReferenceModel and ICP

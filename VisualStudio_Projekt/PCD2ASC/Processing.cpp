@@ -35,8 +35,6 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointC
 }
 
 
-
-
 /**
  * Loading ply file into PointCloud object and return it.
  *
@@ -57,6 +55,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string filename)
 	Reader.read(filepath.u8string(), *cloud_ptr);
 	return cloud_ptr;
 }
+
 
 /**
  * Saves a PointCloud as ply file
