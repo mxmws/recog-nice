@@ -33,27 +33,20 @@ void showHelp(char * program_name)
 
 pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud)
 {
-	Eigen::Matrix4f transform_1 = Eigen::Matrix4f::Identity();
-
 	//float theta = M_PI / 4; // The angle of rotation in radians
 	float theta = -0.6;
 
 	Eigen::Affine3f transform_2 = Eigen::Affine3f::Identity();
 
-	// Define a translation of 2.5 meters on the x axis.
+	// translation is 0 on all axis
 	transform_2.translation() << 0.0, 0.0, 0.0;
 
-	// The same rotation matrix as before; theta radians around Z axis
+	// theta radians around X axis
 	transform_2.rotate(Eigen::AngleAxisf(theta, Eigen::Vector3f::UnitX()));
-
-	// Print the transformation
-	printf("\nMethod #2: using an Affine3f\n");
-	std::cout << transform_2.matrix() << std::endl;
 
 	// Executing the transformation
 	pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_cloud(new pcl::PointCloud<pcl::PointXYZ>());
 	pcl::transformPointCloud(*source_cloud, *transformed_cloud, transform_2);
-
 
 	return transformed_cloud;
 }
