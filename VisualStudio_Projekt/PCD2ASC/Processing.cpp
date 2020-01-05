@@ -43,6 +43,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointC
  *
  * @param Takes the "filename" as a string.
  * @return Returns a PointCloud object.
+ * Sources:	https://stackoverflow.com/questions/30764222/how-to-read-ply-file-using-pcl
  */
 pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string filename)
 {
@@ -58,7 +59,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string filename)
 }
 
 /**
- * Saves a PointCloud as "filename".ply
+ * Saves a PointCloud as ply file
  *
  * @param Takes a string for "filename" and a PointCloud object.
  * @return void
@@ -69,7 +70,7 @@ void Processing::plyWriter(string filename, pcl::PointCloud<pcl::PointXYZ>::Ptr 
 	experimental::filesystem::path filepath = canonical(experimental::filesystem::path("..") / ".." / "testScans");
 	filepath.append(filename);
 
-	//creates new PointCloud
+	//saves PointCloud as ply file
 	pcl::io::savePLYFileBinary(filepath.u8string(), *pointcloud);
 }
 
@@ -79,6 +80,8 @@ void Processing::plyWriter(string filename, pcl::PointCloud<pcl::PointXYZ>::Ptr 
  *
  * @param Takes a PointCloud object.
  * @return Return the PointCLoud object without background.
+ * Sources: http://docs.pointclouds.org/trunk/classpcl_1_1_extract_indices.html
+			https://stackoverflow.com/questions/44921987/removing-points-from-a-pclpointcloudpclpointxyzrgb
  */
 pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud)
 {
