@@ -23,7 +23,7 @@ float ReferenceModel::scoreSimilarity(pcl::PointCloud<pcl::PointXYZ>::Ptr toChec
 	icp2.align(Result);
 
 	// Giving the results back to the user
-	cout << endl << referenceCloud << " with " << toCheckWith_ptr << ": ";
+	cout << endl << &referenceCloud << " with " << &toCheckWith_ptr << ": ";
 	cout << endl << "Has converged: " << icp2.hasConverged();
 	scoring = icp2.getFitnessScore();	// Changing the value of scoring based on the score from ICP
 	cout << " with score: " << scoring << endl;
