@@ -82,32 +82,26 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::cropItembox(pcl::PointCloud<pcl:
 }
 
 
-pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr p_obstacles)
+pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud)
 {
-	//new PointCloud object
-	//pcl::PointCloud<pcl::PointXYZ>::Ptr p_obstacles(new pcl::PointCloud<pcl::PointXYZ>);
-
-	//filling PointCLoud object with PLY data
-	//pcl::PLYReader Reader;
-	//Reader.read("ball_1.ply", *p_obstacles);
-
+	cout << "Removing background...\n";
 	pcl::PointIndices::Ptr inliers(new pcl::PointIndices());
 	pcl::ExtractIndices<pcl::PointXYZ> extract;
-	for (int i = 0; i < (*p_obstacles).size(); i++)
+	for (int i = 0; i < (*cloud).size(); i++)
 	{
 		// positive X to the right from center, positive Y points upwards from center, positive Z points backwards
-		pcl::PointXYZ pt(p_obstacles->points[i].x, p_obstacles->points[i].y, p_obstacles->points[i].z);
+		pcl::PointXYZ pt(cloud->points[i].x, cloud->points[i].y, cloud->points[i].z);
 		// remove points whose x/y/z-coordinate is ...
 		if ((pt.x > 0.6 || pt.x < -0.13 || pt.y < -0.805 || pt.z < -1.5 ))						
 		{
 			inliers->indices.push_back(i);
 		}
 	}
-	extract.setInputCloud(p_obstacles);
+	extract.setInputCloud(cloud);
 	extract.setIndices(inliers);
 	extract.setNegative(true);
-	extract.filter(*p_obstacles);
-
-	return p_obstacles;
+	extract.filter(*cloud);
+	cout << "Done...\n";
+	return cloud;
 }
 
