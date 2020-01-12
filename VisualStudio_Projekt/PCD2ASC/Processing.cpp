@@ -10,6 +10,8 @@
 #include <pcl/registration/icp.h>	// for ICP
 #include <string>
 #include <filesystem>
+#include <vector>
+#include <utility> 
 
 using namespace std;
 
@@ -94,7 +96,6 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointC
  * Sources: http://docs.pointclouds.org/trunk/classpcl_1_1_extract_indices.html
 			https://stackoverflow.com/questions/44921987/removing-points-from-a-pclpointcloudpclpointxyzrgb
  */
-
 pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud)
 {
 	cout << "Removing background..." << endl;
@@ -120,3 +121,31 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud
 	return source_cloud;
 }
 
+pair<float,float> Processing::removalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud)
+{
+	float x_min;
+	float x_max;
+	for (int i = 0; i < ((*source_cloud).size())-1; i++)
+	{
+	
+		// positive X to the right from center, positive Y points upwards from center, positive Z points backwards
+		pcl::PointXYZ pt(source_cloud->points[i].x, source_cloud->points[i].y, source_cloud->points[i].z);
+		// remove points whose x/y/z-coordinate is ...
+		x_min = source_cloud->points[i].x;
+		x_max = source_cloud->points[i].x;
+
+		if (source_cloud->points[i].x > source_cloud->points[i+1].x)
+		{
+			x_min = source_cloud->points[i+1].x;
+		}
+		else if (source_cloud->points[i].x < source_cloud->points[i+1].x)
+		{
+			x_max = source_cloud->points[i+1].x;
+		}
+	}
+
+	pair<float, float> x_parameters(x_min, x_max);
+	/*x_parameters.push_back(x_min);
+	x_parameters.push_back(x_max);*/
+	return x_parameters;
+}

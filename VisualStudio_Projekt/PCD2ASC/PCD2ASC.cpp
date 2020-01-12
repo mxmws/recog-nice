@@ -3,7 +3,8 @@
 #include <iostream>							// for std::cout
 #include <pcl/io/pcd_io.h>					// header that contains the definitions for PCD I/O operations
 #include <pcl/filters/extract_indices.h>	// header to remove points with indices
-
+#include <vector>
+#include <utility> 
 using namespace std;
 
 
@@ -62,6 +63,15 @@ int main ()
 	cout << endl << "Scan 1: Ball 1" << endl;
 	cout << "refModel Ball 2 with Ball 1: " << refModel1.scoring << endl;
 	cout << "refModel Box 2 with Ball 1: " << refModel2.scoring << endl;
+
+
+	//Testing removal parameters
+	string result2 = "result2.ply";
+	pcl::PointCloud<pcl::PointXYZ>::Ptr result2_cloud = process.plyReader(result2);
+
+	pair<float, float> test = process.removalParameters(result2_cloud);
+
+	cout << test.first << " " << test.second << "\n";
 
 	cin.get();
 }
