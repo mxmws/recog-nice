@@ -121,31 +121,64 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud
 	return source_cloud;
 }
 
-pair<float,float> Processing::removalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud)
+vector<float> Processing::getRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud)
 {
-	float x_min;
-	float x_max;
-	for (int i = 0; i < ((*source_cloud).size())-1; i++)
+	float x_min = source_cloud->points[0].x;
+	float x_max = source_cloud->points[0].x;
+	float z_min = source_cloud->points[0].z;
+	float z_max = source_cloud->points[0].z;
+
+	for (int i = 0; i < (source_cloud->size())-1; i++)
 	{
-	
 		// positive X to the right from center, positive Y points upwards from center, positive Z points backwards
 		pcl::PointXYZ pt(source_cloud->points[i].x, source_cloud->points[i].y, source_cloud->points[i].z);
-		// remove points whose x/y/z-coordinate is ...
-		x_min = source_cloud->points[i].x;
-		x_max = source_cloud->points[i].x;
-
-		if (source_cloud->points[i].x > source_cloud->points[i+1].x)
+		//for x
+		if (x_min > source_cloud->points[i+1].x)
 		{
 			x_min = source_cloud->points[i+1].x;
 		}
-		else if (source_cloud->points[i].x < source_cloud->points[i+1].x)
+		else if (x_max < source_cloud->points[i+1].x)
 		{
 			x_max = source_cloud->points[i+1].x;
 		}
-	}
+		//for y
+		if (z_min > source_cloud->points[i + 1].z)
+		{
+			z_min = source_cloud->points[i + 1].z;
+		}
+		else if (z_max < source_cloud->points[i + 1].z)
+		{
+			z_max = source_cloud->points[i + 1].z;
+		}
 
-	pair<float, float> x_parameters(x_min, x_max);
-	/*x_parameters.push_back(x_min);
-	x_parameters.push_back(x_max);*/
-	return x_parameters;
+	}
+	vector <float> parameter = { x_min, x_max, z_min, z_max};
+	return parameter;
+}
+
+
+pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::TESTremoveBackground
+(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud, vector<float> parameter)
+{
+	cout << "Removing background..." << endl;
+	//Points to be removed saved in PointIndices
+	pcl::PointIndices::Ptr ToBeRemoved(new pcl::PointIndices());
+	pcl::ExtractIndices<pcl::PointXYZ> extract;
+	for (int i = 0; i < (*source_cloud).size(); i++)
+	{
+		// positive X to the right from center, positive Y points upwards from center, positive Z points backwards
+		pcl::PointXYZ pt(source_cloud->points[i].x, source_cloud->points[i].y, source_cloud->points[i].z);
+		// remove points whose x/y/z-coordinate is ...
+		if (pt.x < parameter[0] || pt.x > parameter[1] || pt.z < parameter[2] || pt.z > parameter[3])
+		{
+			ToBeRemoved->indices.push_back(i);
+		}
+	}
+	extract.setInputCloud(source_cloud);
+	extract.setIndices(ToBeRemoved);
+	//Remove points
+	extract.setNegative(true);
+	extract.filter(*source_cloud);
+	cout << "Done..." << endl;
+	return source_cloud;
 }
