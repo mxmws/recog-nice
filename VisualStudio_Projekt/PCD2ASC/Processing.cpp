@@ -132,7 +132,7 @@ vector<float> Processing::getRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::P
 	{
 		// positive X to the right from center, positive Y points upwards from center, positive Z points backwards
 		pcl::PointXYZ pt(source_cloud->points[i].x, source_cloud->points[i].y, source_cloud->points[i].z);
-		//for x
+		//for x (width)
 		if (x_min > source_cloud->points[i+1].x)
 		{
 			x_min = source_cloud->points[i+1].x;
@@ -141,7 +141,7 @@ vector<float> Processing::getRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::P
 		{
 			x_max = source_cloud->points[i+1].x;
 		}
-		//for y
+		//for z (depth)
 		if (z_min > source_cloud->points[i + 1].z)
 		{
 			z_min = source_cloud->points[i + 1].z;
