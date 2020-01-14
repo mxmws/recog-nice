@@ -32,6 +32,9 @@ float ReferenceModel::scoreSimilarity(pcl::PointCloud<pcl::PointXYZ>::Ptr toChec
 	pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp2;
 	icp2.setInputSource(referenceCloud);
 	icp2.setInputTarget(toCheckWith_ptr);
+	icp2.setMaximumIterations(10000);
+	icp2.setMaxCorrespondenceDistance(50.0);
+	icp2.setRANSACOutlierRejectionThreshold(0.0001);
 
 	// Saving the result in a new point cloud
 	icp2.align(result);
