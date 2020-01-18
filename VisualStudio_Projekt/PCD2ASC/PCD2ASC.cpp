@@ -12,6 +12,11 @@ int main ()
 {
 	// Processing
 	Processing process;
+
+
+	/*
+
+
 	
 	// Load reference Models
 	string refModelFile1 = "ball_2_transformed_rot.ply";//"ball_2_transformed.ply";
@@ -89,6 +94,14 @@ int main ()
 	//process.TESTremoveBackground(toilet_paper_cloud, test);
 	//process.plyWriter("toilet_paper_transformed.ply", toilet_paper_cloud);
 
+
+	*/
+
+
+
+
+
+	process.positioning();
 
 	cin.get();
 }

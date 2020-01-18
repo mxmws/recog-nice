@@ -11,7 +11,10 @@
 #include <string>
 #include <filesystem>
 #include <vector>
-#include <utility> 
+#include <utility>
+
+#include <pcl/features/normal_3d.h>
+#include <pcl/filters/radius_outlier_removal.h>
 
 using namespace std;
 
@@ -65,7 +68,7 @@ void Processing::plyWriter(string filename, pcl::PointCloud<pcl::PointXYZ>::Ptr 
 *
 * Sources: http://pointclouds.org/documentation/tutorials/matrix_transform.php
 */
-pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud)
+pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud, float x, float y)
 {
 	cout << "Rotating PointCloud..." << endl;
 	//float theta = M_PI / 4; // The angle of rotation in radians
@@ -76,13 +79,17 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointC
 	// translation is 0 on all axis
 	transform_2.translation() << 0.0, 0.0, 0.0;
 
-	// theta radians around X axis
-	transform_2.rotate(Eigen::AngleAxisf(theta, Eigen::Vector3f::UnitX()));
-
 	// Executing the transformation
 	pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_cloud(new pcl::PointCloud<pcl::PointXYZ>());
+
+	// rotate around x axis
+	transform_2.rotate(Eigen::AngleAxisf(x, Eigen::Vector3f::UnitX()));
 	pcl::transformPointCloud(*source_cloud, *transformed_cloud, transform_2);
-	
+
+	// rotate around y axis
+	transform_2.rotate(Eigen::AngleAxisf(y, Eigen::Vector3f::UnitY()));
+	pcl::transformPointCloud(*transformed_cloud, *transformed_cloud, transform_2);
+
 	cout << "Done..." << endl;
 	return transformed_cloud;
 }
@@ -181,4 +188,126 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::TESTremoveBackground
 	extract.filter(*source_cloud);
 	cout << "Done..." << endl;
 	return source_cloud;
+}
+
+
+
+
+
+
+pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::extractGround(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud_1, pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud_2)
+{
+	cout << "extracting ground... (this can take up to 20 Minutes)" << endl;
+	//Points to be removed saved in PointIndices
+	pcl::PointIndices::Ptr ToBeRemoved(new pcl::PointIndices());
+	pcl::ExtractIndices<pcl::PointXYZ> extract;
+	int smallerNumberOfPoints = (*source_cloud_1).size() < (*source_cloud_2).size() ? (*source_cloud_1).size() : (*source_cloud_2).size();
+	for (int i = 0; i < smallerNumberOfPoints; i++)
+	{
+		//cout << i << "    ";
+		// positive X to the right from center, positive Y points upwards from center, positive Z points backwards
+		pcl::PointXYZ pt1(source_cloud_1->points[i].x, source_cloud_1->points[i].y, source_cloud_1->points[i].z);
+		pcl::PointXYZ pt2(source_cloud_2->points[i].x, source_cloud_2->points[i].y, source_cloud_2->points[i].z);
+		// remove points whose x/y/z-coordinate is ...
+		if (std::abs(pt1.x - pt2.x) < 0.05 &&
+			std::abs(pt1.y - pt2.y) < 0.05 &&
+			std::abs(pt1.z - pt2.z) < 0.05)
+		{
+			ToBeRemoved->indices.push_back(i);
+			//cout << "1st";
+		}
+		else
+		{
+			for (int j = 0; j < (*source_cloud_2).size(); j++)
+			{
+				pcl::PointXYZ pt3(source_cloud_2->points[j].x, source_cloud_2->points[j].y, source_cloud_2->points[j].z);
+				//cout << "0";
+				if (std::abs(pt1.x - pt3.x) < 0.03 &&
+					std::abs(pt1.y - pt3.y) < 0.03 &&
+					std::abs(pt1.z - pt3.z) < 0.03)
+				{
+					ToBeRemoved->indices.push_back(i);
+					j = (*source_cloud_2).size();
+					//cout << "2nd";
+				}
+			}
+		}
+		//cout << endl;
+	}
+	extract.setInputCloud(source_cloud_1);
+	extract.setIndices(ToBeRemoved);
+	//Remove points
+	extract.setNegative(true);
+	extract.filter(*source_cloud_1);
+
+
+	pcl::RadiusOutlierRemoval<pcl::PointXYZ> rorfilter(true);
+	rorfilter.setInputCloud(source_cloud_1);
+	rorfilter.setRadiusSearch(0.1);
+	rorfilter.setMinNeighborsInRadius(10);
+	rorfilter.filter(*source_cloud_1);
+
+	cout << "Done..." << endl;
+	return source_cloud_1;
+}
+
+
+void Processing::determineAngle(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud)
+{
+	// Create the normal estimation class, and pass the input dataset to it
+	pcl::NormalEstimation<pcl::PointXYZ, pcl::Normal> ne;
+	ne.setInputCloud(source_cloud);
+
+	// Create an empty kdtree representation, and pass it to the normal estimation object.
+	// Its content will be filled inside the object, based on the given input dataset (as no other search surface is given).
+	pcl::search::KdTree<pcl::PointXYZ>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZ>());
+	ne.setSearchMethod(tree);
+
+	// Output datasets
+	pcl::PointCloud<pcl::Normal>::Ptr cloud_normals(new pcl::PointCloud<pcl::Normal>);
+
+	// Use all neighbors in a sphere of radius 3cm
+	ne.setRadiusSearch(0.03);
+
+	// Compute the features
+	ne.compute(*cloud_normals);
+
+
+
+
+	float sum_rotation_x = 0.0;
+	float sum_angle_to_x = 0.0;
+
+	for (int i = 2; i < cloud_normals->size(); i++)
+	{
+		sum_rotation_x += atan(cloud_normals->points[i].normal_y / cloud_normals->points[i].normal_z);
+
+		sum_angle_to_x += acos(cloud_normals->points[i].normal_x
+			/ sqrt(pow(cloud_normals->points[i].normal_x, 2)
+				+ pow(cloud_normals->points[i].normal_y, 2)
+				+ pow(cloud_normals->points[i].normal_z, 2)));
+	}
+
+	Processing::angle_y = sum_angle_to_x / (cloud_normals->size() - 2);
+
+	Processing::angle_x = cos(Processing::angle_y) > 0 ?
+		sum_rotation_x / (cloud_normals->size() - 2) : -(sum_rotation_x / (cloud_normals->size() - 2));
+
+}
+
+void Processing::positioning()
+{
+	string sourceCloudFile = "plain.ply";
+	pcl::PointCloud<pcl::PointXYZ>::Ptr plain = plyReader(sourceCloudFile);
+	sourceCloudFile = "toilet_paper.ply";
+	pcl::PointCloud<pcl::PointXYZ>::Ptr toilet_paper = plyReader(sourceCloudFile);
+
+	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = extractGround(plain, toilet_paper);
+
+	determineAngle(cloud);
+
+
+	cloud = transformationMatrix(cloud, Processing::angle_x, Processing::angle_y);
+	plyWriter("result3out.ply", cloud);
+
 }
