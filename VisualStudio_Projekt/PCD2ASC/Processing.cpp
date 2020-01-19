@@ -27,7 +27,7 @@ using namespace std;
 *
 * Sources:	https://stackoverflow.com/questions/30764222/how-to-read-ply-file-using-pcl
 */
-/*pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string& filename)
+pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string& filename)
 {
 	//navigates to testScans
 	experimental::filesystem::path filepath = canonical(experimental::filesystem::path("..") / ".." / "testScans");
@@ -38,7 +38,7 @@ using namespace std;
 	pcl::PLYReader Reader;
 	Reader.read(filepath.u8string(), *cloud_ptr);
 	return cloud_ptr;
-}*/
+}
 
 pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::linuxPlyReader(string& filename)
 {
@@ -59,7 +59,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::linuxPlyReader(string& filename)
 *
 * Sources: http://docs.pointclouds.org/1.7.0/classpcl_1_1_p_l_y_writer.html
 */
-/*void Processing::plyWriter(string filename, pcl::PointCloud<pcl::PointXYZ>::Ptr pointcloud)
+void Processing::plyWriter(string filename, pcl::PointCloud<pcl::PointXYZ>::Ptr pointcloud)
 {
 	//navigates to testScans
 	experimental::filesystem::path filepath = canonical(experimental::filesystem::path("..") / ".." / "testScans");
@@ -67,8 +67,9 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::linuxPlyReader(string& filename)
 
 	//saves PointCloud as ply file
 	pcl::io::savePLYFileBinary(filepath.u8string(), *pointcloud);
+
 }
-*/
+
 
 
 /**
@@ -308,10 +309,12 @@ void Processing::determineAngle(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud
 
 void Processing::positioning()
 {
+
+	//Maximilian, ich hab plyReader zu linuxPlyReader geändert damit es auf dem Rapsi läuft
 	string sourceCloudFile = "plain.ply";
-	pcl::PointCloud<pcl::PointXYZ>::Ptr plain = plyReader(sourceCloudFile);
+	pcl::PointCloud<pcl::PointXYZ>::Ptr plain = linuxPlyReader(sourceCloudFile);
 	sourceCloudFile = "toilet_paper.ply";
-	pcl::PointCloud<pcl::PointXYZ>::Ptr toilet_paper = plyReader(sourceCloudFile);
+	pcl::PointCloud<pcl::PointXYZ>::Ptr toilet_paper = linuxPlyReader(sourceCloudFile);
 
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = extractGround(plain, toilet_paper);
 
@@ -319,6 +322,7 @@ void Processing::positioning()
 
 
 	cloud = transformationMatrix(cloud, Processing::angle_x, Processing::angle_y);
-	plyWriter("result3out.ply", cloud);
+	
+	//plyWriter("result3out.ply", cloud);
 
 }

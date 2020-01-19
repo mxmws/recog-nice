@@ -70,7 +70,6 @@ int main ()
 	cout << "refModel Box 2 with Ball 1: " << refModel2.scoring << endl;
 
 
-	
 
 	//Testing removal parameters
 	string result2meshlab = "result2meshlab.ply";
@@ -87,13 +86,13 @@ int main ()
 	process.uptRemoveBackground(toilet_paper_cloud, test);
 	process.plyWriter("toilet_paper_transformed.ply", toilet_paper_cloud);
 
-
+	
 	
 
 	process.positioning();
 
 	*/
-
+	
 	// LINUX TEST
 	string result2meshlab = "/home/pi/Desktop/repository/team5/testScans/result2meshlab.ply";
 	pcl::PointCloud<pcl::PointXYZ>::Ptr result2meshlab_cloud = process.linuxPlyReader(result2meshlab);
@@ -108,7 +107,7 @@ int main ()
 	//Save as ply
 	string writePath = "/home/pi/Desktop/repository/team5/testScans/toilet_paper_transformed.ply";
 	pcl::io::savePLYFileBinary(writePath, *toilet_paper_cloud);
-
+	
 	cin.get();
 }
 
