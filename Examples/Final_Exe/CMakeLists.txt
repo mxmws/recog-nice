@@ -9,8 +9,8 @@ link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 
 file(GLOB SOURCES
-    header-folder/*.h
-    source-folder/*.cpp
+    /home/pi/Desktop/repository/team5/VisualStudio_Projekt/PCD2ASC/*.h
+    /home/pi/Desktop/repository/team5/VisualStudio_Projekt/PCD2ASC/*.cpp
 )
 
 
