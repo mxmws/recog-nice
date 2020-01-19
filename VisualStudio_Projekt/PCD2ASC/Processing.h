@@ -15,7 +15,7 @@ public:
 	pcl::PointCloud<pcl::PointXYZ>::Ptr linuxPlyReader(string&);
 	//void Processing::plyWriter(string, pcl::PointCloud<pcl::PointXYZ>::Ptr);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr);
-	vector<float>Processing::getRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr);
+	vector<float>getRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr uptRemoveBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr,vector<float>);
 
 	pcl::PointCloud<pcl::PointXYZ>::Ptr extractGround(pcl::PointCloud<pcl::PointXYZ>::Ptr, pcl::PointCloud<pcl::PointXYZ>::Ptr);
