@@ -102,7 +102,7 @@ int main ()
 	cout << test[0] << " " << test[1] << " " << test[2] << " " << test[3] << "\n";
 	//Testing removeBackground with new parameters
 	string toilet_paper = "/home/pi/Desktop/repository/team5/testScans/toilet_paper.ply";
-	pcl::PointCloud<pcl::PointXYZ>::Ptr toilet_paper_cloud = process.plyReader(toilet_paper);
+	pcl::PointCloud<pcl::PointXYZ>::Ptr toilet_paper_cloud = process.linuxPlyReader(toilet_paper);
 	process.uptRemoveBackground(toilet_paper_cloud, test);
 	
 	//Save as ply
