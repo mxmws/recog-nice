@@ -13,7 +13,7 @@ public:
 	pcl::PointCloud<pcl::PointXYZ>::Ptr transformationMatrix(pcl::PointCloud<pcl::PointXYZ>::Ptr, float, float);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr plyReader(string&);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr linuxPlyReader(string&);
-	void Processing::plyWriter(string, pcl::PointCloud<pcl::PointXYZ>::Ptr);
+	void plyWriter(string, pcl::PointCloud<pcl::PointXYZ>::Ptr);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr);
 	vector<float>getRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr uptRemoveBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr,vector<float>);
