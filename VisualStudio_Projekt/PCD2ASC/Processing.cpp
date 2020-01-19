@@ -210,43 +210,45 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::uptRemoveBackground
 
 pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::extractGround(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud_1, pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud_2)
 {
-	cout << "extracting ground... (this can take up to 20 Minutes)" << endl;
-	//Points to be removed saved in PointIndices
+	cout << "extracting ground... (luckily this won't take 20 Minutes anymore)" << endl;
+
+	float resolution = 0.1f;
+
+	pcl::octree::OctreePointCloudSearch<pcl::PointXYZ> octree(resolution);
+
+	octree.setInputCloud(source_cloud_2);
+	octree.addPointsFromInputCloud();
+
+	pcl::PointXYZ searchPoint;
+
+	std::vector<int> pointIdxNKNSearch;
+	std::vector<float> pointNKNSquaredDistance;
+
 	pcl::PointIndices::Ptr ToBeRemoved(new pcl::PointIndices());
 	pcl::ExtractIndices<pcl::PointXYZ> extract;
-	int smallerNumberOfPoints = (*source_cloud_1).size() < (*source_cloud_2).size() ? (*source_cloud_1).size() : (*source_cloud_2).size();
-	for (int i = 0; i < smallerNumberOfPoints; i++)
+
+	for (int i = 0; i < (*source_cloud_1).size(); i++)
 	{
-		//cout << i << "    ";
-		// positive X to the right from center, positive Y points upwards from center, positive Z points backwards
-		pcl::PointXYZ pt1(source_cloud_1->points[i].x, source_cloud_1->points[i].y, source_cloud_1->points[i].z);
-		pcl::PointXYZ pt2(source_cloud_2->points[i].x, source_cloud_2->points[i].y, source_cloud_2->points[i].z);
-		// remove points whose x/y/z-coordinate is ...
-		if (std::abs(pt1.x - pt2.x) < 0.05 &&
-			std::abs(pt1.y - pt2.y) < 0.05 &&
-			std::abs(pt1.z - pt2.z) < 0.05)
+		searchPoint = source_cloud_1->points[i];
+		pcl::PointXYZ pt2 = source_cloud_2->points[i];
+
+		//if is about twice as fast and true in most cases
+		if (sqrt(pow(searchPoint.x - pt2.x, 2) + pow(searchPoint.y - pt2.y, 2) + pow(searchPoint.z - pt2.z, 2)) < 0.05)
 		{
 			ToBeRemoved->indices.push_back(i);
-			//cout << "1st";
 		}
 		else
 		{
-			for (int j = 0; j < (*source_cloud_2).size(); j++)
+			octree.nearestKSearch(searchPoint, 1, pointIdxNKNSearch, pointNKNSquaredDistance);
+
+			if (pointNKNSquaredDistance[0]<0.002)
 			{
-				pcl::PointXYZ pt3(source_cloud_2->points[j].x, source_cloud_2->points[j].y, source_cloud_2->points[j].z);
-				//cout << "0";
-				if (std::abs(pt1.x - pt3.x) < 0.03 &&
-					std::abs(pt1.y - pt3.y) < 0.03 &&
-					std::abs(pt1.z - pt3.z) < 0.03)
-				{
-					ToBeRemoved->indices.push_back(i);
-					j = (*source_cloud_2).size();
-					//cout << "2nd";
-				}
+				ToBeRemoved->indices.push_back(i);
 			}
 		}
-		//cout << endl;
+
 	}
+
 	extract.setInputCloud(source_cloud_1);
 	extract.setIndices(ToBeRemoved);
 	//Remove points
@@ -325,5 +327,6 @@ void Processing::positioning()
 	cloud = transformationMatrix(cloud, Processing::angle_x, Processing::angle_y);
 	
 	//plyWriter("result3out.ply", cloud);
+	pcl::io::savePLYFileBinary("result3out.ply", *cloud);
 
 }

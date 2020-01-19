@@ -88,10 +88,7 @@ int main ()
 
 	
 	
-
-	process.positioning();
-
-	*/
+	
 	
 	// LINUX TEST
 	string result2meshlab = "/home/pi/Desktop/repository/team5/testScans/result2meshlab.ply";
@@ -107,6 +104,13 @@ int main ()
 	//Save as ply
 	string writePath = "/home/pi/Desktop/repository/team5/testScans/toilet_paper_transformed.ply";
 	pcl::io::savePLYFileBinary(writePath, *toilet_paper_cloud);
+
+	*/
+
+
+
+
+	process.positioning();
 	
 	cin.get();
 }
