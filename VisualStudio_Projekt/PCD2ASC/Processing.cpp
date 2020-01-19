@@ -18,27 +18,28 @@
 
 using namespace std;
 
+// PLY READER und PLY WRITER auskommentiert damit der Raspi läuft
 
-/**
-* Loading ply file into PointCloud object and return it.
-*
-* @param filename name of the file that is going to be opened
-* @return PointCloud::Ptr Returns a PointCloud object.
-*
-* Sources:	https://stackoverflow.com/questions/30764222/how-to-read-ply-file-using-pcl
-*/
-pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string& filename)
-{
-	//navigates to testScans
-	experimental::filesystem::path filepath = canonical(experimental::filesystem::path("..") / ".." / "testScans");
-	filepath.append(filename);
-
-	//creates new PointCloud
-	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_ptr(new pcl::PointCloud<pcl::PointXYZ>);
-	pcl::PLYReader Reader;
-	Reader.read(filepath.u8string(), *cloud_ptr);
-	return cloud_ptr;
-}
+///**
+//* Loading ply file into PointCloud object and return it.
+//*
+//* @param filename name of the file that is going to be opened
+//* @return PointCloud::Ptr Returns a PointCloud object.
+//*
+//* Sources:	https://stackoverflow.com/questions/30764222/how-to-read-ply-file-using-pcl
+//*/
+//pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string& filename)
+//{
+//	//navigates to testScans
+//	experimental::filesystem::path filepath = canonical(experimental::filesystem::path("..") / ".." / "testScans");
+//	filepath.append(filename);
+//
+//	//creates new PointCloud
+//	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_ptr(new pcl::PointCloud<pcl::PointXYZ>);
+//	pcl::PLYReader Reader;
+//	Reader.read(filepath.u8string(), *cloud_ptr);
+//	return cloud_ptr;
+//}
 
 pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::linuxPlyReader(string& filename)
 {
@@ -51,24 +52,24 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::linuxPlyReader(string& filename)
 }
 
 
-/**
-* Saves a PointCloud as ply file
-*
-* @param filename name of the file that is going to be saved
-* @param pointcloud Takes a string for "filename" and a PointCloud object.
-*
-* Sources: http://docs.pointclouds.org/1.7.0/classpcl_1_1_p_l_y_writer.html
-*/
-void Processing::plyWriter(string filename, pcl::PointCloud<pcl::PointXYZ>::Ptr pointcloud)
-{
-	//navigates to testScans
-	experimental::filesystem::path filepath = canonical(experimental::filesystem::path("..") / ".." / "testScans");
-	filepath.append(filename);
-
-	//saves PointCloud as ply file
-	pcl::io::savePLYFileBinary(filepath.u8string(), *pointcloud);
-
-}
+///**
+//* Saves a PointCloud as ply file
+//*
+//* @param filename name of the file that is going to be saved
+//* @param pointcloud Takes a string for "filename" and a PointCloud object.
+//*
+//* Sources: http://docs.pointclouds.org/1.7.0/classpcl_1_1_p_l_y_writer.html
+//*/
+//void Processing::plyWriter(string filename, pcl::PointCloud<pcl::PointXYZ>::Ptr pointcloud)
+//{
+//	//navigates to testScans
+//	experimental::filesystem::path filepath = canonical(experimental::filesystem::path("..") / ".." / "testScans");
+//	filepath.append(filename);
+//
+//	//saves PointCloud as ply file
+//	pcl::io::savePLYFileBinary(filepath.u8string(), *pointcloud);
+//
+//}
 
 
 
