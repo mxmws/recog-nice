@@ -14,9 +14,9 @@ int main ()
 	Processing process;
 
 
+	
+
 	/*
-
-
 	
 	// Load reference Models
 	string refModelFile1 = "ball_2_transformed_rot.ply";//"ball_2_transformed.ply";
@@ -70,38 +70,44 @@ int main ()
 	cout << "refModel Box 2 with Ball 1: " << refModel2.scoring << endl;
 
 
+	
+
+	//Testing removal parameters
+	string result2meshlab = "result2meshlab.ply";
+	pcl::PointCloud<pcl::PointXYZ>::Ptr result2meshlab_cloud = process.plyReader(result2meshlab);
 
 
-	////Testing removal parameters
-	//string result2meshlab = "result2meshlab.ply";
-	//pcl::PointCloud<pcl::PointXYZ>::Ptr result2meshlab_cloud = process.plyReader(result2meshlab);
+	vector<float> test = process.getRemovalParameters(result2meshlab_cloud);
 
-	//int z = 0;
-	//for (int i = 0; i < (result2meshlab_cloud->size()); i++)
-	//{
-	//	z += 1;
-	//}
-	//cout << z << "\n";
+	cout << test[0] << " " << test[1] << " " << test[2] << " " << test[3] << "\n";
+
+	//Testing removeBackground with new parameters
+	string toilet_paper = "toilet_paper.ply";
+	pcl::PointCloud<pcl::PointXYZ>::Ptr toilet_paper_cloud = process.plyReader(toilet_paper);
+	process.uptRemoveBackground(toilet_paper_cloud, test);
+	process.plyWriter("toilet_paper_transformed.ply", toilet_paper_cloud);
 
 
-	//vector<float> test = process.getRemovalParameters(result2meshlab_cloud);
+	
 
-	//cout << test[0] << " " << test[1] << " " << test[2] << " " << test[3] << "\n";
-
-	////Testing removeBackground with new parameters
-	//string toilet_paper = "toilet_paper.ply";
-	//pcl::PointCloud<pcl::PointXYZ>::Ptr toilet_paper_cloud = process.plyReader(toilet_paper);
-	//process.TESTremoveBackground(toilet_paper_cloud, test);
-	//process.plyWriter("toilet_paper_transformed.ply", toilet_paper_cloud);
-
+	process.positioning();
 
 	*/
 
+	// LINUX TEST
+	string result2meshlab = "/home/pi/Desktop/repository/team5/testScans/result2meshlab.ply";
+	pcl::PointCloud<pcl::PointXYZ>::Ptr result2meshlab_cloud = process.linuxPlyReader(result2meshlab);
+	vector<float> test = process.getRemovalParameters(result2meshlab_cloud);
 
-
-
-
-	process.positioning();
+	cout << test[0] << " " << test[1] << " " << test[2] << " " << test[3] << "\n";
+	//Testing removeBackground with new parameters
+	string toilet_paper = "/home/pi/Desktop/repository/team5/testScans/toilet_paper.ply";
+	pcl::PointCloud<pcl::PointXYZ>::Ptr toilet_paper_cloud = process.plyReader(toilet_paper);
+	process.uptRemoveBackground(toilet_paper_cloud, test);
+	
+	//Save as ply
+	string writePath = "/home/pi/Desktop/repository/team5/testScans/toilet_paper_transformed.ply";
+	pcl::io::savePLYFileBinary(writePath, *toilet_paper_cloud);
 
 	cin.get();
 }

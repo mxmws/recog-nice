@@ -40,6 +40,17 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string& filename)
 	return cloud_ptr;
 }
 
+pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::linuxPlyReader(string& filename)
+{
+	//creates new PointCloud
+	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_ptr(new pcl::PointCloud<pcl::PointXYZ>);
+	pcl::PLYReader Reader;
+	//reading ply file
+	Reader.read(filename, *cloud_ptr);
+	return cloud_ptr;
+}
+
+
 /**
 * Saves a PointCloud as ply file
 *
@@ -164,7 +175,7 @@ vector<float> Processing::getRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::P
 }
 
 
-pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::TESTremoveBackground
+pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::uptRemoveBackground
 (pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud, vector<float> parameter)
 {
 	cout << "Removing background..." << endl;
