@@ -298,12 +298,16 @@ void Processing::positioning()
 	system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
 	pcl::PointCloud<pcl::PointXYZ>::Ptr plain = plyReader(sourceCloudFile);
 	cout << "Done..." << endl;
+	
+	pcl::io::savePLYFileBinary("plain.ply", *plain);//save for debugging
 
 	cout << "Place four objects to mark the space you want to use and press enter to scan" << endl;
 	cin.get();
 	system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
 	pcl::PointCloud<pcl::PointXYZ>::Ptr objects = plyReader(sourceCloudFile);
 	cout << "Done..." << endl;
+	
+	pcl::io::savePLYFileBinary("objects.ply", *objects);//save for debugging
 	
 	/*
 	string sourceCloudFile = "plain.ply";
@@ -317,6 +321,13 @@ void Processing::positioning()
 	determineAngle(cloud);
 	determineRemovalParameters(transformationMatrix(cloud));
 
+	//save for debugging
+	cloud = transformationMatrix(cloud);
+	pcl::io::savePLYFileBinary("cloud.ply", *cloud);//save for debugging
+
+	objects = transformationMatrix(objects);
+	objects = uptRemoveBackground(objects);
+	pcl::io::savePLYFileBinary("toilet_paperTransformed.ply", *cloud);//save for debugging
 	
 	//plyWriter("result3out.ply", cloud);
 	//pcl::io::savePLYFileBinary("toilet_paperTransformedCut.ply", *objects);
