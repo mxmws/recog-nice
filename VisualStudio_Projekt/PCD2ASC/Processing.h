@@ -29,5 +29,6 @@ public:
 	float x_max;
 	float z_min;
 	float z_max;
+	float y_min;
 	float y_max;
 };

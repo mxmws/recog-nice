@@ -151,6 +151,7 @@ void Processing::determineRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr 
 	Processing::x_max = source_cloud->points[0].x;
 	Processing::z_min = source_cloud->points[0].z;
 	Processing::z_max = source_cloud->points[0].z;
+	Processing::y_min = source_cloud->points[0].y;
 	Processing::y_max = source_cloud->points[0].y;
 
 	for (int i = 0; i < (source_cloud->size())-1; i++)
@@ -176,11 +177,14 @@ void Processing::determineRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr 
 			Processing::z_max = source_cloud->points[i + 1].z;
 		}
 		//for y (height)
-		if (Processing::y_max < source_cloud->points[i + 1].y)
+		if (Processing::y_min > source_cloud->points[i + 1].y)
+		{
+			Processing::y_min = source_cloud->points[i + 1].y;
+		}
+		else if (Processing::y_max < source_cloud->points[i + 1].y)
 		{
 			Processing::y_max = source_cloud->points[i + 1].y;
 		}
-
 	}
 
 }
@@ -198,7 +202,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::uptRemoveBackground
 		// positive X to the right from center, positive Y points upwards from center, positive Z points backwards
 		pcl::PointXYZ pt(source_cloud->points[i].x, source_cloud->points[i].y, source_cloud->points[i].z);
 		// remove points whose x/y/z-coordinate is ...
-		if (pt.x < x_min || pt.x > x_max || pt.z < z_min || pt.z > z_max /*|| pt.y < y_max*/)
+		if (pt.x < x_min || pt.x > x_max || pt.y < y_min || pt.y > y_max || pt.z > (z_min - 0.01))
 		{
 			ToBeRemoved->indices.push_back(i);
 		}
