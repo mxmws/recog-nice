@@ -345,14 +345,15 @@ void Processing::positioning()
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = extractGround(plain, toilet_paper);
 
 	determineAngle(cloud);
-	determineRemovalParameters(cloud);
+	determineRemovalParameters(transformationMatrix(cloud));
 
 	
 	//wird später entfernt
 	toilet_paper = transformationMatrix(toilet_paper);
-	//toilet_paper = uptRemoveBackground(toilet_paper);
+	pcl::io::savePLYFileBinary("toilet_paperTransformed.ply", *toilet_paper);
+	toilet_paper = uptRemoveBackground(toilet_paper);
 	
 	//plyWriter("result3out.ply", cloud);
-	pcl::io::savePLYFileBinary("toilet_paperTransformed.ply", *toilet_paper);
+	pcl::io::savePLYFileBinary("toilet_paperTransformedCut.ply", *toilet_paper);
 
 }
