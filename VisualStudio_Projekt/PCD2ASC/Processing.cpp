@@ -290,39 +290,35 @@ void Processing::determineAngle(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud
 
 void Processing::positioning()
 {
-	/*
-	string sourceCloudFile = "currentScan.ply";
+	
+	string sourceCloudFile = "test1_filter15.ply";
 	
 	cout << "Press enter to scan" << endl;
 	cin.get();
-	//scan function here...
+	system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
+	pcl::PointCloud<pcl::PointXYZ>::Ptr plain = plyReader(sourceCloudFile);
 	cout << "Done..." << endl;
-	pcl::PointCloud<pcl::PointXYZ>::Ptr plain = linuxPlyReader(sourceCloudFile);
 
 	cout << "Place four objects to mark the space you want to use and press enter to scan" << endl;
 	cin.get();
-	//scan function here...
+	system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
+	pcl::PointCloud<pcl::PointXYZ>::Ptr objects = plyReader(sourceCloudFile);
 	cout << "Done..." << endl;
-	pcl::PointCloud<pcl::PointXYZ>::Ptr objects = linuxPlyReader(sourceCloudFile);
+	
+	/*
+	string sourceCloudFile = "plain.ply";
+	pcl::PointCloud<pcl::PointXYZ>::Ptr plain = plyReader(sourceCloudFile);
+	sourceCloudFile = "toilet_paper.ply";
+	pcl::PointCloud<pcl::PointXYZ>::Ptr toilet_paper = plyReader(sourceCloudFile);
 	*/
 	
-	string sourceCloudFile = "plain.ply";
-	pcl::PointCloud<pcl::PointXYZ>::Ptr plain = linuxPlyReader(sourceCloudFile);
-	sourceCloudFile = "toilet_paper.ply";
-	pcl::PointCloud<pcl::PointXYZ>::Ptr toilet_paper = linuxPlyReader(sourceCloudFile);
-
-	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = extractGround(plain, toilet_paper);
-
+	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = extractGround(plain, objects);
+		
 	determineAngle(cloud);
 	determineRemovalParameters(transformationMatrix(cloud));
 
 	
-	//wird später entfernt
-	toilet_paper = transformationMatrix(toilet_paper);
-	pcl::io::savePLYFileBinary("toilet_paperTransformed.ply", *toilet_paper);
-	toilet_paper = uptRemoveBackground(toilet_paper);
-	
 	//plyWriter("result3out.ply", cloud);
-	pcl::io::savePLYFileBinary("toilet_paperTransformedCut.ply", *toilet_paper);
+	//pcl::io::savePLYFileBinary("toilet_paperTransformedCut.ply", *objects);
 
 }
