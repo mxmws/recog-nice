@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Zielpfad hier angeben
-BUILDPATH=/home/pi/"SPEICHERORT DES REPOSITORIES ANGEBEN"/team5/Examples
+BUILDPATH=/home/pi/
 
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 
