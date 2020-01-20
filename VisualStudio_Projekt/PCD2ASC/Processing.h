@@ -15,8 +15,8 @@ public:
 	pcl::PointCloud<pcl::PointXYZ>::Ptr linuxPlyReader(string&);
 	void plyWriter(string, pcl::PointCloud<pcl::PointXYZ>::Ptr);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr);
-	vector<float>getRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr);
-	pcl::PointCloud<pcl::PointXYZ>::Ptr uptRemoveBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr,vector<float>);
+	void getRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr);
+	pcl::PointCloud<pcl::PointXYZ>::Ptr uptRemoveBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr);
 
 	pcl::PointCloud<pcl::PointXYZ>::Ptr extractGround(pcl::PointCloud<pcl::PointXYZ>::Ptr, pcl::PointCloud<pcl::PointXYZ>::Ptr);
 	void positioning();
@@ -24,4 +24,10 @@ public:
 	// Always rotate x first!
 	float angle_x;
 	float angle_y;
+
+	float x_min;
+	float x_max;
+	float z_min;
+	float z_max;
+	float y_max;
 };
