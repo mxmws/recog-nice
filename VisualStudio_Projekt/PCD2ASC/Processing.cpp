@@ -88,6 +88,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointC
 	const float theta = -0.6;
 
 	Eigen::Affine3f transform_2 = Eigen::Affine3f::Identity();
+	Eigen::Affine3f transform_3 = Eigen::Affine3f::Identity();
 
 	// translation is 0 on all axis
 	transform_2.translation() << 0.0, 0.0, 0.0;
@@ -102,6 +103,9 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointC
 	// rotate around y axis
 	transform_2.rotate(Eigen::AngleAxisf(angle_y, Eigen::Vector3f::UnitY()));
 	pcl::transformPointCloud(*transformed_cloud, *transformed_cloud, transform_2);
+
+	transform_3.rotate(Eigen::AngleAxisf(3.141/2, Eigen::Vector3f::UnitY()));
+	pcl::transformPointCloud(*transformed_cloud, *transformed_cloud, transform_3);
 
 	cout << "Done..." << endl;
 	return transformed_cloud;
@@ -141,7 +145,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud
 	return source_cloud;
 }
 
-void Processing::getRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud)
+void Processing::determineRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud)
 {
 	Processing::x_min = source_cloud->points[0].x;
 	Processing::x_max = source_cloud->points[0].x;
@@ -341,11 +345,12 @@ void Processing::positioning()
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = extractGround(plain, toilet_paper);
 
 	determineAngle(cloud);
-	getRemovalParameters(cloud);
+	determineRemovalParameters(cloud);
 
 	
 	//wird später entfernt
 	toilet_paper = transformationMatrix(toilet_paper);
+	//toilet_paper = uptRemoveBackground(toilet_paper);
 	
 	//plyWriter("result3out.ply", cloud);
 	pcl::io::savePLYFileBinary("toilet_paperTransformed.ply", *toilet_paper);

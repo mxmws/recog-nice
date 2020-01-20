@@ -71,11 +71,13 @@ int main ()
 
 	*/
 
+
+	/*
 	//Testing removal parameters
 	string result2meshlab = "result2meshlab.ply";
 	pcl::PointCloud<pcl::PointXYZ>::Ptr result2meshlab_cloud = process.plyReader(result2meshlab);
 
-	process.getRemovalParameters(result2meshlab_cloud);
+	process.determineRemovalParameters(result2meshlab_cloud);
 	
 
 	cout << process.x_min << " " << process.x_max << " " << process.z_min << " " << process.z_max << "\n";
@@ -85,7 +87,7 @@ int main ()
 	pcl::PointCloud<pcl::PointXYZ>::Ptr toilet_paper_cloud = process.plyReader(toilet_paper);
 	process.uptRemoveBackground(toilet_paper_cloud);
 	process.plyWriter("toilet_paper_transformed.ply", toilet_paper_cloud);
-
+	*/
 	
 	
 	
