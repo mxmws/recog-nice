@@ -81,7 +81,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::linuxPlyReader(string& filename)
 *
 * Sources: http://pointclouds.org/documentation/tutorials/matrix_transform.php
 */
-pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud, float x, float y)
+pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud)
 {
 	cout << "Rotating PointCloud..." << endl;
 	//float theta = M_PI / 4; // The angle of rotation in radians
@@ -96,11 +96,11 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointC
 	pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_cloud(new pcl::PointCloud<pcl::PointXYZ>());
 
 	// rotate around x axis
-	transform_2.rotate(Eigen::AngleAxisf(x, Eigen::Vector3f::UnitX()));
+	transform_2.rotate(Eigen::AngleAxisf(angle_x, Eigen::Vector3f::UnitX()));
 	pcl::transformPointCloud(*source_cloud, *transformed_cloud, transform_2);
 
 	// rotate around y axis
-	transform_2.rotate(Eigen::AngleAxisf(y, Eigen::Vector3f::UnitY()));
+	transform_2.rotate(Eigen::AngleAxisf(angle_y, Eigen::Vector3f::UnitY()));
 	pcl::transformPointCloud(*transformed_cloud, *transformed_cloud, transform_2);
 
 	cout << "Done..." << endl;
@@ -312,8 +312,22 @@ void Processing::determineAngle(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud
 
 void Processing::positioning()
 {
+	/*
+	string sourceCloudFile = "currentScan.ply";
+	
+	cout << "Press enter to scan" << endl;
+	cin.get();
+	//scan function here...
+	cout << "Done..." << endl;
+	pcl::PointCloud<pcl::PointXYZ>::Ptr plain = linuxPlyReader(sourceCloudFile);
 
-	//Maximilian, ich hab plyReader zu linuxPlyReader geändert damit es auf dem Rapsi läuft
+	cout << "Place four objects to mark the space you want to use and press enter to scan" << endl;
+	cin.get();
+	//scan function here...
+	cout << "Done..." << endl;
+	pcl::PointCloud<pcl::PointXYZ>::Ptr objects = linuxPlyReader(sourceCloudFile);
+	*/
+	
 	string sourceCloudFile = "plain.ply";
 	pcl::PointCloud<pcl::PointXYZ>::Ptr plain = linuxPlyReader(sourceCloudFile);
 	sourceCloudFile = "toilet_paper.ply";
@@ -322,11 +336,13 @@ void Processing::positioning()
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = extractGround(plain, toilet_paper);
 
 	determineAngle(cloud);
+	getRemovalParameters(cloud);
 
-
-	cloud = transformationMatrix(cloud, Processing::angle_x, Processing::angle_y);
+	
+	//wird später entfernt
+	toilet_paper = transformationMatrix(toilet_paper);
 	
 	//plyWriter("result3out.ply", cloud);
-	pcl::io::savePLYFileBinary("result3out.ply", *cloud);
+	pcl::io::savePLYFileBinary("toilet_paperTransformed.ply", *toilet_paper);
 
 }

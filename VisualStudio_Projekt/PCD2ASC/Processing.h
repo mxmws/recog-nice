@@ -10,7 +10,7 @@ using namespace std;
 class Processing
 {
 public:
-	pcl::PointCloud<pcl::PointXYZ>::Ptr transformationMatrix(pcl::PointCloud<pcl::PointXYZ>::Ptr, float, float);
+	pcl::PointCloud<pcl::PointXYZ>::Ptr transformationMatrix(pcl::PointCloud<pcl::PointXYZ>::Ptr);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr plyReader(string&);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr linuxPlyReader(string&);
 	void plyWriter(string, pcl::PointCloud<pcl::PointXYZ>::Ptr);
