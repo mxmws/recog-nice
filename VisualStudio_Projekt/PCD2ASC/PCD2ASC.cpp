@@ -69,27 +69,27 @@ int main ()
 	cout << "refModel Ball 2 with Ball 1: " << refModel1.scoring << endl;
 	cout << "refModel Box 2 with Ball 1: " << refModel2.scoring << endl;
 
-
+	*/
 
 	//Testing removal parameters
 	string result2meshlab = "result2meshlab.ply";
 	pcl::PointCloud<pcl::PointXYZ>::Ptr result2meshlab_cloud = process.plyReader(result2meshlab);
 
+	process.getRemovalParameters(result2meshlab_cloud);
+	
 
-	vector<float> test = process.getRemovalParameters(result2meshlab_cloud);
-
-	cout << test[0] << " " << test[1] << " " << test[2] << " " << test[3] << "\n";
+	cout << process.x_min << " " << process.x_max << " " << process.z_min << " " << process.z_max << "\n";
 
 	//Testing removeBackground with new parameters
 	string toilet_paper = "toilet_paper.ply";
 	pcl::PointCloud<pcl::PointXYZ>::Ptr toilet_paper_cloud = process.plyReader(toilet_paper);
-	process.uptRemoveBackground(toilet_paper_cloud, test);
+	process.uptRemoveBackground(toilet_paper_cloud);
 	process.plyWriter("toilet_paper_transformed.ply", toilet_paper_cloud);
 
 	
 	
 	
-	
+	/*
 	// LINUX TEST
 	string result2meshlab = "/home/pi/Desktop/repository/team5/testScans/result2meshlab.ply";
 	pcl::PointCloud<pcl::PointXYZ>::Ptr result2meshlab_cloud = process.linuxPlyReader(result2meshlab);

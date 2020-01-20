@@ -29,22 +29,22 @@ float ReferenceModel::scoreSimilarity(pcl::PointCloud<pcl::PointXYZ>::Ptr toChec
 {
 	cout << "ICP..." << endl;
 	// Using ICP to determine closeness of 2 .ply data
-	pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp2;
-	icp2.setInputSource(referenceCloud);
-	icp2.setInputTarget(toCheckWith_ptr);
-	icp2.setMaximumIterations(10000);
-	icp2.setMaxCorrespondenceDistance(50.0);
-	icp2.setRANSACOutlierRejectionThreshold(0.0001);
+	pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
+	icp.setMaximumIterations(10000);
+	icp.setMaxCorrespondenceDistance(50.0);
+	icp.setRANSACOutlierRejectionThreshold(0.0001);
+	icp.setInputSource(referenceCloud);
+	icp.setInputTarget(toCheckWith_ptr);
 
 	// Saving the result in a new point cloud
-	icp2.align(result);
+	icp.align(result);
 
 	// Giving the results back to the user
 	cout << endl << &referenceCloud << " with " << &toCheckWith_ptr << ": ";
-	cout << endl << "Has converged: " << icp2.hasConverged();
-	scoring = icp2.getFitnessScore();	// Changing the value of scoring (variable from class) based on the score from ICP
+	cout << endl << "Has converged: " << icp.hasConverged();
+	scoring = icp.getFitnessScore();	// Changing the value of scoring (variable from class) based on the score from ICP
 	cout << " with score: " << scoring << endl;
-	cout << "Transformation Matrix: " << endl << icp2.getFinalTransformation() << endl;
+	cout << "Transformation Matrix: " << endl << icp.getFinalTransformation() << endl;
 	cout << "Scoring: ";
 
 	return scoring;
