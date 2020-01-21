@@ -23,7 +23,7 @@ int main ()
 
 	cout << "Press enter to scan an object" << endl;
 	cin.get();
-	//startScanning();
+	startScanning();
 	pcl::PointCloud<pcl::PointXYZ>::Ptr scannedObject = process.plyReader(sourceCloudFile);
 	cout << "Done..." << endl;
 

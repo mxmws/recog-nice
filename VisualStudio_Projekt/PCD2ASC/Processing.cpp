@@ -344,22 +344,22 @@ void Processing::determineAngle(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud
 void Processing::positioning()
 {
 	
-	//string sourceCloudFile = "test1_filter15.ply";
-	string sourceCloudFile = "plain.ply";
+	string sourceCloudFile = "test1_filter15.ply";
+	//string sourceCloudFile = "plain.ply";
 	
 	cout << "Press enter to scan" << endl;
 	cin.get();
-	//system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
+	system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
 	pcl::PointCloud<pcl::PointXYZ>::Ptr plain = plyReader(sourceCloudFile);
 	cout << "Done..." << endl;
 	
 	pcl::io::savePLYFileBinary("plain.ply", *plain);//save for debugging
 
 
-	sourceCloudFile = "objects.ply";
+	//sourceCloudFile = "objects.ply";
 	cout << "Place four objects to mark the space you want to use and press enter to scan" << endl;
 	cin.get();
-	//system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
+	system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
 	pcl::PointCloud<pcl::PointXYZ>::Ptr objects = plyReader(sourceCloudFile);
 	cout << "Done..." << endl;
 	
