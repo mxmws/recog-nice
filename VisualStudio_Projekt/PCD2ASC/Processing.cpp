@@ -91,7 +91,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud
 	//Points to be removed saved in PointIndices
 	pcl::PointIndices::Ptr ToBeRemoved(new pcl::PointIndices());
 	pcl::ExtractIndices<pcl::PointXYZ> extract;
-	for (int i = 0; i < (*source_cloud).size(); i++)
+	for (int i = 0; i < source_cloud->size(); i++)
 	{
 		// positive X to the right from center, positive Y points upwards from center, positive Z points backwards
 		pcl::PointXYZ pt(source_cloud->points[i].x, source_cloud->points[i].y, source_cloud->points[i].z);
@@ -162,7 +162,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::uptRemoveBackground
 	//Points to be removed saved in PointIndices
 	pcl::PointIndices::Ptr ToBeRemoved(new pcl::PointIndices());
 	pcl::ExtractIndices<pcl::PointXYZ> extract;
-	for (int i = 0; i < (*source_cloud).size(); i++)
+	for (int i = 0; i < source_cloud->size(); i++)
 	{
 		// positive X to the right from center, positive Y points upwards from center, positive Z points backwards
 		pcl::PointXYZ pt(source_cloud->points[i].x, source_cloud->points[i].y, source_cloud->points[i].z);
@@ -205,24 +205,30 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::extractGround(pcl::PointCloud<pc
 	pcl::PointIndices::Ptr ToBeRemoved(new pcl::PointIndices());
 	pcl::ExtractIndices<pcl::PointXYZ> extract;
 
-	for (int i = 0; i < (*source_cloud_1).size(); i++)
+
+	
+	//remove all points from source_cloud_1 that are similar in source_cloud_2
+	for (int i = 0; i < source_cloud_1->size(); i++)
 	{
 		searchPoint = source_cloud_1->points[i];
-		pcl::PointXYZ pt2 = source_cloud_2->points[i];
 
-		//if is about twice as fast and true in most cases
-		if (sqrt(pow(searchPoint.x - pt2.x, 2) + pow(searchPoint.y - pt2.y, 2) + pow(searchPoint.z - pt2.z, 2)) < 0.05)
+		//Comparing points from both clouds with the same ID is twice as fast compared to octree and true in most cases
+		if(i < source_cloud_2->size())
 		{
-			ToBeRemoved->indices.push_back(i);
-		}
-		else
-		{
-			octree.nearestKSearch(searchPoint, 1, pointIdxNKNSearch, pointNKNSquaredDistance);
-
-			if (pointNKNSquaredDistance[0]<0.002)
+			pcl::PointXYZ pt2 = source_cloud_2->points[i];
+			
+			if (sqrt(pow(searchPoint.x - pt2.x, 2) + pow(searchPoint.y - pt2.y, 2) + pow(searchPoint.z - pt2.z, 2)) < 0.05)
 			{
 				ToBeRemoved->indices.push_back(i);
+				continue;
 			}
+		}
+		
+		octree.nearestKSearch(searchPoint, 1, pointIdxNKNSearch, pointNKNSquaredDistance);
+
+		if (pointNKNSquaredDistance[0]<0.002)//0.002
+		{
+			ToBeRemoved->indices.push_back(i);
 		}
 
 	}
@@ -233,13 +239,14 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::extractGround(pcl::PointCloud<pc
 	extract.setNegative(true);
 	extract.filter(*source_cloud_1);
 
-
+	
 	pcl::RadiusOutlierRemoval<pcl::PointXYZ> rorfilter(true);
 	rorfilter.setInputCloud(source_cloud_1);
-	rorfilter.setRadiusSearch(0.1);
-	rorfilter.setMinNeighborsInRadius(10);
+	rorfilter.setRadiusSearch(0.4);//0.1
+	rorfilter.setMinNeighborsInRadius(100);//10
 	rorfilter.filter(*source_cloud_1);
-
+	
+	
 	cout << "Done..." << endl;
 	return source_cloud_1;
 }
@@ -247,6 +254,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::extractGround(pcl::PointCloud<pc
 
 void Processing::determineAngle(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud)
 {
+	cout << "determineAngle..." << endl;
 	// Create the normal estimation class, and pass the input dataset to it
 	pcl::NormalEstimation<pcl::PointXYZ, pcl::Normal> ne;
 	ne.setInputCloud(source_cloud);
@@ -263,9 +271,7 @@ void Processing::determineAngle(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud
 	ne.setRadiusSearch(0.03);
 
 	// Compute the features
-	ne.compute(*cloud_normals);
-
-
+	ne.compute(*cloud_normals);//dis dont work idk why
 
 
 	float sum_rotation_x = 0.0;
@@ -273,37 +279,56 @@ void Processing::determineAngle(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud
 
 	for (int i = 2; i < cloud_normals->size(); i++)
 	{
+		
+		//todo remove from index
+		if(isnan(cloud_normals->points[i].normal_x) || isnan(cloud_normals->points[i].normal_y) || isnan(cloud_normals->points[i].normal_z))
+		{
+			cout << i << " is nan" << endl;
+			continue;
+		}
+		
 		sum_rotation_x += atan(cloud_normals->points[i].normal_y / cloud_normals->points[i].normal_z);
 
 		sum_angle_to_x += acos(cloud_normals->points[i].normal_x
 			/ sqrt(pow(cloud_normals->points[i].normal_x, 2)
 				+ pow(cloud_normals->points[i].normal_y, 2)
 				+ pow(cloud_normals->points[i].normal_z, 2)));
-	}
 
+	}
+	cout << "sum_rotation_x: " << sum_rotation_x << endl;
+	cout << "sum_angle_to_x: " << sum_angle_to_x << endl;
+	cout << "done..." << endl;
+	
 	Processing::angle_y = sum_angle_to_x / (cloud_normals->size() - 2);
 
 	Processing::angle_x = cos(Processing::angle_y) > 0 ?
 		sum_rotation_x / (cloud_normals->size() - 2) : -(sum_rotation_x / (cloud_normals->size() - 2));
 
+	cout << "angle_x: " << angle_x << endl;
+	cout << "angle_y: " << angle_y << endl;
+	
+	cout << "done..." << endl;
 }
 
 void Processing::positioning()
 {
 	
-	string sourceCloudFile = "test1_filter15.ply";
+	//string sourceCloudFile = "test1_filter15.ply";
+	string sourceCloudFile = "plain.ply";
 	
 	cout << "Press enter to scan" << endl;
 	cin.get();
-	system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
+	//system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
 	pcl::PointCloud<pcl::PointXYZ>::Ptr plain = plyReader(sourceCloudFile);
 	cout << "Done..." << endl;
 	
 	pcl::io::savePLYFileBinary("plain.ply", *plain);//save for debugging
 
+
+	sourceCloudFile = "objects.ply";
 	cout << "Place four objects to mark the space you want to use and press enter to scan" << endl;
 	cin.get();
-	system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
+	//system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
 	pcl::PointCloud<pcl::PointXYZ>::Ptr objects = plyReader(sourceCloudFile);
 	cout << "Done..." << endl;
 	
@@ -317,7 +342,9 @@ void Processing::positioning()
 	*/
 	
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = extractGround(plain, objects);
-		
+
+	pcl::io::savePLYFileBinary("extractedGround.ply", *cloud);//save for debugging
+	
 	determineAngle(cloud);
 	determineRemovalParameters(transformationMatrix(cloud));
 
