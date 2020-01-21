@@ -13,8 +13,14 @@
 #include <vector>
 #include <utility>
 
+//outlier removal
 #include <pcl/features/normal_3d.h>
 #include <pcl/filters/radius_outlier_removal.h>
+
+//plane model segmentation:
+#include <pcl/sample_consensus/method_types.h>
+#include <pcl/sample_consensus/model_types.h>
+#include <pcl/segmentation/sac_segmentation.h>
 
 using namespace std;
 
@@ -239,13 +245,38 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::extractGround(pcl::PointCloud<pc
 	extract.setNegative(true);
 	extract.filter(*source_cloud_1);
 
-	
+	/*
 	pcl::RadiusOutlierRemoval<pcl::PointXYZ> rorfilter(true);
 	rorfilter.setInputCloud(source_cloud_1);
 	rorfilter.setRadiusSearch(0.4);//0.1
 	rorfilter.setMinNeighborsInRadius(100);//10
 	rorfilter.filter(*source_cloud_1);
-	
+	*/
+
+
+	pcl::ModelCoefficients::Ptr coefficients(new pcl::ModelCoefficients);
+	pcl::PointIndices::Ptr inliers(new pcl::PointIndices);
+	// Create the segmentation object
+	pcl::SACSegmentation<pcl::PointXYZ> seg;
+	// Optional
+	seg.setOptimizeCoefficients(true);
+	// Mandatory
+	seg.setModelType(pcl::SACMODEL_PLANE);
+	seg.setMethodType(pcl::SAC_RANSAC);
+	seg.setDistanceThreshold(0.01);
+
+	seg.setInputCloud(source_cloud_1);
+	seg.segment(*inliers, *coefficients);
+
+
+	pcl::ExtractIndices<pcl::PointXYZ> extract2;
+
+	extract2.setInputCloud(source_cloud_1);
+	extract2.setIndices(inliers);
+	//Remove points
+	extract2.setNegative(false);
+	extract2.filter(*source_cloud_1);
+
 	
 	cout << "Done..." << endl;
 	return source_cloud_1;
