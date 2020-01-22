@@ -18,13 +18,13 @@ int main ()
 
 	process.positioning();
 
-	string sourceCloudFile = "test1_filter15.ply";
 
 	while(true)
 	{
 		cout << "Press enter to scan an object" << endl;
 		cin.get();
-		pcl::PointCloud<pcl::PointXYZ>::Ptr scannedObject = process.startScanning("test1_filter15.ply");
+		string sourceCloudFile = "test1_filter15.ply";
+		pcl::PointCloud<pcl::PointXYZ>::Ptr scannedObject = process.startScanning(sourceCloudFile);
 		cout << "Done..." << endl;
 
 

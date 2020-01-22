@@ -52,7 +52,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string& filename)
 	return cloud_ptr;
 }
 
-pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::startScanning(string sourceCloudFile)
+pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::startScanning(string& sourceCloudFile)
 {
 	#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 	
@@ -61,11 +61,11 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::startScanning(string sourceCloud
 	#else
 
 	CRealsenseScan scan;
-	scan.performScanAndSave("halloDasIstUnserScan");
+	string filename = "halloDasIstUnserScan";
+	scan.performScanAndSave(filename);
 	
-	system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
-	string sourceCloudFile = "halloDasIstUnserScan.ply";
-	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = plyReader(sourceCloudFile);
+	//system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
+	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = plyReader(filename);
 
 	
 	//return if scan is not faulty
@@ -381,7 +381,8 @@ void Processing::positioning()
 	
 	cout << "Press enter to scan" << endl;
 	cin.get();
-	const pcl::PointCloud<pcl::PointXYZ>::Ptr plain = startScanning("plain.ply");
+	string sourceCloudFile = "plain.ply";
+	const pcl::PointCloud<pcl::PointXYZ>::Ptr plain = startScanning(sourceCloudFile);
 	cout << "Done..." << endl;
 	
 	pcl::io::savePLYFileBinary("plain.ply", *plain);//save for debugging
@@ -389,7 +390,8 @@ void Processing::positioning()
 
 	cout << "Place four objects to mark the space you want to use and press enter to scan" << endl;
 	cin.get();
-	const pcl::PointCloud<pcl::PointXYZ>::Ptr objects = startScanning("objects.ply");
+	sourceCloudFile = "objects.ply";
+	const pcl::PointCloud<pcl::PointXYZ>::Ptr objects = startScanning(sourceCloudFile);
 	cout << "Done..." << endl;
 	
 	pcl::io::savePLYFileBinary("objects.ply", *objects);//save for debugging
