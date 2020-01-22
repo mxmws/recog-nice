@@ -60,10 +60,11 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::startScanning(string sourceCloud
 	
 	#else
 
-	CRealsenseScan()
+	CRealsenseScan scan;
+	scan.performScanAndSave("halloDasIstUnserScan");
 	
 	system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
-	string sourceCloudFile = "test1_filter15.ply";
+	string sourceCloudFile = "halloDasIstUnserScan.ply";
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = plyReader(sourceCloudFile);
 
 	
