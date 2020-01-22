@@ -11,7 +11,6 @@
 #include <string>
 #include <filesystem>
 #include <vector>
-#include <utility>
 
 //outlier removal
 #include <pcl/features/normal_3d.h>
@@ -23,6 +22,9 @@
 #include <pcl/segmentation/sac_segmentation.h>
 
 using namespace std;
+
+
+
 
 /**
 * Loading ply file into PointCloud object and return it.
@@ -42,6 +44,22 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string& filename)
 	return cloud_ptr;
 }
 
+pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::startScanning()
+{
+	system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
+	string sourceCloudFile = "test1_filter15.ply";
+	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = plyReader(sourceCloudFile);
+
+	//return if scan is not faulty
+	for (int i = 0; i < cloud->size(); i++)
+	{
+		if (cloud->points[i].z < -1)
+		{
+			return cloud;
+		}
+	}
+	startScanning();
+}
 
 
 /**
@@ -344,13 +362,11 @@ void Processing::determineAngle(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud
 void Processing::positioning()
 {
 	
-	string sourceCloudFile = "test1_filter15.ply";
 	//string sourceCloudFile = "plain.ply";
 	
 	cout << "Press enter to scan" << endl;
 	cin.get();
-	system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
-	pcl::PointCloud<pcl::PointXYZ>::Ptr plain = plyReader(sourceCloudFile);
+	pcl::PointCloud<pcl::PointXYZ>::Ptr plain = startScanning();
 	cout << "Done..." << endl;
 	
 	pcl::io::savePLYFileBinary("plain.ply", *plain);//save for debugging
@@ -359,8 +375,7 @@ void Processing::positioning()
 	//sourceCloudFile = "objects.ply";
 	cout << "Place four objects to mark the space you want to use and press enter to scan" << endl;
 	cin.get();
-	system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
-	pcl::PointCloud<pcl::PointXYZ>::Ptr objects = plyReader(sourceCloudFile);
+	pcl::PointCloud<pcl::PointXYZ>::Ptr objects = startScanning();
 	cout << "Done..." << endl;
 	
 	pcl::io::savePLYFileBinary("objects.ply", *objects);//save for debugging

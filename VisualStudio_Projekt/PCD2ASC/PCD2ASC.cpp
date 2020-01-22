@@ -7,30 +7,28 @@
 #include <utility> 
 using namespace std;
 
-void startScanning()
-{
-	system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
-}
 
 int main ()
 {
-	// Processing
 	Processing process;
 
 	process.positioning();
 
 	string sourceCloudFile = "test1_filter15.ply";
 
-	cout << "Press enter to scan an object" << endl;
-	cin.get();
-	startScanning();
-	pcl::PointCloud<pcl::PointXYZ>::Ptr scannedObject = process.plyReader(sourceCloudFile);
-	cout << "Done..." << endl;
+	while(true)
+	{
+		cout << "Press enter to scan an object" << endl;
+		cin.get();
+		pcl::PointCloud<pcl::PointXYZ>::Ptr scannedObject = process.startScanning();
+		cout << "Done..." << endl;
 
-	
-	scannedObject = process.transformationMatrix(scannedObject);
-	scannedObject = process.uptRemoveBackground(scannedObject);
-	pcl::io::savePLYFileBinary("scannedObjectCut.ply", *scannedObject);
+
+		scannedObject = process.transformationMatrix(scannedObject);
+		scannedObject = process.uptRemoveBackground(scannedObject);
+		pcl::io::savePLYFileBinary("scannedObjectCut.ply", *scannedObject);
+		//icp here with scannedObject
+	}
 	
 	cin.get();
 }
