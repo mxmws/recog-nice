@@ -137,7 +137,7 @@ bool CRealsenseScan::performScanAndSave(std::string& sFileName)
 				sFileName.append("test1_filter15.ply");
 		
 			points.export_to_ply(sFileName, vframe);
-			std::cout << sfilename << " has been written" << std::endl;
+			std::cout << sFileName << " has been written" << std::endl;
 		}
 	}
 
