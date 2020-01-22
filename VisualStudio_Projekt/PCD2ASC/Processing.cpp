@@ -44,8 +44,14 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string& filename)
 	return cloud_ptr;
 }
 
-pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::startScanning()
+pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::startScanning(string sourceCloudFile)
 {
+	#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+	
+	return plyReader(sourceCloudFile);
+	
+	#else
+	
 	system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
 	string sourceCloudFile = "test1_filter15.ply";
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = plyReader(sourceCloudFile);
@@ -60,6 +66,8 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::startScanning()
 		}
 	}
 	startScanning();
+	
+	#endif
 }
 
 
@@ -345,9 +353,6 @@ void Processing::determineAngle(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud
 				+ pow(cloud_normals->points[i].normal_z, 2)));
 
 	}
-	cout << "sum_rotation_x: " << sum_rotation_x << endl;
-	cout << "sum_angle_to_x: " << sum_angle_to_x << endl;
-	cout << "done..." << endl;
 	
 	Processing::angle_y = sum_angle_to_x / (cloud_normals->size() - 2);
 
@@ -363,20 +368,17 @@ void Processing::determineAngle(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud
 void Processing::positioning()
 {
 	
-	//string sourceCloudFile = "plain.ply";
-	
 	cout << "Press enter to scan" << endl;
 	cin.get();
-	pcl::PointCloud<pcl::PointXYZ>::Ptr plain = startScanning();
+	const pcl::PointCloud<pcl::PointXYZ>::Ptr plain = startScanning("plain.ply");
 	cout << "Done..." << endl;
 	
 	pcl::io::savePLYFileBinary("plain.ply", *plain);//save for debugging
 
 
-	//sourceCloudFile = "objects.ply";
 	cout << "Place four objects to mark the space you want to use and press enter to scan" << endl;
 	cin.get();
-	pcl::PointCloud<pcl::PointXYZ>::Ptr objects = startScanning();
+	const pcl::PointCloud<pcl::PointXYZ>::Ptr objects = startScanning("objects.ply");
 	cout << "Done..." << endl;
 	
 	pcl::io::savePLYFileBinary("objects.ply", *objects);//save for debugging
@@ -399,9 +401,6 @@ void Processing::positioning()
 	cloud = transformationMatrix(cloud);
 	pcl::io::savePLYFileBinary("cloud.ply", *cloud);//save for debugging
 
-	objects = transformationMatrix(objects);
-	objects = uptRemoveBackground(objects);
-	pcl::io::savePLYFileBinary("toilet_paperTransformed.ply", *cloud);//save for debugging
 	
 	//plyWriter("result3out.ply", cloud);
 	//pcl::io::savePLYFileBinary("toilet_paperTransformedCut.ply", *objects);

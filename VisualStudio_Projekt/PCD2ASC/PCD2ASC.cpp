@@ -20,7 +20,7 @@ int main ()
 	{
 		cout << "Press enter to scan an object" << endl;
 		cin.get();
-		pcl::PointCloud<pcl::PointXYZ>::Ptr scannedObject = process.startScanning();
+		pcl::PointCloud<pcl::PointXYZ>::Ptr scannedObject = process.startScanning("test1_filter15.ply");
 		cout << "Done..." << endl;
 
 
