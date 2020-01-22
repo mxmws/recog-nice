@@ -53,7 +53,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::startScanning()
 	//return if scan is not faulty
 	for (int i = 0; i < cloud->size(); i++)
 	{
-		if (cloud->points[i].z < -1)
+		if (cloud->points[i].z < -2.0)
 		{
 			return cloud;
 		}
