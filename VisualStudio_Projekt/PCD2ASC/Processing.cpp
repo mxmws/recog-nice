@@ -21,6 +21,14 @@
 #include <pcl/sample_consensus/model_types.h>
 #include <pcl/segmentation/sac_segmentation.h>
 
+
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+
+#else
+#include "CRealsenseScan.h"
+#endif
+
+
 using namespace std;
 
 
@@ -51,6 +59,8 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::startScanning(string sourceCloud
 	return plyReader(sourceCloudFile);
 	
 	#else
+
+	CRealsenseScan()
 	
 	system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
 	string sourceCloudFile = "test1_filter15.ply";
@@ -65,7 +75,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::startScanning(string sourceCloud
 			return cloud;
 		}
 	}
-	startScanning();
+	startScanning(sourceCloudFile);
 	
 	#endif
 }
