@@ -6,11 +6,7 @@
 #include <vector>
 #include <utility>
 
-
-
-
 using namespace std;
-
 
 int main ()
 {
@@ -31,7 +27,10 @@ int main ()
 		scannedObject = process.transformationMatrix(scannedObject);
 		scannedObject = process.uptRemoveBackground(scannedObject);
 		pcl::io::savePLYFileBinary("scannedObjectCut.ply", *scannedObject);
-		//icp here with scannedObject
+
+		// Load reference model
+		ReferenceModel refModel(scannedObject);
+		// use ICP to compare
 	}
 	
 	cin.get();
