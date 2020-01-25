@@ -61,8 +61,14 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::startScanning(string& sourceClou
 	#else
 
 	CRealsenseScan scan;
-	string filename = "halloDasIstUnserScan";
-	scan.performScanAndSave(filename);
+	string filename = "halloDasIstUnserScan.ply";
+	
+	if (scan.performScanAndSave(filename) == false)
+	{
+		cout << "Plug in you camera first and hit enter again" << endl;
+		cin.get();
+		startScanning(sourceCloudFile);
+	}
 	
 	//system("/home/pi/librealsense/build/examples/pointcloud/rs-pointcloud");
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = plyReader(filename);

@@ -13,13 +13,13 @@ int main ()
 	Processing process;
 
 	process.positioning();
-
-
-	while(true)
+	cout << "Press enter to scan an object or type 'x' to end the program" << endl;
+	char inputChar = cin.get();
+	
+	while(inputChar != 'x')
 	{
-		cout << "Press enter to scan an object" << endl;
-		cin.get();
-		string sourceCloudFile = "test1_filter15.ply";
+		
+		string sourceCloudFile = "halloDasIstUnserScan.ply";
 		pcl::PointCloud<pcl::PointXYZ>::Ptr scannedObject = process.startScanning(sourceCloudFile);
 		cout << "Done..." << endl;
 
@@ -52,7 +52,9 @@ int main ()
 		cout << "Scanned object vs Ball: " << scores[0] << endl;
 		cout << "Scanned object vs Box: " << scores[1] << endl;
 		cout << "Scanned object vs Car: " << scores[2] << endl;
+
+		cout << "Press enter to scan an object or type 'x' to end the program" << endl;
+		inputChar = cin.get();
+		
 	}
-	
-	cin.get();
 }
