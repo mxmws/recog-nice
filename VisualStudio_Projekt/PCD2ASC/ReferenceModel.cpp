@@ -45,7 +45,6 @@ float ReferenceModel::scoreSimilarity(pcl::PointCloud<pcl::PointXYZ>::Ptr toChec
 	scoring = icp.getFitnessScore();	// Changing the value of scoring (variable from class) based on the score from ICP
 	cout << " with score: " << scoring << endl;
 	cout << "Transformation Matrix: " << endl << icp.getFinalTransformation() << endl;
-	cout << "Scoring: ";
 
 	return scoring;
 }
