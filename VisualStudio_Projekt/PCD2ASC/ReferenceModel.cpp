@@ -30,9 +30,9 @@ float ReferenceModel::scoreSimilarity(pcl::PointCloud<pcl::PointXYZ>::Ptr toChec
 	cout << "ICP..." << endl;
 	// Using ICP to determine closeness of 2 .ply data
 	pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
-	icp.setMaximumIterations(10000);
-	icp.setMaxCorrespondenceDistance(50.0);
-	icp.setRANSACOutlierRejectionThreshold(0.0001);
+	icp.setMaximumIterations(100); // The program will iterate a maximum of 100 times when the function is called
+	icp.setMaxCorrespondenceDistance(50.0); // Set maximum distance between two correspondent points
+	icp.setRANSACOutlierRejectionThreshold(0.0001); // Set distance threshold for RANSAC outlier rejection loop
 	icp.setInputSource(referenceCloud);
 	icp.setInputTarget(toCheckWith_ptr);
 
