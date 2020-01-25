@@ -56,4 +56,3 @@ int main ()
 	
 	cin.get();
 }
-

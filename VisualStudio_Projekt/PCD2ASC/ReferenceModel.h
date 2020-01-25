@@ -12,4 +12,3 @@ private:
 	pcl::PointCloud<pcl::PointXYZ> result; // Point cloud as a result of the ICP function
 	float scoring; // How good the ICP result is (better if closer to zero)
 };
-
