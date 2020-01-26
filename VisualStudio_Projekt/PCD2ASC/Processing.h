@@ -13,11 +13,12 @@ public:
 	pcl::PointCloud<pcl::PointXYZ>::Ptr transformationMatrix(pcl::PointCloud<pcl::PointXYZ>::Ptr);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr plyReader(string&);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr startScanning(string&);
-	void determineRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr);
-
-	pcl::PointCloud<pcl::PointXYZ>::Ptr extractGround(pcl::PointCloud<pcl::PointXYZ>::Ptr, pcl::PointCloud<pcl::PointXYZ>::Ptr);
 	void positioning();
+
+private:
+	void determineRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr);
+	pcl::PointCloud<pcl::PointXYZ>::Ptr extractGround(pcl::PointCloud<pcl::PointXYZ>::Ptr, pcl::PointCloud<pcl::PointXYZ>::Ptr);
 	void determineAngle(pcl::PointCloud<pcl::PointXYZ>::Ptr);
 	// Always rotate x first!
 	float angle_x;
