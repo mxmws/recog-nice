@@ -134,54 +134,30 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointC
 	return transformed_cloud;
 }
 
-/**
- * Removes points whose coordinates match the given parameters.
- *
- * @param source_cloud Takes a PointCloud object.
- * @return Returns the PointCLoud object without background.
- *
- * Sources: http://docs.pointclouds.org/trunk/classpcl_1_1_extract_indices.html
-			https://stackoverflow.com/questions/44921987/removing-points-from-a-pclpointcloudpclpointxyzrgb
- */
-pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud)
-{
-	cout << "Removing background..." << endl;
-	//Points to be removed saved in PointIndices
-	pcl::PointIndices::Ptr ToBeRemoved(new pcl::PointIndices());
-	pcl::ExtractIndices<pcl::PointXYZ> extract;
-	for (int i = 0; i < source_cloud->size(); i++)
-	{
-		// positive X to the right from center, positive Y points upwards from center, positive Z points backwards
-		pcl::PointXYZ pt(source_cloud->points[i].x, source_cloud->points[i].y, source_cloud->points[i].z);
-		// remove points whose x/y/z-coordinate is ...
-		if ((pt.x > 0.6 || pt.x < -0.13 || pt.y < -0.805 || pt.z < -1.5 ))						
-		{
-			ToBeRemoved->indices.push_back(i);
-		}
-	}
-	extract.setInputCloud(source_cloud);
-	extract.setIndices(ToBeRemoved);
-	//Remove points
-	extract.setNegative(true);
-	extract.filter(*source_cloud);
-	cout << "Done..." << endl;
-	return source_cloud;
-}
 
+/**
+ * Determines maximum and minimum x/y/z coordinates of a pointcloud.
+ * 
+ * @param source_cloud Takes a PointCloud object.
+ *
+ */
 void Processing::determineRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud)
 {
+	//variables in which the results are saved
 	Processing::x_min = source_cloud->points[0].x;
 	Processing::x_max = source_cloud->points[0].x;
 	Processing::z_min = source_cloud->points[0].z;
 	Processing::z_max = source_cloud->points[0].z;
 	Processing::y_min = source_cloud->points[0].y;
 	Processing::y_max = source_cloud->points[0].y;
-
+	
+	//go through each point of the pointcloud
 	for (int i = 0; i < (source_cloud->size())-1; i++)
 	{
 		// positive X to the right from center, positive Y points upwards from center, positive Z points backwards
 		pcl::PointXYZ pt(source_cloud->points[i].x, source_cloud->points[i].y, source_cloud->points[i].z);
 		//for x (width)
+		//determine minimum and maximum x/y/z coordinates
 		if (Processing::x_min > source_cloud->points[i+1].x)
 		{
 			Processing::x_min = source_cloud->points[i+1].x;
@@ -212,7 +188,12 @@ void Processing::determineRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr 
 
 }
 
-
+/**
+ * Removes everything outside the maximum/minium-x/y/z parameters to keep only the relevant item.
+ *
+ * @param source_cloud Takes a PointCloud object.
+ * @return Pointcloud with only the relevant item.
+ */
 pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::uptRemoveBackground
 (pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud)
 {
@@ -231,8 +212,8 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::uptRemoveBackground
 		}
 	}
 	extract.setInputCloud(source_cloud);
+	//Remove points which are outside the parameters
 	extract.setIndices(ToBeRemoved);
-	//Remove points
 	extract.setNegative(true);
 	extract.filter(*source_cloud);
 	cout << "Done..." << endl;
