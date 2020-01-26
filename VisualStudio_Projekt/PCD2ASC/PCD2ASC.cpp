@@ -50,6 +50,7 @@ int main ()
 		cout << "Scanned object vs Box: " << refModel2.getScoring() << endl;
 		cout << "Scanned object vs Car: " << refModel3.getScoring() << endl;
 
+		// Tell the user which reference model has the highest similarity with the scanned object
 		if (refModel1.getScoring() < refModel2.getScoring() && refModel1.getScoring() < refModel3.getScoring())
 		{
 			cout << endl;
