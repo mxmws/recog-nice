@@ -17,6 +17,10 @@ cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/CRealsenseScan.cpp /$BUILDPATH/swe_p
 cp $SCRIPTPATH/example.hpp /$BUILDPATH/swe_project
 cp $SCRIPTPATH/CMakeLists.txt /$BUILDPATH
 
+cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/ball1.ply /$BUILDPATH/build/swe_project
+cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/box2.ply /$BUILDPATH/build/swe_project
+cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/car3.ply /$BUILDPATH/build/swe_project
+
 cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/Processing.h /$BUILDPATH/swe_project
 cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/ReferenceModel.h /$BUILDPATH/swe_project
 cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/CRealsenseScan.h /$BUILDPATH/swe_project
