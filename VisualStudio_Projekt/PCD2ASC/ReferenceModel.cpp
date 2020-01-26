@@ -10,9 +10,10 @@ using namespace std;
  *
  * @param refCloud A pointer to a new point cloud whose values are going to be compared with
  */
-ReferenceModel::ReferenceModel(pcl::PointCloud<pcl::PointXYZ>::Ptr refCloud)
+ReferenceModel::ReferenceModel(pcl::PointCloud<pcl::PointXYZ>::Ptr refCloud, string& _name)
 {
 	referenceCloud = refCloud;
+	name = _name;
 }
 
 

@@ -8,25 +8,24 @@ using namespace std;
 
 int main ()
 {
+	string refModelNames[] = { "ball1.ply", "box1.ply", "car1.ply" };
+	
 	Processing process;
 
 	process.positioning();
 	cout << "Press enter to scan an object or type 'x' to end the program" << endl;
 	char inputChar = cin.get();
 
-	// Load reference models
-	string checkWith1 = "ball1.ply";
-	pcl::PointCloud<pcl::PointXYZ>::Ptr checkBall = process.plyReader(checkWith1); // Ref model 1 (Ball)
-	string checkWith2 = "box1.ply";
-	pcl::PointCloud<pcl::PointXYZ>::Ptr checkBox = process.plyReader(checkWith2); // Ref model 2 (Box)
-	string checkWith3 = "car1.ply";
-	pcl::PointCloud<pcl::PointXYZ>::Ptr checkCar = process.plyReader(checkWith3); // Ref model 3 (Car)
-
-	// 3 point cloud reference models to check with the source
-	ReferenceModel refModel1(checkBall);
-	ReferenceModel refModel2(checkBox);
-	ReferenceModel refModel3(checkCar);
 	
+	vector <ReferenceModel> referenceModels;
+
+	//fill vector with reference models
+	for (string name : refModelNames)
+	{
+		ReferenceModel refModel(process.plyReader(name), name);
+		referenceModels.push_back(refModel);
+	}
+		
 	while(inputChar != 'x')
 	{
 		
@@ -37,37 +36,25 @@ int main ()
 
 		scannedObject = process.transformationMatrix(scannedObject);
 		scannedObject = process.uptRemoveBackground(scannedObject);
-		pcl::io::savePLYFileBinary("scannedObjectCut.ply", *scannedObject);
+		pcl::io::savePLYFileBinary("scannedObjectCut.ply", *scannedObject); //for debugging
 
-		// Use ICP to compare source with 3 different reference models
-		refModel1.scoreSimilarity(scannedObject);
-		refModel2.scoreSimilarity(scannedObject);
-		refModel3.scoreSimilarity(scannedObject);
+		// Use ICP to compare source with the reference models
+		for (ReferenceModel& refModel : referenceModels)
+		{
+			refModel.scoreSimilarity(scannedObject);
+		}
 
 		// Give out ICP results
+		ReferenceModel bestScoringModel = referenceModels[0];
 		cout << endl << "------- SCORES ------- (The closer to zero the better) -------" << endl << endl;
-		cout << "Scanned object vs Ball: " << refModel1.getScoring() << endl;
-		cout << "Scanned object vs Box: " << refModel2.getScoring() << endl;
-		cout << "Scanned object vs Car: " << refModel3.getScoring() << endl;
-
+		for (ReferenceModel refModel : referenceModels)
+		{
+			cout << "Scanned object vs " << refModel.getName() << ": " << refModel.getScoring() << endl;
+			bestScoringModel = refModel.getScoring() < bestScoringModel.getScoring() ? refModel : bestScoringModel;
+		}
 		// Tell the user which reference model has the highest similarity with the scanned object
-		if (refModel1.getScoring() < refModel2.getScoring() && refModel1.getScoring() < refModel3.getScoring())
-		{
-			cout << endl;
-			cout << "Your scanned object is closest to a ball, with a score of " << refModel1.getScoring() << endl;
-		}
-		else if (refModel2.getScoring() < refModel1.getScoring() && refModel2.getScoring() < refModel3.getScoring())
-		{
-			cout << endl;
-			cout << "Your scanned object is closest to a box, with a score of " << refModel2.getScoring() << endl;
-		}
-		else
-		{
-			cout << endl;
-			cout << "Your scanned object is closest to a car, with a score of " << refModel3.getScoring() << endl;
-		}
-		
-		cout << "Press enter to scan an object or type 'x' to end the program" << endl;
+		cout << "Your scanned object is closest to " << bestScoringModel.getName() << ", with a score of " << bestScoringModel.getScoring() << endl;
+
 		inputChar = cin.get();
 	}
 }
