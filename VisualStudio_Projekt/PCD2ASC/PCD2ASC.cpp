@@ -38,7 +38,7 @@ int main ()
 
 
 		scannedObject = process.transformationMatrix(scannedObject);
-		scannedObject = process.uptRemoveBackground(scannedObject);
+		scannedObject = process.removeBackground(scannedObject);
 		pcl::io::savePLYFileBinary("scannedObjectCut.ply", *scannedObject); //for debugging
 
 		// Use ICP to compare source with the reference models

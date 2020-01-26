@@ -152,37 +152,37 @@ void Processing::determineRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr 
 	Processing::y_max = source_cloud->points[0].y;
 	
 	//go through each point of the pointcloud
-	for (int i = 0; i < (source_cloud->size())-1; i++)
+	for (int i = 1; i < (source_cloud->size()); i++)
 	{
 		// positive X to the right from center, positive Y points upwards from center, positive Z points backwards
 		pcl::PointXYZ pt(source_cloud->points[i].x, source_cloud->points[i].y, source_cloud->points[i].z);
 		//for x (width)
 		//determine minimum and maximum x/y/z coordinates
-		if (Processing::x_min > source_cloud->points[i+1].x)
+		if (Processing::x_min > source_cloud->points[i].x)
 		{
-			Processing::x_min = source_cloud->points[i+1].x;
+			Processing::x_min = source_cloud->points[i].x;
 		}
-		else if (Processing::x_max < source_cloud->points[i+1].x)
+		else if (Processing::x_max < source_cloud->points[i].x)
 		{
-			Processing::x_max = source_cloud->points[i+1].x;
+			Processing::x_max = source_cloud->points[i].x;
 		}
 		//for z (depth)
-		if (Processing::z_min > source_cloud->points[i + 1].z)
+		if (Processing::z_min > source_cloud->points[i].z)
 		{
-			Processing::z_min = source_cloud->points[i + 1].z;
+			Processing::z_min = source_cloud->points[i].z;
 		}
-		else if (Processing::z_max < source_cloud->points[i + 1].z)
+		else if (Processing::z_max < source_cloud->points[i].z)
 		{
-			Processing::z_max = source_cloud->points[i + 1].z;
+			Processing::z_max = source_cloud->points[i].z;
 		}
 		//for y (height)
-		if (Processing::y_min > source_cloud->points[i + 1].y)
+		if (Processing::y_min > source_cloud->points[i].y)
 		{
-			Processing::y_min = source_cloud->points[i + 1].y;
+			Processing::y_min = source_cloud->points[i].y;
 		}
-		else if (Processing::y_max < source_cloud->points[i + 1].y)
+		else if (Processing::y_max < source_cloud->points[i].y)
 		{
-			Processing::y_max = source_cloud->points[i + 1].y;
+			Processing::y_max = source_cloud->points[i].y;
 		}
 	}
 
@@ -194,8 +194,7 @@ void Processing::determineRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr 
  * @param source_cloud Takes a PointCloud object.
  * @return Pointcloud with only the relevant item.
  */
-pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::uptRemoveBackground
-(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud)
+pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud)
 {
 	cout << "Removing background..." << endl;
 	//Points to be removed saved in PointIndices
