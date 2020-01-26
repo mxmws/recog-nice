@@ -3,7 +3,7 @@
 ## ------Allgemeine Informationen------
 
 
-Da wir schon einen gemittelten Scan mit Hilfe der Realsense bilden können, brauchen wir für den Rest des Programmes nur noch die PCL. Daher findet die Entwicklung unter VS auf Windows statt. Wir verwenden eine fertig gebaute Point Cloud Library von der GfAI, die nur mit VS2015 kompatibel ist. Um das Programm auf dem Raspberry zum laufen zu bringen, haben wir ein Script geschrieben, das automatisch die cmake Datei erstellt und Änderungen an den Dateipfaden vornimmt. In der untenstehenden Anleitung ist genau beschrieben, wie Sie das Programm aus dem VS Projekt auf dem Raspberry Pi zum Laufen bringen.
+Da der gemittelte Scan schon mit Hilfe der Realsense SDK gebildet, wird für den Rest des Programmes nur noch die PCL benötigt. Daher findet die Entwicklung unter VS auf Windows statt. Verwendet wird eine fertig gebaute Point Cloud Library von der GfAI, die nur mit VS2015 kompatibel ist. Um das Programm auf dem Raspberry zum laufen zu bringen, haben wir ein Script geschrieben, das automatisch die cmake Datei erstellt und Änderungen an den Dateipfaden vornimmt. In der untenstehenden Anleitung ist genau beschrieben, wie Sie das Programm aus dem VS Projekt auf dem Raspberry Pi zum Laufen bringen.
 
 Das Programm läuft sowohl auf Windows als auch auf dem Raspberry Pi.
 Mit dem Raspberry muss zunächst die leere Fläche gescannt werden ('plain.ply'), auf dem das Objekt später stehen soll.
