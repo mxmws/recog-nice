@@ -8,21 +8,21 @@ using namespace std;
 
 int main ()
 {
-	//enter the names of the files for the reference models here
+	// Enter the names of the files for the reference models here
 	string refModelNames[] = { "ball1.ply", "box1.ply", "car1.ply" };
 
 	Processing process;
 	
 	vector <ReferenceModel> referenceModels;
 
-	//fill vector with reference models
+	// Fill vector with reference models
 	for (string name : refModelNames)
 	{
 		ReferenceModel refModel(process.plyReader(name), name);
 		referenceModels.push_back(refModel);
 	}
 	
-	//determine parameters like angle for the scan
+	// Determine parameters like angle for the scan
 	process.positioning();
 	
 	cout << "Press enter to scan an object or type 'x' to end the program" << endl;
