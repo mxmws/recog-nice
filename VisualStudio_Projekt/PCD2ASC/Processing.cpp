@@ -196,6 +196,7 @@ void Processing::determineRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr 
  */
 pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud)
 {
+	float tolerance = 0.01;
 	cout << "Removing background..." << endl;
 	//Points to be removed saved in PointIndices
 	pcl::PointIndices::Ptr ToBeRemoved(new pcl::PointIndices());
@@ -205,7 +206,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud
 		// positive X to the right from center, positive Y points upwards from center, positive Z points backwards
 		pcl::PointXYZ pt(source_cloud->points[i].x, source_cloud->points[i].y, source_cloud->points[i].z);
 		// remove points whose x/y/z-coordinate is ...
-		if (pt.x < x_min || pt.x > x_max || pt.y < y_min || pt.y > y_max || pt.z > (z_min - 0.01))
+		if (pt.x < x_min || pt.x > x_max || pt.y < y_min || pt.y > y_max || pt.z > (z_min - tolerance))
 		{
 			ToBeRemoved->indices.push_back(i);
 		}
