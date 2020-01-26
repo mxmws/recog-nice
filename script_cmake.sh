@@ -14,8 +14,8 @@ cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/PCD2ASC.cpp /$BUILDPATH/swe_project
 cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/Processing.cpp /$BUILDPATH/swe_project
 cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/ReferenceModel.cpp /$BUILDPATH/swe_project
 cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/CRealsenseScan.cpp /$BUILDPATH/swe_project
-cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/example.hpp /$BUILDPATH/swe_project
-cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/CMakelists.txt /$BUILDPATH
+cp $SCRIPTPATH/example.hpp /$BUILDPATH/swe_project
+cp $SCRIPTPATH/CMakelists.txt /$BUILDPATH
 
 cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/Processing.h /$BUILDPATH/swe_project
 cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/ReferenceModel.h /$BUILDPATH/swe_project
