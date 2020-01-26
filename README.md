@@ -29,13 +29,12 @@ Da wir schon einen gemittelten Scan mit Hilfe der Realsense bilden können, brau
 
 5. Programm kompilieren
 - Falls noch nicht vorhanden - Repository clonen
-- zum Repository navigieren und Script starten mit `sh vs_to_cmake.sh`
-  (Sie können vorher das Script oben editieren, um den Zielpfad zu ändern)
+- zum Repository navigieren und Script starten mit `script_cmake.sh`
 
 6. Programm ausführen
-- in den Build Ordner navigieren (standardmäßig: `cd /home/pi/ply_reader_test/build`)
-- executable ausführen
-- erzeugte PLY erscheint im selben Ordner
+- in den Build Ordner navigieren (standardmäßig: `cd /home/pi/librealsense/build/swe_project`)
+- executable ausführen (`./PCD2ASC`)
+- erzeugte PLYs erscheinen im selben Ordner
 
 ## ---------------Visual Studio Projekt---------------
 
