@@ -6,13 +6,13 @@
 Da wir schon einen gemittelten Scan mit Hilfe der Realsense bilden können, brauchen wir für den Rest des Programmes nur noch die PCL. Daher findet die Entwicklung unter VS auf Windows statt. Wir verwenden eine fertig gebaute Point Cloud Library von der GfAI, die nur mit VS2015 kompatibel ist. Um das Programm auf dem Raspberry zum laufen zu bringen, haben wir ein Script geschrieben, das automatisch die cmake Datei erstellt und Änderungen an den Dateipfaden vornimmt. In der untenstehenden Anleitung ist genau beschrieben, wie Sie das Programm aus dem VS Projekt auf dem Raspberry Pi zum Laufen bringen.
 
 Das Programm läuft sowohl auf Windows als auch auf dem Raspberry Pi.
-Mit dem Raspberry muss zunächst die leere Fläche gescannt werden, auf dem das Objekt später stehen soll. ('plain.ply')
-Dann muss die Fläche gekennzeichnet werden, in dem man beliebiege Objekte so platziert, dass die von Ihnen verdeckte Fläche, den gewünschten Bereich zum Scannen repräsentiert.('objects.pls') 
+Mit dem Raspberry muss zunächst die leere Fläche gescannt werden ('plain.ply'), auf dem das Objekt später stehen soll.
+Dann muss die Fläche gekennzeichnet werden, in dem man beliebiege Objekte so platziert('objects.pls') , dass die von Ihnen verdeckte Fläche, den gewünschten Bereich zum Scannen repräsentiert.
 Dabei ist zu beachten, dass sich im toten Winkel hinter dem Objekt nur flacher Boden befinden darf.
-Danach platziert man das gewünschte Objekt auf den Scanbereich. Nun wird der Boden sowie der Hintergrund von diesem Scan entfernt, sodass nur noch das relevante Objekt in der
-Punktwolke vorhanden ist. ('halloDasIstUnserScan.ply')
+Danach platziert man das gewünschte Objekt auf den Scanbereich ('halloDasIstUnserScan.ply'). Nun wird der Boden sowie der Hintergrund von diesem Scan entfernt, sodass nur noch das relevante Objekt in der
+Punktwolke vorhanden ist.
 
-Auf Windows ist das Scannen mit der RealSense nicht möglich, daher befinden sich dort schon die Dateien für den leeren Scan ('plain.ply'), den Scan zum markieren des 
+Auf Windows ist das Scannen mit der RealSense nicht möglich, daher befinden sich dort schon Testdateien für den leeren Scan ('plain.ply'), den Scan zum markieren des 
 Scanbereichs ('objects.pls') und das Objekt, welches zuletzt gescannt wird ('halloDasIstUnserScan.ply').
 
 
