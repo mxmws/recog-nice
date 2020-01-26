@@ -8,7 +8,9 @@ SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 cd $BUILDPATH
 rm -r swe_project
 mkdir -p swe_project
-cd $BUILDPATH/swe_project
+cd $BUILDPATH/build
+rm -r swe_project
+mkdir -p swe_project
 
 cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/PCD2ASC.cpp /$BUILDPATH/swe_project
 cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/Processing.cpp /$BUILDPATH/swe_project
@@ -24,6 +26,8 @@ cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/car3.ply /$BUILDPATH/build/swe_proje
 cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/Processing.h /$BUILDPATH/swe_project
 cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/ReferenceModel.h /$BUILDPATH/swe_project
 cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/CRealsenseScan.h /$BUILDPATH/swe_project
+
+cd $BUILDPATH/swe_project
 
 #CMakeLists.txt wird erstellt
 echo '
