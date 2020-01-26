@@ -32,9 +32,9 @@ int main ()
 		ReferenceModel refModel(scannedObject); // source point cloud to check with the reference models
 		string checkWith1 = "ball1.ply";
 		pcl::PointCloud<pcl::PointXYZ>::Ptr checkBall = process.plyReader(checkWith1); // Ref model 1 (Ball)
-		string checkWith2 = "box2.ply";
+		string checkWith2 = "box1.ply";
 		pcl::PointCloud<pcl::PointXYZ>::Ptr checkBox = process.plyReader(checkWith2); // Ref model 2 (Box)
-		string checkWith3 = "car3.ply";
+		string checkWith3 = "car1.ply";
 		pcl::PointCloud<pcl::PointXYZ>::Ptr checkCar = process.plyReader(checkWith3); // Ref model 3 (Car)
 
 		float scores[3]; // Array to save the scoring
