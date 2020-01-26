@@ -39,7 +39,7 @@ int main ()
 		scannedObject = process.uptRemoveBackground(scannedObject);
 		pcl::io::savePLYFileBinary("scannedObjectCut.ply", *scannedObject);
 
-		// Use ICP to compare source with 3 different reference models and save the result on an array
+		// Use ICP to compare source with 3 different reference models
 		refModel1.scoreSimilarity(scannedObject);
 		refModel2.scoreSimilarity(scannedObject);
 		refModel3.scoreSimilarity(scannedObject);
