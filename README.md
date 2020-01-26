@@ -7,7 +7,7 @@ Da wir schon einen gemittelten Scan mit Hilfe der Realsense bilden können, brau
 
 Das Programm läuft sowohl auf Windows als auch auf dem Raspberry Pi.
 Mit dem Raspberry muss zunächst die leere Fläche gescannt werden ('plain.ply'), auf dem das Objekt später stehen soll.
-Dann muss die Fläche gekennzeichnet werden, in dem man beliebiege Objekte so platziert('objects.pls') , dass die von Ihnen verdeckte Fläche, den gewünschten Bereich zum Scannen repräsentiert.
+Dann muss die Fläche gekennzeichnet werden, in dem man beliebiege Objekte so platziert ('objects.ply') , dass die von Ihnen verdeckte Fläche, den gewünschten Bereich zum Scannen repräsentiert.
 Dabei ist zu beachten, dass sich im toten Winkel hinter dem Objekt nur flacher Boden befinden darf.
 Danach platziert man das gewünschte Objekt auf den Scanbereich ('halloDasIstUnserScan.ply'). Nun wird der Boden sowie der Hintergrund von diesem Scan entfernt, sodass nur noch das relevante Objekt in der
 Punktwolke vorhanden ist.
