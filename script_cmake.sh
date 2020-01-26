@@ -15,7 +15,7 @@ cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/Processing.cpp /$BUILDPATH/swe_proje
 cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/ReferenceModel.cpp /$BUILDPATH/swe_project
 cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/CRealsenseScan.cpp /$BUILDPATH/swe_project
 cp $SCRIPTPATH/example.hpp /$BUILDPATH/swe_project
-cp $SCRIPTPATH/CMakelists.txt /$BUILDPATH
+cp $SCRIPTPATH/CMakeLists.txt /$BUILDPATH
 
 cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/Processing.h /$BUILDPATH/swe_project
 cp $SCRIPTPATH/VisualStudio_Projekt/PCD2ASC/ReferenceModel.h /$BUILDPATH/swe_project
@@ -45,7 +45,7 @@ include_directories(rs-pointcloud ../examples/)
 
 ' > CMakeLists.txt
 
-cd $BUILDPATH
+cd $BUILDPATH/build
 
 cmake .. 
 make
