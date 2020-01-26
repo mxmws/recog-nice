@@ -232,10 +232,6 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::uptRemoveBackground
 }
 
 
-
-
-
-
 pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::extractGround(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud_1, pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud_2)
 {
 	cout << "extracting ground... (luckily this won't take 20 Minutes anymore)" << endl;
@@ -351,6 +347,7 @@ void Processing::determineAngle(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud
 
 	float sum_rotation_x = 0.0;
 	float sum_angle_to_x = 0.0;
+	int amountOfRelevantPoints = cloud_normals->size();
 
 	for (int i = 2; i < cloud_normals->size(); i++)
 	{
@@ -358,7 +355,7 @@ void Processing::determineAngle(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud
 		//todo remove from index
 		if(isnan(cloud_normals->points[i].normal_x) || isnan(cloud_normals->points[i].normal_y) || isnan(cloud_normals->points[i].normal_z))
 		{
-			cout << i << " is nan" << endl;
+			amountOfRelevantPoints--;
 			continue;
 		}
 		
@@ -371,10 +368,10 @@ void Processing::determineAngle(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud
 
 	}
 	
-	Processing::angle_y = sum_angle_to_x / (cloud_normals->size() - 2);
+	Processing::angle_y = sum_angle_to_x / amountOfRelevantPoints;
 
 	Processing::angle_x = cos(Processing::angle_y) > 0 ?
-		sum_rotation_x / (cloud_normals->size() - 2) : -(sum_rotation_x / (cloud_normals->size() - 2));
+		sum_rotation_x / amountOfRelevantPoints : -(sum_rotation_x / amountOfRelevantPoints);
 
 	cout << "angle_x: " << angle_x << endl;
 	cout << "angle_y: " << angle_y << endl;

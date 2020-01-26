@@ -8,14 +8,10 @@ using namespace std;
 
 int main ()
 {
+	//enter the names of the files for the reference models here
 	string refModelNames[] = { "ball1.ply", "box1.ply", "car1.ply" };
-	
+
 	Processing process;
-
-	process.positioning();
-	cout << "Press enter to scan an object or type 'x' to end the program" << endl;
-	char inputChar = cin.get();
-
 	
 	vector <ReferenceModel> referenceModels;
 
@@ -25,7 +21,14 @@ int main ()
 		ReferenceModel refModel(process.plyReader(name), name);
 		referenceModels.push_back(refModel);
 	}
-		
+	
+	//determine parameters like angle for the scan
+	process.positioning();
+	
+	cout << "Press enter to scan an object or type 'x' to end the program" << endl;
+	char inputChar = cin.get();
+
+	
 	while(inputChar != 'x')
 	{
 		
@@ -55,6 +58,7 @@ int main ()
 		// Tell the user which reference model has the highest similarity with the scanned object
 		cout << "Your scanned object is closest to " << bestScoringModel.getName() << ", with a score of " << bestScoringModel.getScoring() << endl;
 
+		cout << "Press enter to scan an object or type 'x' to end the program" << endl;
 		inputChar = cin.get();
 	}
 }
