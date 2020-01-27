@@ -13,7 +13,7 @@ Danach platziert man das gewünschte Objekt auf den Scanbereich ('halloDasIstUns
 Punktwolke vorhanden ist.
 
 Auf Windows ist das Scannen mit der RealSense nicht möglich, daher befinden sich dort schon Testdateien für den leeren Scan ('plain.ply'), den Scan zum markieren des 
-Scanbereichs ('objects.pls') und das Objekt, welches zuletzt gescannt wird ('halloDasIstUnserScan.ply').
+Scanbereichs ('objects.ply') und das Objekt, welches zuletzt gescannt wird ('halloDasIstUnserScan.ply').
 
 
 ## ---------------Anleitung---------------
@@ -37,7 +37,7 @@ Scanbereichs ('objects.pls') und das Objekt, welches zuletzt gescannt wird ('hal
 
 5. Programm kompilieren
 - Falls noch nicht vorhanden - Repository clonen
-- zum Repository navigieren und Script starten mit `script_cmake.sh`
+- zum Repository navigieren und Script starten mit `sh script_cmake.sh`
 
 6. Programm ausführen
 - in den Build Ordner navigieren (standardmäßig: `cd /home/pi/librealsense/build/swe_project`)
