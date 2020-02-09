@@ -31,30 +31,9 @@ int main ()
 	
 	while(inputChar != 'x')
 	{
+
+		const ReferenceModel& bestScoringModel = process.doICP(referenceModels);
 		
-		string sourceCloudFile = "halloDasIstUnserScan.ply";
-		pcl::PointCloud<pcl::PointXYZ>::Ptr scannedObject = process.startScanning(sourceCloudFile);
-		cout << "Done..." << endl;
-
-
-		scannedObject = process.transformationMatrix(scannedObject);
-		scannedObject = process.removeBackground(scannedObject);
-		pcl::io::savePLYFileBinary("scannedObjectCut.ply", *scannedObject); //for debugging
-
-		// Use ICP to compare source with the reference models
-		for (ReferenceModel& refModel : referenceModels)
-		{
-			refModel.scoreSimilarity(scannedObject);
-		}
-
-		// Give out ICP results
-		ReferenceModel bestScoringModel = referenceModels[0];
-		cout << endl << "------- SCORES ------- (The closer to zero the better) -------" << endl << endl;
-		for (ReferenceModel refModel : referenceModels)
-		{
-			cout << "Scanned object vs " << refModel.getName() << ": " << refModel.getScoring() << endl;
-			bestScoringModel = refModel.getScoring() < bestScoringModel.getScoring() ? refModel : bestScoringModel;
-		}
 		// Tell the user which reference model has the highest similarity with the scanned object
 		cout << "Your scanned object is closest to " << bestScoringModel.getName() << ", with a score of " << bestScoringModel.getScoring() << endl;
 

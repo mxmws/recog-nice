@@ -399,3 +399,32 @@ void Processing::positioning()
 	determineAngle(extractedGround);
 	determineRemovalParameters(transformationMatrix(extractedGround));
 }
+
+ReferenceModel Processing::doICP(vector <ReferenceModel> referenceModels)
+{
+	string sourceCloudFile = "halloDasIstUnserScan.ply";
+	pcl::PointCloud<pcl::PointXYZ>::Ptr scannedObject = startScanning(sourceCloudFile);
+	cout << "Done..." << endl;
+
+
+	scannedObject = transformationMatrix(scannedObject);
+	scannedObject = removeBackground(scannedObject);
+	pcl::io::savePLYFileBinary("scannedObjectCut.ply", *scannedObject); //for debugging
+
+																		// Use ICP to compare source with the reference models
+	for (ReferenceModel& refModel : referenceModels)
+	{
+		refModel.scoreSimilarity(scannedObject);
+	}
+
+	// Give out ICP results
+	ReferenceModel& bestScoringModel = referenceModels[0];
+	cout << endl << "------- SCORES ------- (The closer to zero the better) -------" << endl << endl;
+	for (ReferenceModel refModel : referenceModels)
+	{
+		cout << "Scanned object vs " << refModel.getName() << ": " << refModel.getScoring() << endl;
+		bestScoringModel = refModel.getScoring() < bestScoringModel.getScoring() ? refModel : bestScoringModel;
+	}
+		
+	return bestScoringModel;
+}

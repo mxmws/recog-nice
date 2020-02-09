@@ -1,6 +1,7 @@
 #pragma once
 #include <pcl/io/ply_io.h>
 #include <string>
+#include "ReferenceModel.h"
 
 using namespace std;
 
@@ -13,6 +14,7 @@ public:
 	pcl::PointCloud<pcl::PointXYZ>::Ptr startScanning(string&);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr removeBackground(pcl::PointCloud<pcl::PointXYZ>::Ptr);
 	void positioning();
+	ReferenceModel doICP(vector <ReferenceModel>);
 
 private:
 	void determineRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr);
