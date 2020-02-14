@@ -35,6 +35,8 @@ using namespace std;
 /**
 * Loading ply file into PointCloud object and return it.
 *
+* @author Minh D
+*
 * @param filename name of the file that is going to be opened
 * @return Returns a PointCloud object.
 *
@@ -53,6 +55,8 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::plyReader(string& filename)
 
 /**
 * Loading ply file into PointCloud object and return it.
+*
+* @author Maximilian M
 *
 * @param sourceCloudFile name of the file that is going to be opened if on Windows
 * @return	On Windows:	file opened
@@ -99,6 +103,8 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::startScanning(string& sourceClou
 /**
 * Rotates point cloud to make removeBackground possible
 *
+* @author Maximilian M
+*
 * @param source_cloud Takes a PointCloud object.
 * @return Returns the rotated PointCloud object.
 *
@@ -137,6 +143,8 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointC
 
 /**
  * Determines maximum and minimum x/y/z coordinates of a pointcloud.
+ *
+ * @author Minh D
  * 
  * @param source_cloud Takes a PointCloud object.
  *
@@ -191,6 +199,8 @@ void Processing::determineRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr 
 /**
  * Removes everything outside the maximum/minium-x/y/z parameters to keep only the relevant item.
  *
+ * @author Minh D
+ *
  * @param source_cloud Takes a PointCloud object.
  * @return Pointcloud with only the relevant item.
  */
@@ -224,6 +234,8 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::removeBackground(pcl::PointCloud
 /**
 * Subtracts two pointclouds from each other to the flat ground. 
 *
+* @author Maximilian M
+* 
 * @param source_cloud_1 for example the plain ground
 * @param source_cloud_2 for example objects placed on the ground marking the area that needs to be extracted from source_cloud_1
 *
@@ -313,6 +325,8 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::extractGround(pcl::PointCloud<pc
 /**
 * Determines the angle of a pointcloud that is flat like a plane
 *
+* @author Maximilian M
+*
 * @param source_cloud Takes a PointCloud object, preferably a flat one.
 *
 * Sources: http://pointclouds.org/documentation/tutorials/normal_estimation.php
@@ -371,6 +385,8 @@ void Processing::determineAngle(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud
 
 
 /**
+* @author Maximilian M
+*
 * Makes two scans and uses them to determine the parameters for future scans
 */
 void Processing::positioning()
@@ -400,6 +416,15 @@ void Processing::positioning()
 	determineRemovalParameters(transformationMatrix(extractedGround));
 }
 
+/**
+* Make a scan and compare the object to the reference models
+*
+* @author Michael R and Maximilian M
+*
+* @param referenceModels vector of referenceModels
+*
+* @return reference model that is most similar to scan
+*/
 ReferenceModel Processing::doICP(vector <ReferenceModel> referenceModels)
 {
 	string sourceCloudFile = "halloDasIstUnserScan.ply";

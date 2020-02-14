@@ -8,6 +8,8 @@ using namespace std;
 /**
  * Set a new point cloud as reference to be compared with other point clouds
  *
+ * @author Michael R
+ *
  * @param refCloud A pointer to a new point cloud whose values are going to be compared with
  */
 ReferenceModel::ReferenceModel(pcl::PointCloud<pcl::PointXYZ>::Ptr refCloud, string& _name)
@@ -20,6 +22,8 @@ ReferenceModel::ReferenceModel(pcl::PointCloud<pcl::PointXYZ>::Ptr refCloud, str
 /**
  * Score the similarity between the reference point cloud with the point cloud in the parameter
  *
+ * @author Michael R
+ * 
  * @param toCheckWith_ptr A pointer to a point cloud that is going to be compared to the point cloud in the class
  * @return The similarity score of two point clouds. The closer it is to 0, the more similar the two point clouds are.
  * 
