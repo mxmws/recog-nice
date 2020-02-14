@@ -144,12 +144,12 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr Processing::transformationMatrix(pcl::PointC
 void Processing::determineRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr source_cloud)
 {
 	//variables in which the results are saved
-	Processing::x_min = source_cloud->points[0].x;
-	Processing::x_max = source_cloud->points[0].x;
-	Processing::z_min = source_cloud->points[0].z;
-	Processing::z_max = source_cloud->points[0].z;
-	Processing::y_min = source_cloud->points[0].y;
-	Processing::y_max = source_cloud->points[0].y;
+	x_min = source_cloud->points[0].x;
+	x_max = source_cloud->points[0].x;
+	z_min = source_cloud->points[0].z;
+	z_max = source_cloud->points[0].z;
+	y_min = source_cloud->points[0].y;
+	y_max = source_cloud->points[0].y;
 	
 	//go through each point of the pointcloud
 	for (int i = 1; i < (source_cloud->size()); i++)
@@ -158,31 +158,31 @@ void Processing::determineRemovalParameters(pcl::PointCloud<pcl::PointXYZ>::Ptr 
 		pcl::PointXYZ pt(source_cloud->points[i].x, source_cloud->points[i].y, source_cloud->points[i].z);
 		//for x (width)
 		//determine minimum and maximum x/y/z coordinates
-		if (Processing::x_min > source_cloud->points[i].x)
+		if (x_min > source_cloud->points[i].x)
 		{
-			Processing::x_min = source_cloud->points[i].x;
+			x_min = source_cloud->points[i].x;
 		}
-		else if (Processing::x_max < source_cloud->points[i].x)
+		else if (x_max < source_cloud->points[i].x)
 		{
-			Processing::x_max = source_cloud->points[i].x;
+			x_max = source_cloud->points[i].x;
 		}
 		//for z (depth)
-		if (Processing::z_min > source_cloud->points[i].z)
+		if (z_min > source_cloud->points[i].z)
 		{
-			Processing::z_min = source_cloud->points[i].z;
+			z_min = source_cloud->points[i].z;
 		}
-		else if (Processing::z_max < source_cloud->points[i].z)
+		else if (z_max < source_cloud->points[i].z)
 		{
-			Processing::z_max = source_cloud->points[i].z;
+			z_max = source_cloud->points[i].z;
 		}
 		//for y (height)
-		if (Processing::y_min > source_cloud->points[i].y)
+		if (y_min > source_cloud->points[i].y)
 		{
-			Processing::y_min = source_cloud->points[i].y;
+			y_min = source_cloud->points[i].y;
 		}
-		else if (Processing::y_max < source_cloud->points[i].y)
+		else if (y_max < source_cloud->points[i].y)
 		{
-			Processing::y_max = source_cloud->points[i].y;
+			y_max = source_cloud->points[i].y;
 		}
 	}
 
@@ -420,7 +420,7 @@ ReferenceModel Processing::doICP(vector <ReferenceModel> referenceModels)
 	// Give out ICP results
 	ReferenceModel& bestScoringModel = referenceModels[0];
 	cout << endl << "------- SCORES ------- (The closer to zero the better) -------" << endl << endl;
-	for (ReferenceModel refModel : referenceModels)
+	for (const ReferenceModel& refModel : referenceModels)
 	{
 		cout << "Scanned object vs " << refModel.getName() << ": " << refModel.getScoring() << endl;
 		bestScoringModel = refModel.getScoring() < bestScoringModel.getScoring() ? refModel : bestScoringModel;
